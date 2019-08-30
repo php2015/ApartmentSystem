@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aoke.apartmentsystem.system.mapper.TenantMapper">
+    <sql id="findTenantDetailSql">
+        SELECT
+        u.tenant_id tenantId,
+        u.tenant_name tenantName,
+        u.tenant_acount tenantAcount,
+        u.password,
+        u.credentials_type credentialsType,
+        u.credentials_code credentialsCode,
+        u.tenant_pic tenantPic,
+        u.phone,
+        u.contract_id contractId,
+        u.status,
+        u.credit,
+        u.remark,
+        u.create_time createTime
+        FROM
+        t_tenant u
+        WHERE 1 = 1
+        <if test="tenant.tenantName != null and tenant.tenantName != ''">
+            AND u.tenant_name = #{tenant.tenantName}
+        </if>
+        <if test="tenant.tenantAcount != null and tenant.tenantAcount != ''">
+            AND u.tenant_acount = #{tenant.tenantAcount}
+        </if>
+        <if test="tenant.phone != null and tenant.phone != ''">
+            AND u.phone = #{tenant.phone}
+        </if>
+        <if test="tenant.credentialsType != null and tenant.credentialsType != ''">
+            AND u.credentials_type = #{tenant.credentialsType}
+        </if>
+        <if test="tenant.status != null and tenant.status != ''">
+            AND u.status = #{tenant.status}
+        </if>
+        group by u.tenant_acount
+    </sql>
+    <select id="findTenantDetailPage" parameterType="tenant" resultType="tenant">
+        <include refid="findTenantDetailSql"/>
+    </select>
+
+    <select id="findTenantDetail" parameterType="tenant" resultType="tenant">
+        <include refid="findTenantDetailSql"/>
+    </select>
+
+    <select id="findByAcount" parameterType="string" resultType="tenant">
+        SELECT
+        u.tenant_id tenantId,
+        u.tenant_name tenantName,
+        u.tenant_acount tenantAcount,
+        u.password,
+        u.credentials_type credentialsType,
+        u.credentials_code credentialsCode,
+        u.tenant_pic tenantPic,
+        u.phone,
+        u.contract_id contractId,
+        u.status,
+        u.credit,
+        u.remark,
+        u.create_time createTime
+        FROM
+        t_tenant u
+        WHERE  u.tenant_acount = #{tenantAcount}
+        group by u.tenant_acount
+    </select>
+</mapper>

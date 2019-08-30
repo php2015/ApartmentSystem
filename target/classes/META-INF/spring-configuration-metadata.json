@@ -1,0 +1,23 @@
+{
+  "groups": [
+    {
+      "name": "febs",
+      "type": "com.aoke.apartmentsystem.common.properties.FebsProperties",
+      "sourceType": "com.aoke.apartmentsystem.common.properties.FebsProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "febs.open-aop-log",
+      "type": "java.lang.Boolean",
+      "sourceType": "com.aoke.apartmentsystem.common.properties.FebsProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "febs.shiro",
+      "type": "com.aoke.apartmentsystem.common.properties.ShiroProperties",
+      "sourceType": "com.aoke.apartmentsystem.common.properties.FebsProperties"
+    }
+  ],
+  "hints": []
+}
