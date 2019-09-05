@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aoke.apartmentsystem.system.mapper.DeviceMapper">
+    <sql id="findDeviceDetailSql">
+        SELECT
+        u.id,
+        u.device_id deviceId,
+        u.device_name deviceName,
+        u.device_type deviceType,
+        u.device_model deviceModel,
+        u.device_status deviceStatus,
+        u.device_belong deviceBelong,
+        u.effective_year effectiveYear,
+        u.remark remark,
+        u.create_by createBy,
+        u.create_time createTime,
+        u.update_by updateBy,
+        u.update_time updateTime,
+        u.del_flag
+        FROM
+        t_device u
+        WHERE 1 = 1
+        <if test="device.deviceName != null and device.deviceName != ''">
+            AND u.device_name = #{device.deviceName}
+        </if>
+        <if test="device.deviceType != null and device.deviceType != ''">
+            AND u.device_type = #{device.deviceType}
+        </if>
+        <if test="device.deviceStatus != null and device.deviceStatus != ''">
+            AND u.device_status = #{device.deviceStatus}
+        </if>
+        <if test="device.createBy != null and device.createBy != ''">
+            AND u.create_by = #{village.createBy}
+        </if>
+        <if test="device.createTime != null and device.createTime != ''">
+            AND u.create_time = #{device.createTime}
+        </if>
+        group by u.device_name
+    </sql>
+    <select id="findDeviceDetailPage" parameterType="device" resultType="device">
+        <include refid="findDeviceDetailSql"/>
+    </select>
+
+    <select id="findDeviceDetail" parameterType="device" resultType="device">
+        <include refid="findDeviceDetailSql"/>
+    </select>
+
+    <select id="findByDeviceName" parameterType="string" resultType="device">
+        SELECT
+        u.id,
+        u.device_id deviceId,
+        u.device_name deviceName,
+        u.device_type deviceType,
+        u.device_model deviceModel,
+        u.device_status deviceStatus,
+        u.device_belong deviceBelong,
+        u.effective_year effectiveYear,
+        u.remark remark,
+        u.create_by createBy,
+        u.create_time createTime,
+        u.update_by updateBy,
+        u.update_time updateTime,
+        u.del_flag
+        FROM
+        t_device u
+        WHERE  u.device_name = #{deviceName}
+        group by u.device_name
+    </select>
+</mapper>

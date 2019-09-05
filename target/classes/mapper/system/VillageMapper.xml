@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aoke.apartmentsystem.system.mapper.VillageMapper">
+    <sql id="findVillageDetailSql">
+        SELECT
+        u.village_id villageId,
+        u.village_name villageName,
+        u.village_address villageAddress,
+        u.village_type villageType,
+        u.building_num buildingNum,
+        u.room_num roomNum,
+        u.charge charge,
+        u.charge_phone chargePhone,
+        u.jw jw,
+        u.charge_pic chargePic,
+        u.village_pic villagePic,
+        u.village_orther villageOrther,
+        u.village_msg villageMsg,
+        u.create_by createBy,
+        u.create_time createTime,
+        u.update_by updateBy,
+        u.update_time updateTime,
+        u.del_flag
+        FROM
+        t_village u
+        WHERE 1 = 1
+        <if test="village.villageName != null and village.villageName != ''">
+            AND u.village_name = #{village.villageName}
+        </if>
+        <if test="village.villageType != null and village.villageType != ''">
+            AND u.village_type = #{village.villageType}
+        </if>
+        <if test="village.charge != null and village.charge != ''">
+            AND u.charge = #{village.charge}
+        </if>
+        <if test="village.chargePhone != null and village.chargePhone != ''">
+            AND u.charge_phone = #{village.chargePhone}
+        </if>
+        <if test="village.createTime != null and village.createTime != ''">
+            AND u.create_time = #{village.createTime}
+        </if>
+        group by u.village_name
+    </sql>
+    <select id="findVillageDetailPage" parameterType="village" resultType="village">
+        <include refid="findVillageDetailSql"/>
+    </select>
+
+    <select id="findVillageDetail" parameterType="village" resultType="village">
+        <include refid="findVillageDetailSql"/>
+    </select>
+
+    <select id="findByVillageName" parameterType="string" resultType="village">
+        SELECT
+        u.village_id villageId,
+        u.village_name villageName,
+        u.village_address villageAddress,
+        u.village_type villageType,
+        u.building_num buildingNum,
+        u.room_num roomNum,
+        u.charge charge,
+        u.charge_phone chargePhone,
+        u.jw jw,
+        u.charge_pic chargePic,
+        u.village_pic villagePic,
+        u.village_orther villageOrther,
+        u.village_msg villageMsg,
+        u.create_by createBy,
+        u.create_time createTime,
+        u.update_by updateBy,
+        u.update_time updateTime,
+        u.del_flag
+        FROM
+        t_village u
+        WHERE  u.village_name = #{villageName}
+        group by u.village_name
+    </select>
+
+    <!-- 递归删除菜单，findVillageChildren为自定义的 MySQL函数，作用为根据当前 villageId递归查找出其所有下级菜单或按钮-->
+    <delete id="deleteVillage" parameterType="string">
+        DELETE
+        FROM
+            t_village
+        WHERE
+                village_id IN ( SELECT m.village_id FROM ( SELECT village_id FROM t_village WHERE FIND_IN_SET( village_id, findVillageChildren ( #{villageId} ) ) > 0 ) m )
+    </delete>
+</mapper>

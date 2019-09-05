@@ -10,6 +10,7 @@ import com.aoke.apartmentsystem.monitor.entity.LoginLog;
 import com.aoke.apartmentsystem.monitor.service.ILoginLogService;
 import com.aoke.apartmentsystem.system.entity.User;
 import com.aoke.apartmentsystem.system.service.IUserService;
+import com.aoke.apartmentsystem.third.constant.AccessToken;
 import com.wf.captcha.Captcha;
 import org.apache.shiro.authc.*;
 import org.slf4j.Logger;
@@ -61,7 +62,7 @@ public class LoginController extends BaseController {
             loginLog.setUsername(username);
             loginLog.setSystemBrowserInfo();
             this.loginLogService.saveLoginLog(loginLog);
-
+            AccessToken.username = username;
             return new FebsResponse().success();
         } catch (UnknownAccountException | IncorrectCredentialsException | LockedAccountException e) {
             throw new FebsException(e.getMessage());

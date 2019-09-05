@@ -6,7 +6,9 @@ import com.aoke.apartmentsystem.common.entity.FebsConstant;
 import com.aoke.apartmentsystem.common.utils.DateUtil;
 import com.aoke.apartmentsystem.common.utils.FebsUtil;
 import com.aoke.apartmentsystem.system.entity.User;
+import com.aoke.apartmentsystem.system.entity.Village;
 import com.aoke.apartmentsystem.system.service.IUserService;
+import com.aoke.apartmentsystem.system.service.IVillageService;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.session.ExpiredSessionException;
@@ -29,6 +31,10 @@ public class ViewController extends BaseController {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private IVillageService villageService;
+
     @Autowired
     private ShiroHelper shiroHelper;
 
@@ -98,10 +104,51 @@ public class ViewController extends BaseController {
         return FebsUtil.view("system/user/user");
     }
 
+    //租户
     @GetMapping(FebsConstant.VIEW_PREFIX + "system/tenant")
     @RequiresPermissions("tenant:view")
     public String systemTenant() {
         return FebsUtil.view("system/tenant/tenant");
+    }
+
+    //小区
+    @GetMapping(FebsConstant.VIEW_PREFIX + "system/village")
+    @RequiresPermissions("village:view")
+    public String systemVillage() {
+        return FebsUtil.view("system/village/village");
+    }
+    @GetMapping(FebsConstant.VIEW_PREFIX + "system/village/add")
+    @RequiresPermissions("village:add")
+    public String systemVillageAdd() {
+        return FebsUtil.view("system/village/villageAdd");
+    }
+
+    @GetMapping(FebsConstant.VIEW_PREFIX + "system/village/detail/{villageName}")
+    @RequiresPermissions("village:view")
+    public String systemVillageDetail(@PathVariable String villageName, Model model) {
+        resolveVillageModel(villageName, model, true);
+        return FebsUtil.view("system/village/villageDetail");
+    }
+
+    //楼栋 单元
+    @GetMapping(FebsConstant.VIEW_PREFIX + "system/building")
+    @RequiresPermissions("building:view")
+    public String systemBuilding() {
+        return FebsUtil.view("system/building/building");
+    }
+
+    //房间
+    @GetMapping(FebsConstant.VIEW_PREFIX + "system/room")
+    @RequiresPermissions("room:view")
+    public String systemRoom() {
+        return FebsUtil.view("system/room/room");
+    }
+
+    //设备
+    @GetMapping(FebsConstant.VIEW_PREFIX + "system/device")
+    @RequiresPermissions("device:view")
+    public String systemDevice() {
+        return FebsUtil.view("system/device/device");
     }
 
     @GetMapping(FebsConstant.VIEW_PREFIX + "system/user/add")
@@ -167,11 +214,27 @@ public class ViewController extends BaseController {
         model.addAttribute("user", user);
         if (transform) {
             String ssex = user.getSex();
-            if (User.SEX_MALE.equals(ssex)) user.setSex("男");
-            else if (User.SEX_FEMALE.equals(ssex)) user.setSex("女");
-            else user.setSex("保密");
+            if (User.SEX_MALE.equals(ssex)) {
+                user.setSex("男");
+            }else if (User.SEX_FEMALE.equals(ssex)) {
+                user.setSex("女");
+            }else {user.setSex("保密");}
         }
-        if (user.getLastLoginTime() != null)
+        if (user.getLastLoginTime() != null) {
             model.addAttribute("lastLoginTime", DateUtil.getDateFormat(user.getLastLoginTime(), DateUtil.FULL_TIME_SPLIT_PATTERN));
+        }
+    }
+
+    private void resolveVillageModel(String villageName, Model model, Boolean transform) {
+        Village village = villageService.findByVillageName(villageName);
+        model.addAttribute("village", village);
+//        if (transform) {
+//            String ssex = village.getSex();
+//            if (User.SEX_MALE.equals(ssex)) user.setSex("男");
+//            else if (User.SEX_FEMALE.equals(ssex)) user.setSex("女");
+//            else user.setSex("保密");
+//        }
+//        if (user.getLastLoginTime() != null)
+//            model.addAttribute("lastLoginTime", DateUtil.getDateFormat(user.getLastLoginTime(), DateUtil.FULL_TIME_SPLIT_PATTERN));
     }
 }

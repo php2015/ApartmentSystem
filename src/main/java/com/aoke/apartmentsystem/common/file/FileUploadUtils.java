@@ -1,7 +1,6 @@
-package com.aokeck.common.utils.file;
+package com.aoke.apartmentsystem.common.file;
 
-import com.aokeck.common.exception.file.FileNameLengthLimitExceededException;
-import com.aokeck.framework.config.RuoYiConfig;
+import com.aoke.apartmentsystem.common.exception.FileNameLengthLimitExceededException;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.tomcat.util.http.fileupload.FileUploadBase.FileSizeLimitExceededException;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,7 +23,7 @@ public class FileUploadUtils
     /**
      * 默认上传的地址
      */
-    private static String defaultBaseDir = RuoYiConfig.getProfile();
+    private static String defaultBaseDir = "D/pro";
 
     /**
      * 默认的文件名最大长度
@@ -100,7 +99,7 @@ public class FileUploadUtils
      *
      * @param baseDir 相对应用的基目录
      * @param file 上传的文件
-     * @param needDatePathAndRandomName 是否需要日期目录和随机文件名前缀
+     * @param //needDatePathAndRandomName 是否需要日期目录和随机文件名前缀
      * @param extension 上传文件类型
      * @return 返回上传成功的文件名
      * @throws FileSizeLimitExceededException 如果超出最大大小
