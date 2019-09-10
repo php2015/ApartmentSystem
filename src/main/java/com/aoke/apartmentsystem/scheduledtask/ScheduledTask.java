@@ -22,8 +22,8 @@ public class ScheduledTask {
 
     Logger log = LoggerFactory.getLogger(ScheduledTask.class);
 
-    @Scheduled(cron="0 0/2 * * * ?")//
-    //@Scheduled(cron="0 0 6,13,20 * * ?")//每天上午6点，下午1点，8点
+    //@Scheduled(cron="0 0/2 * * * ?")//
+    @Scheduled(cron="0 0 6,13,20 * * ?")//每天上午6点，下午1点，8点
     public void getAccessToken() {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("account",Constant.OPS_HOST);
@@ -37,17 +37,17 @@ public class ScheduledTask {
         System.out.println(res);
     }
 
-    @Scheduled(cron="0 0/3 * * * ?")
-    public void testTwo() {
-        Map<String, Object> paramMapLock = new HashMap<String, Object>();
-        paramMapLock.put("page_size",10);
-        paramMapLock.put("current_page",1);
-        paramMapLock.put("node_no",null);
-        paramMapLock.put("lock_no",null);
-        paramMapLock.put("house_code",null);
-        paramMapLock.put("room_code",null);
-        String resLock = HttpClient.post(Constant.BASE_URL+Constant.ApiAddress.LOCK_LIST,JSONObject.toJSONString(paramMapLock), AccessToken.access_token);
-        System.out.println(resLock);
-        log.info("每2分钟执行一次");
-    }
+//    @Scheduled(cron="0 0/3 * * * ?")
+//    public void testTwo() {
+//        Map<String, Object> paramMapLock = new HashMap<String, Object>();
+//        paramMapLock.put("page_size",10);
+//        paramMapLock.put("current_page",1);
+//        paramMapLock.put("node_no",null);
+//        paramMapLock.put("lock_no",null);
+//        paramMapLock.put("house_code",null);
+//        paramMapLock.put("room_code",null);
+//        String resLock = HttpClient.post(Constant.BASE_URL+Constant.ApiAddress.LOCK_LIST,JSONObject.toJSONString(paramMapLock), AccessToken.access_token);
+//        System.out.println(resLock);
+//        log.info("每3分钟执行一次");
+//    }
 }

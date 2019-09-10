@@ -2,79 +2,80 @@ package com.aoke.apartmentsystem.system.service;
 
 import com.aoke.apartmentsystem.common.entity.DeptTree;
 import com.aoke.apartmentsystem.common.entity.QueryRequest;
-import com.aoke.apartmentsystem.system.entity.Building;
-import com.aoke.apartmentsystem.system.entity.Dept;
-import com.aoke.apartmentsystem.system.entity.Village;
+import com.aoke.apartmentsystem.system.entity.Unit;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 
-public interface IBuildingService extends IService<Building> {
+/**
+ * @author xiaoxinglin
+ */
+public interface IUnitService extends IService<Unit> {
 
     /**
-     * 通过楼栋名称查找楼栋
+     * 通过单元名称查找楼栋
      *
-     * @param buildingName 楼栋名称
-     * @return 楼栋
+     * @param unitName 单元名称
+     * @return 单元
      */
-    Building findByBuildingName(String buildingName);
+    Unit findByUnitName(String unitName);
 
     /**
-     * 查找楼栋详细信息
+     * 查找单元详细信息
      *
      * @param request request
-     * @param building    楼栋对象，用于传递查询条件
+     * @param unit    单元对象，用于传递查询条件
      * @return IPage
      */
-    IPage<Building> findBuildingDetail(Building building, QueryRequest request);
+    IPage<Unit> findUnitDetail(Unit unit, QueryRequest request);
 
     /**
-     * 通过楼栋名称查找楼栋详细信息
+     * 通过单元名称查找单元详细信息
      *
-     * @param buildingName 楼栋名称
-     * @return 楼栋信息
+     * @param unitName 单元名称
+     * @return 单元信息
      */
-    Building findBuildingDetail(String buildingName);
+    Unit findUnitDetail(String unitName);
 
     /**
-     * 新增楼栋
+     * 新增单元
      *
-     * @param building building
+     * @param unit unit
      */
-    void createBuilding(Building building);
+    void createUnit(Unit unit);
 
     /**
-     * 删除楼栋
+     * 删除单元
      *
-     * @param buildingIds 楼栋 id数组
+     * @param unitIds 单元 id数组
      */
-    void deleteBuildings(String[] buildingIds);
+    void deleteUnits(String[] unitIds);
 
     /**
-     * 修改楼栋
+     * 修改单元
      *
-     * @param building building
+     * @param unit unit
      */
-    void updateBuilding(Building building);
+    void updateUnit(Unit unit);
 
     /**
-     * 更新楼栋信息
+     * 更新单元信息
      *
-     * @param building 楼栋信息
+     * @param unit 单元信息
      */
-    void updateProfile(Building building);
+    void updateProfile(Unit unit);
 
     /**
-     * 获取楼栋树（下拉选使用）
+     * 获取单元树（下拉选使用）
      *
      * @return 楼栋树集合
      */
-    List<DeptTree<Building>> findDepts();
+    List<DeptTree<Unit>> findDepts();
 
     /**
-     * 查询楼栋
+     * 查询单元
      * @return
      */
-    List<Building> findListBuilding(Building building);
+    List<Unit> findListUnit(Unit unit);
 }

@@ -1,6 +1,7 @@
 package com.aoke.apartmentsystem.system.mapper;
 
 import com.aoke.apartmentsystem.system.entity.Building;
+import com.aoke.apartmentsystem.system.entity.Unit;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -11,30 +12,30 @@ import java.util.List;
 /**
  * @author xiaoxinglin
  */
-public interface BuildingMapper extends BaseMapper<Building> {
+public interface UnitMapper extends BaseMapper<Unit> {
 
     /**
-     * 通过小区名称查找小区
+     * 通过单元名称查找单元
      *
-     * @param buildingName 小区名称
-     * @return 小区
+     * @param unitName 单元名称
+     * @return 单元
      */
-    Building findByBuildingName(String buildingName);
+    Unit findByUnitName(String unitName);
 
     /**
-     * 查找租户详细信息
+     * 查找单元详细信息
      *
      * @param page 分页对象
-     * @param building 租户对象，用于传递查询条件
+     * @param unit 单元对象，用于传递查询条件
      * @return Ipage
      */
-    IPage<Building> findBuildingDetailPage(Page page, @Param("building") Building building);
+    IPage<Unit> findUnitDetailPage(Page page, @Param("unit") Unit unit);
 
     /**
-     * 查找租户详细信息
+     * 查找单元详细信息
      *
-     * @param building 租户对象，用于传递查询条件
-     * @return List<Building>
+     * @param unit 单元对象，用于传递查询条件
+     * @return List<Unit>
      */
-    List<Building> findBuildingDetail(@Param("building") Building building);
+    List<Unit> findUnitDetail(@Param("unit") Unit unit);
 }

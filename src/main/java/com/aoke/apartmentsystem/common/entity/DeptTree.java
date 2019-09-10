@@ -1,5 +1,6 @@
 package com.aoke.apartmentsystem.common.entity;
 
+import com.aoke.apartmentsystem.system.entity.Building;
 import com.aoke.apartmentsystem.system.entity.Dept;
 import lombok.Data;
 
@@ -29,6 +30,8 @@ public class DeptTree<T> implements Serializable {
     private boolean hasChild = false;
 
     private Dept data;
+
+    private Building building;
 
     public void initChildren(){
         this.children = new ArrayList<>();
@@ -129,5 +132,13 @@ public class DeptTree<T> implements Serializable {
 
     public void setData(Dept data) {
         this.data = data;
+    }
+
+    public Building getBuilding() {
+        return building;
+    }
+
+    public void setBuilding(Building building) {
+        this.building = building;
     }
 }

@@ -44,6 +44,41 @@ public class Building implements Serializable {
     private Long villageId;
 
     /**
+     * 小区名称
+     */
+    @ExcelField(value = "小区")
+    @TableField(exist = false)
+    private String villageName;
+
+    /**
+     * 空置房间数
+     */
+    @ExcelField(value = "空置房间数")
+    @TableField("kz_room")
+    private int kzRoom;
+
+    /**
+     * 已租房间数
+     */
+    @ExcelField(value = "已租房间数")
+    @TableField("yz_room")
+    private int yzRoom;
+
+    /**
+     * 到期总房间数
+     */
+    @ExcelField(value = "到期房间数")
+    @TableField("outTime_room")
+    private int outTimeRoom;
+
+    /**
+     * 总房间数
+     */
+    @ExcelField(value = "总房间数")
+    @TableField("total_room")
+    private int totalRoom;
+
+    /**
      * 楼栋名称
      */
     @TableField("building_name")
@@ -119,6 +154,46 @@ public class Building implements Serializable {
 
     public void setVillageId(Long villageId) {
         this.villageId = villageId;
+    }
+
+    public String getVillageName() {
+        return villageName;
+    }
+
+    public void setVillageName(String villageName) {
+        this.villageName = villageName;
+    }
+
+    public int getKzRoom() {
+        return kzRoom;
+    }
+
+    public void setKzRoom(int kzRoom) {
+        this.kzRoom = kzRoom;
+    }
+
+    public int getYzRoom() {
+        return yzRoom;
+    }
+
+    public void setYzRoom(int yzRoom) {
+        this.yzRoom = yzRoom;
+    }
+
+    public int getOutTimeRoom() {
+        return outTimeRoom;
+    }
+
+    public void setOutTimeRoom(int outTimeRoom) {
+        this.outTimeRoom = outTimeRoom;
+    }
+
+    public int getTotalRoom() {
+        return totalRoom;
+    }
+
+    public void setTotalRoom(int totalRoom) {
+        this.totalRoom = totalRoom;
     }
 
     public String getBuildingName() {
@@ -198,6 +273,11 @@ public class Building implements Serializable {
         return "Building{" +
                 "buildingId=" + buildingId +
                 ", villageId=" + villageId +
+                ", villageName='" + villageName + '\'' +
+                ", kzRoom=" + kzRoom +
+                ", yzRoom=" + yzRoom +
+                ", outTimeRoom=" + outTimeRoom +
+                ", totalRoom=" + totalRoom +
                 ", buildingName='" + buildingName + '\'' +
                 ", buildingType=" + buildingType +
                 ", buildingNum=" + buildingNum +

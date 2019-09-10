@@ -1,14 +1,22 @@
 package com.aoke.apartmentsystem.system.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.aoke.apartmentsystem.common.annotation.Log;
 import com.aoke.apartmentsystem.common.controller.BaseController;
+import com.aoke.apartmentsystem.common.entity.DeptTree;
 import com.aoke.apartmentsystem.common.entity.FebsResponse;
 import com.aoke.apartmentsystem.common.entity.QueryRequest;
 import com.aoke.apartmentsystem.common.exception.FebsException;
+import com.aoke.apartmentsystem.common.utils.StringUtil;
 import com.aoke.apartmentsystem.system.entity.Building;
+import com.aoke.apartmentsystem.system.entity.Dept;
+import com.aoke.apartmentsystem.system.entity.Unit;
 import com.aoke.apartmentsystem.system.entity.Village;
 import com.aoke.apartmentsystem.system.service.IBuildingService;
+import com.aoke.apartmentsystem.system.service.IRoomService;
+import com.aoke.apartmentsystem.system.service.IUnitService;
 import com.aoke.apartmentsystem.system.service.IVillageService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.wuwenze.poi.ExcelKit;
 import lombok.extern.slf4j.Slf4j;
@@ -41,6 +49,31 @@ public class BuildingController extends BaseController {
     @Autowired
     private IBuildingService buildingService;
 
+    @Autowired
+    private IVillageService villageService;
+
+    @Autowired
+    private IRoomService roomService;
+
+    @Autowired
+    private IUnitService unitService;
+
+    @GetMapping("select/tree")
+    public List<DeptTree<Building>> getDeptTree() throws FebsException {
+        try {
+            return this.buildingService.findDepts();
+        } catch (Exception e) {
+            String message = "获取楼栋树失败";
+            log.error(message, e);
+            throw new FebsException(message);
+        }
+    }
+
+    @GetMapping("buildings")
+    public FebsResponse getAllRoles(Building building) {
+        return new FebsResponse().success().data(buildingService.findListBuilding(building));
+    }
+
 
     @GetMapping("{buildingName}")
     public Building getVillage(@NotBlank(message = "{required}") @PathVariable String buildingName) {
@@ -56,6 +89,14 @@ public class BuildingController extends BaseController {
     @RequiresPermissions("building:view")
     public FebsResponse buildingList(Building building, QueryRequest request) {
         Map<String, Object> dataTable = getDataTable(this.buildingService.findBuildingDetail(building, request));
+        Long kzRoom = this.roomService.findkzRoomCount();
+        Long yzRoom = this.roomService.findyzRoomCount();
+        Long totalRoom = this.roomService.findtotalRoomCount();
+        Long outTimeRoom = this.roomService.findoutTimeRoomCount();
+        dataTable.put("kzRoom",kzRoom);
+        dataTable.put("yzRoom",yzRoom);
+        dataTable.put("totalRoom",totalRoom);
+        dataTable.put("outTimeRoom",outTimeRoom);
         return new FebsResponse().success().data(dataTable);
     }
 
@@ -63,8 +104,11 @@ public class BuildingController extends BaseController {
     @PostMapping
     @RequiresPermissions("building:add")
     public FebsResponse addBuilding(@Valid Building building) throws FebsException {
+        System.out.println(">>>>>:"+building.getVillageId());
         try {
             this.buildingService.createBuilding(building);
+            Unit unit = new Unit(null,building.getBuildingId(),building.getVillageId(),building.getBuildingName()+"楼栋"+ StringUtil.lpad(4,new Long(building.getBuildingId()).intValue())+"单元","");
+            this.unitService.createUnit(unit);
             return new FebsResponse().success();
         } catch (Exception e) {
             String message = "新增楼栋失败";

@@ -117,6 +117,7 @@ public class ViewController extends BaseController {
     public String systemVillage() {
         return FebsUtil.view("system/village/village");
     }
+
     @GetMapping(FebsConstant.VIEW_PREFIX + "system/village/add")
     @RequiresPermissions("village:add")
     public String systemVillageAdd() {
@@ -137,6 +138,12 @@ public class ViewController extends BaseController {
         return FebsUtil.view("system/building/building");
     }
 
+    @GetMapping(FebsConstant.VIEW_PREFIX + "system/building/add")
+    @RequiresPermissions("building:add")
+    public String systemBuildingAdd() {
+        return FebsUtil.view("system/building/buildingAdd");
+    }
+
     //房间
     @GetMapping(FebsConstant.VIEW_PREFIX + "system/room")
     @RequiresPermissions("room:view")
@@ -144,11 +151,23 @@ public class ViewController extends BaseController {
         return FebsUtil.view("system/room/room");
     }
 
+    @GetMapping(FebsConstant.VIEW_PREFIX + "system/room/add")
+    @RequiresPermissions("room:add")
+    public String systemRoomAdd() {
+        return FebsUtil.view("system/room/roomAdd");
+    }
+
     //设备
     @GetMapping(FebsConstant.VIEW_PREFIX + "system/device")
     @RequiresPermissions("device:view")
     public String systemDevice() {
         return FebsUtil.view("system/device/device");
+    }
+
+    @GetMapping(FebsConstant.VIEW_PREFIX + "system/device/add")
+    @RequiresPermissions("device:add")
+    public String systemDeviceAdd() {
+        return FebsUtil.view("system/device/deviceAdd");
     }
 
     @GetMapping(FebsConstant.VIEW_PREFIX + "system/user/add")
@@ -207,6 +226,11 @@ public class ViewController extends BaseController {
     @GetMapping(FebsConstant.VIEW_PREFIX + "500")
     public String error500() {
         return FebsUtil.view("error/500");
+    }
+
+    @GetMapping(FebsConstant.VIEW_PREFIX + "system/contract")
+    public String contract() {
+        return FebsUtil.view("system/contract/contract");
     }
 
     private void resolveUserModel(String username, Model model, Boolean transform) {

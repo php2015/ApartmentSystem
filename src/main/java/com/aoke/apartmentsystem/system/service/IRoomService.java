@@ -60,4 +60,32 @@ public interface IRoomService extends IService<Room> {
      * @param room 小区信息
      */
     void updateProfile(Room room);
+
+    /**
+     * 所有房间总数
+     *
+     * @return Long
+     */
+    Long findtotalRoomCount();
+
+    /**
+     * 空置房间总数
+     *
+     * @return Long
+     */
+    Long findkzRoomCount();
+
+    /**
+     * 已租房间总数
+     *
+     * @return Long
+     */
+    Long findyzRoomCount();
+
+    /**
+     * 到期房间总数
+     *
+     * @return Long
+     */
+    Long findoutTimeRoomCount();
 }

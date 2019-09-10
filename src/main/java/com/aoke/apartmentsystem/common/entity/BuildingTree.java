@@ -1,5 +1,6 @@
 package com.aoke.apartmentsystem.common.entity;
 
+import com.aoke.apartmentsystem.system.entity.Building;
 import com.aoke.apartmentsystem.system.entity.Dept;
 import lombok.Data;
 
@@ -12,7 +13,7 @@ import java.util.Map;
  * @author xiaoxinglin
  */
 @Data
-public class DeptTree<T> implements Serializable {
+public class BuildingTree<T> implements Serializable {
 
     private static final long serialVersionUID = 7681873362531265829L;
 
@@ -23,12 +24,12 @@ public class DeptTree<T> implements Serializable {
     private Map<String, Object> state;
     private boolean checked = false;
     private Map<String, Object> attributes;
-    private List<DeptTree<T>> children;
+    private List<BuildingTree<T>> children;
     private String parentId;
     private boolean hasParent = false;
     private boolean hasChild = false;
 
-    private Dept data;
+    private Building data;
 
     public void initChildren(){
         this.children = new ArrayList<>();
@@ -91,11 +92,11 @@ public class DeptTree<T> implements Serializable {
         this.attributes = attributes;
     }
 
-    public List<DeptTree<T>> getChildren() {
+    public List<BuildingTree<T>> getChildren() {
         return children;
     }
 
-    public void setChildren(List<DeptTree<T>> children) {
+    public void setChildren(List<BuildingTree<T>> children) {
         this.children = children;
     }
 
@@ -123,11 +124,11 @@ public class DeptTree<T> implements Serializable {
         this.hasChild = hasChild;
     }
 
-    public Dept getData() {
+    public Building getData() {
         return data;
     }
 
-    public void setData(Dept data) {
+    public void setData(Building data) {
         this.data = data;
     }
 }

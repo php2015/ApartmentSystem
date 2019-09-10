@@ -1,163 +1,107 @@
 <style>
-    #village-add {
+    #building-add {
         padding: 20px 25px 25px 0;
     }
-    #village-add .layui-treeSelect .ztree li a, .ztree li span {
+    #building-add .layui-treeSelect .ztree li a, .ztree li span {
         margin: 0 0 2px 3px !important;
     }
 </style>
-<div class="layui-fluid" id="village-add">
-    <form class="layui-form" action="" lay-filter="village-add-form">
+<div class="layui-fluid" id="building-add">
+    <form class="layui-form" action="" lay-filter="building-add-form">
         <div class="layui-form-item">
-            <label class="layui-form-label febs-form-item-require">小区编号：</label>
+            <label class="layui-form-label febs-form-item-require">楼栋编号：</label>
             <div class="layui-input-block">
-                <input type="text" name="villageId" minlength="2" maxlength="10" lay-verify="range|villageId"
+                <input type="text" name="buildingId" minlength="2" maxlength="10" lay-verify="range|buildingId"
                        autocomplete="off" class="layui-input" disabled="disabled" placeholder="提交时自动生成">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label febs-form-item-require">小区名称：</label>
+            <label class="layui-form-label febs-form-item-require">所属小区：</label>
             <div class="layui-input-block">
-                <input type="text" name="villageName" minlength="2" maxlength="10" lay-verify="range|villageName"
-                       autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">类型：</label>
-            <div class="layui-input-block">
-                <select name="villageType">
-                    <option value="">请选择</option>
-                    <option value="0" selected="">集中</option>
-                    <option value="1">分散</option>
-                    <option value="2">其它</option>
+                <select name="villageId"
+                        lay-verify="required"
+                        xm-select-direction="down"
+                        xm-select="user-add-village"
+                        xm-select-skin="default">
+                </select>
                 </select>
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">详细地址：</label>
+            <label class="layui-form-label">楼栋名称：</label>
             <div class="layui-input-block">
-                <input type="text" name="villageAddress" maxlength="50" autocomplete="off"
+                <input type="text" name="buildingName" maxlength="50" autocomplete="off"
                        class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">小区配套：</label>
+            <label class="layui-form-label">单元数量：</label>
             <div class="layui-input-block">
-                <input type="checkbox" name="like1[write]" lay-skin="primary" title="医院" checked="">
-                <input type="checkbox" name="like1[read]" lay-skin="primary" title="学校" checked="">
-                <input type="checkbox" name="like1[game]" lay-skin="primary" title="跑道" checked="">
-                <input type="checkbox" name="like1[write]" lay-skin="primary" title="健身场所" checked="">
-                <input type="checkbox" name="like1[read]" lay-skin="primary" title="车位" checked="">
-                <input type="checkbox" name="like1[game]" lay-skin="primary" title="幼儿园">
-                <input type="checkbox" name="like1[write]" lay-skin="primary" title="小区">
-                <input type="checkbox" name="like1[read]" lay-skin="primary" title="超市">
-                <input type="checkbox" name="like1[game]" lay-skin="primary" title="游泳池">
-                <input type="checkbox" name="like1[write]" lay-skin="primary" title="快递柜">
-                <input type="checkbox" name="like1[read]" lay-skin="primary" title="儿童游乐场">
-                <input type="checkbox" name="like1[game]" lay-skin="primary" title="公园">
-            </div>
-        </div>
-        <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">简介：</label>
-            <div class="layui-input-block">
-                <textarea name="villageMsg" maxlength="100" class="layui-textarea"></textarea>
-            </div>
-        </div>
-        <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">小区图片：</label>
-            <div class="layui-input-block">
-                <img alt="小区图片" id="villagePic-avatar" data-th-src="@{febs/images/u690.png}">
-                <input id="villagePic" type="file" name="villagePic" multiple />
-            </div>
-        </div>
-<!--        <div class="layui-form-item layui-form-text">-->
-<!--            <label class="layui-form-label">当前位置：</label>-->
-<!--            <div class="layui-input-block">-->
-<!--            <label class="layui-form-label" id="mapaddress"></label>-->
-<!--            </div>-->
-<!--        </div>-->
-        <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">小区地图：</label>
-            <div class="layui-input-block" id="febs-map-demo">
-                <div id="container" class="map"></div>
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">负责人：</label>
-            <div class="layui-input-block">
-                <input type="text" name="charge" maxlength="50" autocomplete="off"
+                <input type="text" name="buildingNum" maxlength="50" autocomplete="off"
                        class="layui-input">
             </div>
         </div>
-
         <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">头像：</label>
+            <label class="layui-form-label">备注：</label>
             <div class="layui-input-block">
-                <img alt="头像图片" id="charge-avatar" data-th-src="@{febs/images/u690.png}">
-                <input id="chargePic" type="file" name="chargePic" multiple />
-            </div>
-        </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">联系方式：</label>
-            <div class="layui-input-block">
-                <input type="text" name="chargePhone" maxlength="50" autocomplete="off"
-                       class="layui-input">
+                <textarea name="remark" maxlength="100" class="layui-textarea"></textarea>
             </div>
         </div>
 
         <div class="layui-form-item febs-hide">
-            <button class="layui-btn" lay-submit="" lay-filter="village-add-form-submit" id="submit"></button>
+            <button class="layui-btn" lay-submit="" lay-filter="building-add-form-submit" id="submit"></button>
             <button type="reset" class="layui-btn" id="reset"></button>
         </div>
     </form>
 </div>
-<script data-th-inline="javascript" type="text/javascript">
-    layui.use(['jquery', 'febs'], function () {
-        var $ = layui.jquery,
-            febs = layui.febs,
-            $view = $('#febs-map-demo');
 
-        $view.find('#container').css({"height": document.documentElement.clientHeight - 850 + 'px'});
-
-        var map = new AMap.Map("container", {
-            resizeEnable: true,
-            zoom: 14 //初始地图级别
-        });
-
-        function currentLocationInfo() {
-            map.getCity(function (info) {
-                //$("#mapaddress").text(info.province + '，' + info.city + '，' + info.district + '，区号：' + info.citycode);
-                febs.alert.success('当前位置：' + info.province + '，' + info.city + '，' + info.district + '，区号：' + info.citycode);
-            });
-        }
-
-        currentLocationInfo();
-
-        //为地图注册click事件获取鼠标点击出的经纬度坐标
-        map.on('click', function (e) {
-            febs.alert.success('经度：' + e.lnglat.getLng() + '，纬度：' + e.lnglat.getLat());
-        });
-    });
-</script>
 <script>
     layui.use(['febs', 'form', 'formSelects', 'validate', 'treeSelect'], function () {
         var $ = layui.$,
             febs = layui.febs,
             layer = layui.layer,
+            formSelects = layui.formSelects,
+            treeSelect = layui.treeSelect,
             form = layui.form,
-            $view = $('#village-add');
-            //validate = layui.validate;
+            $view = $('#building-add'),
+            validate = layui.validate;
 
-        //form.verify(validate);
-        form.render();
+        // form.verify(validate);
+        // form.render();
 
-        form.on('submit(village-add-form-submit)', function (data) {
-            febs.post(ctx + 'village', data.field, function () {
+        formSelects.render();
+
+        treeSelect.render({
+        });
+
+        formSelects.config('user-add-village', {
+            searchUrl: ctx + 'village/villages',
+            response: {
+                statusCode: 200
+            },
+            beforeSuccess: function (id, url, searchVal, result) {
+                var data = result.data;
+                var tranData = [];
+                for (var i = 0; i < data.length; i++) {
+                    tranData.push({
+                        name: data[i].villageName,
+                        value: data[i].villageId
+                    })
+                }
+                result.data = tranData;
+                return result;
+            },
+            error: function (id, url, searchVal, err) {
+                console.error(err);
+                febs.alert.error('获取小区列表失败');
+            }
+        });
+
+        form.on('submit(building-add-form-submit)', function (data) {
+            febs.post(ctx + 'building', data.field, function () {
                 layer.closeAll();
-                febs.alert.success('新增小区成功');
-                $('#febs-village').find('#query').click();
+                febs.alert.success('新增楼栋成功');
+                $('#febs-building').find('#query').click();
             });
             return false;
         });

@@ -117,6 +117,20 @@ public class Room implements Serializable {
     private String roomMsg;
 
     /**
+     * 联系人
+     */
+    @TableField("contactor")
+    @ExcelField(value = "联系人")
+    private String contactor;
+
+    /**
+     * 联系方式
+     */
+    @TableField("contact_way")
+    @ExcelField(value = "联系方式")
+    private String contactWay;
+
+    /**
      * 备注
      */
     @TableField("remark")
@@ -262,6 +276,14 @@ public class Room implements Serializable {
         this.roomMsg = roomMsg;
     }
 
+    public String getContactor() {
+        return contactor;
+    }
+
+    public void setContactor(String contactor) {
+        this.contactor = contactor;
+    }
+
     public String getRemark() {
         return remark;
     }
@@ -310,28 +332,5 @@ public class Room implements Serializable {
         this.delFlag = delFlag;
     }
 
-    @Override
-    public String toString() {
-        return "Room{" +
-                "roomId=" + roomId +
-                ", buildingId=" + buildingId +
-                ", roomName='" + roomName + '\'' +
-                ", status=" + status +
-                ", roomType=" + roomType +
-                ", roomArea=" + roomArea +
-                ", roomPrice=" + roomPrice +
-                ", payWay=" + payWay +
-                ", roomOther='" + roomOther + '\'' +
-                ", roomPic='" + roomPic + '\'' +
-                ", mapPic='" + mapPic + '\'' +
-                ", contractId='" + contractId + '\'' +
-                ", roomMsg='" + roomMsg + '\'' +
-                ", remark='" + remark + '\'' +
-                ", createBy='" + createBy + '\'' +
-                ", createTime=" + createTime +
-                ", updateBy='" + updateBy + '\'' +
-                ", updateTime=" + updateTime +
-                ", delFlag=" + delFlag +
-                '}';
-    }
+
 }

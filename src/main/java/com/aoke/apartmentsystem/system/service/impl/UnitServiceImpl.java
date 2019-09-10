@@ -5,15 +5,9 @@ import com.aoke.apartmentsystem.common.entity.FebsConstant;
 import com.aoke.apartmentsystem.common.entity.QueryRequest;
 import com.aoke.apartmentsystem.common.utils.SortUtil;
 import com.aoke.apartmentsystem.common.utils.TreeUtil;
-import com.aoke.apartmentsystem.system.entity.Building;
-import com.aoke.apartmentsystem.system.entity.Dept;
-import com.aoke.apartmentsystem.system.entity.Village;
-import com.aoke.apartmentsystem.system.mapper.BuildingMapper;
-import com.aoke.apartmentsystem.system.mapper.VillageMapper;
-import com.aoke.apartmentsystem.system.service.IBuildingService;
-import com.aoke.apartmentsystem.system.service.IVillageService;
-import com.aoke.apartmentsystem.third.constant.AccessToken;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.aoke.apartmentsystem.system.entity.Unit;
+import com.aoke.apartmentsystem.system.mapper.UnitMapper;
+import com.aoke.apartmentsystem.system.service.IUnitService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
@@ -24,82 +18,82 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.Serializable;
-import java.util.*;
-import java.util.function.Function;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = Exception.class)
-public class BuildingServiceImpl extends ServiceImpl<BuildingMapper, Building> implements IBuildingService {
+public class UnitServiceImpl extends ServiceImpl<UnitMapper, Unit> implements IUnitService {
 
     @Override
-    public Building findByBuildingName(String buildingName) {
-        return this.baseMapper.findByBuildingName(buildingName);
+    public Unit findByUnitName(String unitName) {
+        return this.baseMapper.findByUnitName(unitName);
     }
 
     @Override
-    public IPage<Building> findBuildingDetail(Building building, QueryRequest request) {
-        Page<Building> page = new Page<>(request.getPageNum(), request.getPageSize());
-        SortUtil.handlePageSort(request, page, "buildingId", FebsConstant.ORDER_ASC, false);
-        return this.baseMapper.findBuildingDetailPage(page, building);
+    public IPage<Unit> findUnitDetail(Unit unit, QueryRequest request) {
+        Page<Unit> page = new Page<>(request.getPageNum(), request.getPageSize());
+        SortUtil.handlePageSort(request, page, "unitId", FebsConstant.ORDER_ASC, false);
+        return this.baseMapper.findUnitDetailPage(page, unit);
     }
 
     @Override
-    public Building findBuildingDetail(String buildingName) {
-        Building param = new Building();
-        param.setBuildingName(buildingName);
-        List<Building> buildings = this.baseMapper.findBuildingDetail(param);
-        return CollectionUtils.isNotEmpty(buildings) ? buildings.get(0) : null;
+    public Unit findUnitDetail(String unitName) {
+        Unit param = new Unit();
+        param.setUnitName(unitName);
+        List<Unit> units = this.baseMapper.findUnitDetail(param);
+        return CollectionUtils.isNotEmpty(units) ? units.get(0) : null;
     }
 
     @Override
-    public void createBuilding(Building building) {
-        building.setCreateTime(new Date());
-        building.setCreateBy(AccessToken.username);
-        save(building);
+    public void createUnit(Unit unit) {
+//        unit.setCreateTime(new Date());
+//        unit.setCreateBy(AccessToken.username);
+        save(unit);
     }
 
     @Override
-    public void deleteBuildings(String[] buildingIds) {
-        List<String> list = Arrays.asList(buildingIds);
+    public void deleteUnits(String[] unitIds) {
+        List<String> list = Arrays.asList(unitIds);
         // 删除用户
         this.removeByIds(list);
     }
 
     @Override
-    public void updateBuilding(Building building) {
+    public void updateUnit(Unit unit) {
 
     }
 
     @Override
-    public void updateProfile(Building building) {
+    public void updateProfile(Unit unit) {
 
     }
 
     @Override
-    public List<DeptTree<Building>> findDepts() {
-        List<Building> depts = this.baseMapper.selectList(new QueryWrapper<>());
-        List<DeptTree<Building>> trees = this.convertDepts(depts);
+    public List<DeptTree<Unit>> findDepts() {
+        List<Unit> depts = this.baseMapper.selectList(new QueryWrapper<>());
+        List<DeptTree<Unit>> trees = this.convertDepts(depts);
         return TreeUtil.buildDeptTree(trees);
     }
-    private List<DeptTree<Building>> convertDepts(List<Building> depts){
-        List<DeptTree<Building>> trees = new ArrayList<>();
-        depts.forEach(building -> {
-            DeptTree<Building> tree = new DeptTree<>();
-            tree.setId(String.valueOf(building.getBuildingId()));
-            tree.setParentId(String.valueOf(building.getVillageId()));
-            tree.setName(building.getBuildingName());
-            tree.setBuilding(building);
+    private List<DeptTree<Unit>> convertDepts(List<Unit> units){
+        List<DeptTree<Unit>> trees = new ArrayList<>();
+        units.forEach(unit -> {
+            DeptTree<Unit> tree = new DeptTree<>();
+            tree.setId(String.valueOf(unit.getUnitId()));
+            tree.setParentId(String.valueOf(unit.getBuildingId()));
+            tree.setName(unit.getUnitName());
+            //tree.setBuilding(building);
             trees.add(tree);
         });
         return trees;
     }
 
     @Override
-    public List<Building> findListBuilding(Building building) {
-        QueryWrapper<Building> queryWrapper = new QueryWrapper<>();
-        if (StringUtils.isNotBlank(building.getBuildingName())) {
-            queryWrapper.lambda().like(Building::getBuildingName, building.getBuildingName());
+    public List<Unit> findListUnit(Unit unit) {
+        QueryWrapper<Unit> queryWrapper = new QueryWrapper<>();
+        if (StringUtils.isNotBlank(unit.getUnitName())) {
+            queryWrapper.lambda().like(Unit::getUnitName, unit.getUnitName());
         }
         return this.baseMapper.selectList(queryWrapper);
     }

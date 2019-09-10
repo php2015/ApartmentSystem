@@ -37,4 +37,32 @@ public interface RoomMapper extends BaseMapper<Room> {
      * @return List<Room>
      */
     List<Room> findRoomDetail(@Param("room") Room room);
+
+    /**
+     * 所有房间总数
+     *
+     * @return Long
+     */
+    Long findtotalRoomCount();
+
+    /**
+     * 空置房间总数
+     *
+     * @return Long
+     */
+    Long findkzRoomCount();
+
+    /**
+     * 已租房间总数
+     *
+     * @return Long
+     */
+    Long findyzRoomCount();
+
+    /**
+     * 到期房间总数
+     *
+     * @return Long
+     */
+    Long findoutTimeRoomCount();
 }

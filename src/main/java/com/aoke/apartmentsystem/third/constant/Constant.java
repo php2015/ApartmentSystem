@@ -25,13 +25,13 @@ public interface Constant {
     /**
      * OPS接口账号
      */
-    //static final String OPS_HOST = "18259062529";
-    static final String OPS_HOST = "18030158722";
+    static final String OPS_HOST = "18259062529";
+    //static final String OPS_HOST = "18030158722";
     /**
      * 密码
      */
-    //static final String PASSWORD = "EA888888";
-    static final String PASSWORD = "kittys88";
+    static final String PASSWORD = "EA888888";
+    //static final String PASSWORD = "kittys88";
     /**
      * 密钥
      */

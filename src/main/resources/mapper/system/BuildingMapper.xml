@@ -7,17 +7,27 @@
         u.village_id villageId,
         u.building_name buildingName,
         u.building_type buildingType,
+        u.building_num buildingNum,
         u.remark remark,
         u.create_by createBy,
         u.create_time createTime,
         u.update_by updateBy,
         u.update_time updateTime,
-        u.del_flag
+        u.del_flag,
+        u.kz_room kzRoom,
+        u.yz_room yzRoom,
+        u.outTime_room outTimeRoom,
+        u.total_room totalRoom,
+        d.village_name villageName
         FROM
         t_building u
+        LEFT JOIN t_village d ON (u.village_id = d.village_id)
         WHERE 1 = 1
         <if test="building.buildingId != null and building.buildingId != ''">
             AND u.building_id = #{building.buildingId}
+        </if>
+        <if test="building.villageId != null and building.villageId != ''">
+            AND d.village_id = #{building.villageId}
         </if>
         <if test="building.buildingName != null and building.buildingName != ''">
             AND u.building_name = #{building.buildingName}
@@ -53,9 +63,11 @@
         u.create_time createTime,
         u.update_by updateBy,
         u.update_time updateTime,
-        u.del_flag
+        u.del_flag,
+        d.village_name villageName
         FROM
         t_building u
+        LEFT JOIN t_village d ON (u.village_id = d.village_id)
         WHERE  u.building_name = #{buildingName}
         group by u.building_name
     </select>

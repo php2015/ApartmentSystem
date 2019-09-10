@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -40,4 +41,11 @@ public interface VillageMapper extends BaseMapper<Village> {
     List<Village> findVillageDetail(@Param("village") Village village);
 
     void deleteVillage(String villageId);
+
+    /**
+     * 查询小区
+     * @return
+     */
+    @Select("SELECT * FROM t_village ")
+    List<Village> findListVillage();
 }

@@ -83,8 +83,30 @@ public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements IR
     }
 
     @Override
+    public Long findtotalRoomCount() {
+        return this.baseMapper.findtotalRoomCount();
+    }
+
+    @Override
+    public Long findkzRoomCount() {
+        return this.baseMapper.findkzRoomCount();
+    }
+
+    @Override
+    public Long findyzRoomCount() {
+        return this.baseMapper.findyzRoomCount();
+    }
+
+    @Override
+    public Long findoutTimeRoomCount() {
+        return this.baseMapper.findoutTimeRoomCount();
+    }
+
+    @Override
     @Transactional
     public boolean save(Room room) {
         return false;
     }
+
+
 }

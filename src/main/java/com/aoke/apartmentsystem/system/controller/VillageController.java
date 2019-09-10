@@ -6,6 +6,7 @@ import com.aoke.apartmentsystem.common.controller.BaseController;
 import com.aoke.apartmentsystem.common.entity.FebsResponse;
 import com.aoke.apartmentsystem.common.entity.QueryRequest;
 import com.aoke.apartmentsystem.common.exception.FebsException;
+import com.aoke.apartmentsystem.system.entity.Role;
 import com.aoke.apartmentsystem.system.entity.Village;
 import com.aoke.apartmentsystem.system.service.IVillageService;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
@@ -58,11 +59,15 @@ public class VillageController extends BaseController {
         return new FebsResponse().success().data(dataTable);
     }
 
+    @GetMapping("villages")
+    public FebsResponse getAllRoles(Village village) {
+        return new FebsResponse().success().data(villageService.findListVillage(village));
+    }
+
     @Log("新增小区")
     @PostMapping
     @RequiresPermissions("village:add")
     public FebsResponse addVillage(@Valid Village village) throws FebsException {
-        System.out.println(JSONObject.toJSONString(village));
         //File desc = FileUploadUtils.getAbsoluteFile(Save_Url, files.getUrl());
         //                file.transferTo(desc);
         try {

@@ -1,5 +1,6 @@
 package com.aoke.apartmentsystem.system.entity;
 
+import com.aoke.apartmentsystem.common.annotation.IsMobile;
 import com.aoke.apartmentsystem.common.converter.TimeConverter;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -11,195 +12,184 @@ import lombok.Data;
 
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
-/**
- * 合同
- * @author xiaoxinglin
- */
 @Data
 @TableName("t_contract")
 @Excel("合同信息表")
 public class Contract implements Serializable {
 
-    // 合同状态：有效
-    public static final int STATUS_VALID = 1;
-    // 合同状态：锁定
-    public static final int STATUS_LOCK = 0;
-    // 默认合同名称
-    public static final String DEFAULT_NAME = "contract01";
+    private static final long serialVersionUID = -3583635836267397636L;
 
     /**
-     * ID
+     * 主键
      */
     @TableId(value = "id", type = IdType.AUTO)
-    private Long Id;
+    private Long id;
 
     /**
-     * 合同 ID
+     * 合同编号
      */
     @TableId(value = "contract_id")
+    @ExcelField(value = "合同编号")
     private String contractId;
 
     /**
      * 租户姓名
      */
-    @TableId(value = "tenant_name")
+    @TableField("tenant_name")
+    @Size(max = 20)
+    @ExcelField(value = "租户姓名")
     private String tenantName;
 
     /**
      * 乙方证件类型
      */
     @TableField("credentials_type")
-    @ExcelField(value = "乙方证件类型")
-    private int credentialsType;
+    @ExcelField(value = "证件类型", writeConverterExp = "0=居民身份证,1=护照")
+    private Integer credentialsType;
 
     /**
-     * 乙方证件号
+     * 乙方证件号码
      */
     @TableField("credentials_code")
-    @Size(min = 4, max = 50, message = "{range}")
-    @ExcelField(value = "乙方证件号")
+    @Size(max = 50)
+    @ExcelField(value = "证件号码")
     private String credentialsCode;
 
     /**
      * 乙方联系电话
      */
     @TableField("phone")
-    @ExcelField(value = "乙方联系电话")
+    @IsMobile(message = "{mobile}")
     private String phone;
 
     /**
      * 市/区/小区楼栋单元房间
      */
     @TableField("village_address")
-    @Size(min = 4, max = 50, message = "{range}")
-    @ExcelField(value = "地址")
+    @Size(max = 50)
     private String villageAddress;
 
     /**
      * 房屋面积
      */
     @TableField("area")
-    @ExcelField(value = "房屋面积")
-    private int area;
+    private Integer area;
 
     /**
      * 合同周期(月为单位的整型)
      */
     @TableField("contract_cycle")
-    private int contractCycle;
+    @ExcelField(value = "合同周期")
+    private Integer contractCycle;
 
     /**
      * 起效日期(按租户签字时间年-月-日)
      */
     @TableField("effective_time")
     @ExcelField(value = "起效日期", writeConverter = TimeConverter.class)
-    private Date effective_time;
+    private Date effectiveTime;
 
     /**
      * 租金
      */
     @TableField("tenant_price")
-    private Double tenantPrice;
+    @ExcelField(value = "租金")
+    private BigDecimal tenantPrice;
 
     /**
      * 支付周期
      */
     @TableField("pay_time")
-    @ExcelField(value = "支付周期", writeConverter = TimeConverter.class)
     private Date payTime;
 
     /**
      * 状态（有效、实现、到期、待审核、驳回、退租中、退组、未付款、续租）
      */
     @TableField("contract_status")
-    @ExcelField(value = "状态")
-    private int contractStatus;
+    @ExcelField(value = "合同状态", writeConverterExp = "0=有效,1=实现,2=到期,3=待审核,4=驳回,5=退租中,6=退租,7=未付款,8=续租")
+    private Integer contractStatus;
 
     /**
      * 甲方证件类型
      */
     @TableField("host_credentials_type")
-    @ExcelField(value = "甲方证件类型")
-    private int hostCredentialsType;
+    private Integer hostCredentialsType;
 
     /**
-     * 甲方证件号
+     * 甲方证件号码
      */
     @TableField("host_credentials_code")
-    @ExcelField(value = "甲方证件号")
+    @Size(max = 50)
     private String hostCredentialsCode;
 
     /**
-     * 甲方联系电话
+     * 甲方联系方式
      */
     @TableField("host_phone")
-    @ExcelField(value = "甲方联系电话")
+    @IsMobile(message = "{mobile}")
     private String hostPhone;
 
     /**
-     * 合同内容3000字节以内
+     * 合同内容
      */
-    @TableField("contract_connet")
-    @ExcelField(value = "合同内容")
-    private String contractConnet;
+    @TableField("contract_content")
+    private String contractContent;
 
     /**
-     * 附件(如公章、签名)
+     * 附件（如公章、签名）
      */
     @TableField("adjunct")
-    @ExcelField(value = "附件")
+    @Size(max = 100)
     private String adjunct;
 
     /**
      * 备注
      */
     @TableField("remark")
-    @Size(min = 2, max = 50, message = "{range}")
-    @ExcelField(value = "备注")
+    @Size(max = 50)
     private String remark;
 
     /**
      * 创建者
      */
     @TableField("create_by")
-    @ExcelField(value = "创建者")
+    @Size(max = 15)
     private String createBy;
 
     /**
      * 创建时间
      */
     @TableField("create_time")
-    @ExcelField(value = "创建时间", writeConverter = TimeConverter.class)
     private Date createTime;
 
     /**
      * 更新者
      */
     @TableField("update_by")
-    @ExcelField(value = "更新者")
+    @Size(max = 15)
     private String updateBy;
 
     /**
      * 更新时间
      */
     @TableField("update_time")
-    @ExcelField(value = "更新时间", writeConverter = TimeConverter.class)
     private Date updateTime;
 
     /**
-     * 删除标志（0代表存在 1代表删除）
+     * 删除标志
      */
     @TableField("del_flag")
-    private int delFlag;
+    private Integer delFlag;
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getContractId() {
@@ -218,11 +208,11 @@ public class Contract implements Serializable {
         this.tenantName = tenantName;
     }
 
-    public int getCredentialsType() {
+    public Integer getCredentialsType() {
         return credentialsType;
     }
 
-    public void setCredentialsType(int credentialsType) {
+    public void setCredentialsType(Integer credentialsType) {
         this.credentialsType = credentialsType;
     }
 
@@ -250,35 +240,35 @@ public class Contract implements Serializable {
         this.villageAddress = villageAddress;
     }
 
-    public int getArea() {
+    public Integer getArea() {
         return area;
     }
 
-    public void setArea(int area) {
+    public void setArea(Integer area) {
         this.area = area;
     }
 
-    public int getContractCycle() {
+    public Integer getContractCycle() {
         return contractCycle;
     }
 
-    public void setContractCycle(int contractCycle) {
+    public void setContractCycle(Integer contractCycle) {
         this.contractCycle = contractCycle;
     }
 
-    public Date getEffective_time() {
-        return effective_time;
+    public Date getEffectiveTime() {
+        return effectiveTime;
     }
 
-    public void setEffective_time(Date effective_time) {
-        this.effective_time = effective_time;
+    public void setEffectiveTime(Date effectiveTime) {
+        this.effectiveTime = effectiveTime;
     }
 
-    public Double getTenantPrice() {
+    public BigDecimal getTenantPrice() {
         return tenantPrice;
     }
 
-    public void setTenantPrice(Double tenantPrice) {
+    public void setTenantPrice(BigDecimal tenantPrice) {
         this.tenantPrice = tenantPrice;
     }
 
@@ -290,19 +280,19 @@ public class Contract implements Serializable {
         this.payTime = payTime;
     }
 
-    public int getContractStatus() {
+    public Integer getContractStatus() {
         return contractStatus;
     }
 
-    public void setContractStatus(int contractStatus) {
+    public void setContractStatus(Integer contractStatus) {
         this.contractStatus = contractStatus;
     }
 
-    public int getHostCredentialsType() {
+    public Integer getHostCredentialsType() {
         return hostCredentialsType;
     }
 
-    public void setHostCredentialsType(int hostCredentialsType) {
+    public void setHostCredentialsType(Integer hostCredentialsType) {
         this.hostCredentialsType = hostCredentialsType;
     }
 
@@ -322,12 +312,12 @@ public class Contract implements Serializable {
         this.hostPhone = hostPhone;
     }
 
-    public String getContractConnet() {
-        return contractConnet;
+    public String getContractContent() {
+        return contractContent;
     }
 
-    public void setContractConnet(String contractConnet) {
-        this.contractConnet = contractConnet;
+    public void setContractContent(String contractContent) {
+        this.contractContent = contractContent;
     }
 
     public String getAdjunct() {
@@ -378,41 +368,11 @@ public class Contract implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public int getDelFlag() {
+    public Integer getDelFlag() {
         return delFlag;
     }
 
-    public void setDelFlag(int delFlag) {
+    public void setDelFlag(Integer delFlag) {
         this.delFlag = delFlag;
-    }
-
-    @Override
-    public String toString() {
-        return "Contract{" +
-                "Id=" + Id +
-                ", contractId='" + contractId + '\'' +
-                ", tenantName='" + tenantName + '\'' +
-                ", credentialsType=" + credentialsType +
-                ", credentialsCode='" + credentialsCode + '\'' +
-                ", phone='" + phone + '\'' +
-                ", villageAddress='" + villageAddress + '\'' +
-                ", area=" + area +
-                ", contractCycle=" + contractCycle +
-                ", effective_time=" + effective_time +
-                ", tenantPrice=" + tenantPrice +
-                ", payTime=" + payTime +
-                ", contractStatus=" + contractStatus +
-                ", hostCredentialsType=" + hostCredentialsType +
-                ", hostCredentialsCode='" + hostCredentialsCode + '\'' +
-                ", hostPhone='" + hostPhone + '\'' +
-                ", contractConnet='" + contractConnet + '\'' +
-                ", adjunct='" + adjunct + '\'' +
-                ", remark='" + remark + '\'' +
-                ", createBy='" + createBy + '\'' +
-                ", createTime=" + createTime +
-                ", updateBy='" + updateBy + '\'' +
-                ", updateTime=" + updateTime +
-                ", delFlag=" + delFlag +
-                '}';
     }
 }

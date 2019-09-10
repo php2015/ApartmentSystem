@@ -5,6 +5,8 @@ import com.aoke.apartmentsystem.system.entity.Village;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 public interface IVillageService extends IService<Village> {
 
     /**
@@ -59,4 +61,10 @@ public interface IVillageService extends IService<Village> {
      * @param village 小区信息
      */
     void updateProfile(Village village);
+
+    /**
+     * 查询小区
+     * @return
+     */
+    List<Village> findListVillage(Village village);
 }

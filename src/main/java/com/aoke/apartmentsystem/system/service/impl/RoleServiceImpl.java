@@ -48,8 +48,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     @Override
     public List<Role> findRoles(Role role) {
         QueryWrapper<Role> queryWrapper = new QueryWrapper<>();
-        if (StringUtils.isNotBlank(role.getRoleName()))
+        if (StringUtils.isNotBlank(role.getRoleName())) {
             queryWrapper.lambda().like(Role::getRoleName, role.getRoleName());
+        }
         return this.baseMapper.selectList(queryWrapper);
     }
 

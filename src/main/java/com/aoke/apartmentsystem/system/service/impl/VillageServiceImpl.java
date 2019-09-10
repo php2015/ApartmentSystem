@@ -2,21 +2,18 @@ package com.aoke.apartmentsystem.system.service.impl;
 
 import com.aoke.apartmentsystem.common.entity.FebsConstant;
 import com.aoke.apartmentsystem.common.entity.QueryRequest;
-import com.aoke.apartmentsystem.common.utils.MD5Util;
 import com.aoke.apartmentsystem.common.utils.SortUtil;
-import com.aoke.apartmentsystem.system.entity.Tenant;
-import com.aoke.apartmentsystem.system.entity.User;
 import com.aoke.apartmentsystem.system.entity.Village;
 import com.aoke.apartmentsystem.system.mapper.VillageMapper;
 import com.aoke.apartmentsystem.system.service.IVillageService;
 import com.aoke.apartmentsystem.third.constant.AccessToken;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.google.common.math.LongMath;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -93,6 +90,15 @@ public class VillageServiceImpl extends ServiceImpl<VillageMapper, Village> impl
     public boolean save(Village entity) {
         this.baseMapper.insert(entity);
         return true;
+    }
+
+    @Override
+    public List<Village> findListVillage(Village village) {
+        QueryWrapper<Village> queryWrapper = new QueryWrapper<>();
+        if (StringUtils.isNotBlank(village.getVillageName())) {
+            queryWrapper.lambda().like(Village::getVillageName, village.getVillageName());
+        }
+        return this.baseMapper.selectList(queryWrapper);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.aoke.apartmentsystem.system.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.aoke.apartmentsystem.common.annotation.Log;
 import com.aoke.apartmentsystem.common.controller.BaseController;
 import com.aoke.apartmentsystem.common.entity.DeptTree;
@@ -9,14 +8,11 @@ import com.aoke.apartmentsystem.common.entity.QueryRequest;
 import com.aoke.apartmentsystem.common.exception.FebsException;
 import com.aoke.apartmentsystem.common.utils.StringUtil;
 import com.aoke.apartmentsystem.system.entity.Building;
-import com.aoke.apartmentsystem.system.entity.Dept;
 import com.aoke.apartmentsystem.system.entity.Unit;
-import com.aoke.apartmentsystem.system.entity.Village;
 import com.aoke.apartmentsystem.system.service.IBuildingService;
 import com.aoke.apartmentsystem.system.service.IRoomService;
 import com.aoke.apartmentsystem.system.service.IUnitService;
 import com.aoke.apartmentsystem.system.service.IVillageService;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.wuwenze.poi.ExcelKit;
 import lombok.extern.slf4j.Slf4j;
@@ -35,114 +31,70 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 楼栋
+ * 单元
  * @author xiaoxinglin
  */
 @Slf4j
 @Validated
 @RestController
-@RequestMapping("building")
-public class BuildingController extends BaseController {
+@RequestMapping("unit")
+public class UnitController extends BaseController {
 
-    Logger log = LoggerFactory.getLogger(BuildingController.class);
-
-    @Autowired
-    private IBuildingService buildingService;
-
-    @Autowired
-    private IVillageService villageService;
-
-    @Autowired
-    private IRoomService roomService;
+    Logger log = LoggerFactory.getLogger(UnitController.class);
 
     @Autowired
     private IUnitService unitService;
 
-    @GetMapping("select/tree")
-    public List<DeptTree<Building>> getDeptTree() throws FebsException {
-        try {
-            return this.buildingService.findDepts();
-        } catch (Exception e) {
-            String message = "获取楼栋树失败";
-            log.error(message, e);
-            throw new FebsException(message);
-        }
-    }
 
-    @GetMapping("buildings")
-    public FebsResponse getAllRoles(Building building) {
-        return new FebsResponse().success().data(buildingService.findListBuilding(building));
+    @GetMapping("units")
+    public FebsResponse getAllUnits(Unit unit) {
+        return new FebsResponse().success().data(unitService.findListUnit(unit));
     }
 
 
-    @GetMapping("{buildingName}")
-    public Building getVillage(@NotBlank(message = "{required}") @PathVariable String buildingName) {
-        return this.buildingService.findBuildingDetail(buildingName);
+    @GetMapping("{unitName}")
+    public Unit getUnit(@NotBlank(message = "{required}") @PathVariable String unitName) {
+        return this.unitService.findUnitDetail(unitName);
     }
 
-    @GetMapping("check/{buildingName}")
-    public boolean checkVillageName(@NotBlank(message = "{required}") @PathVariable String buildingName, String buildingId) {
-        return this.buildingService.findByBuildingName(buildingName) == null || StringUtils.isNotBlank(buildingId);
+    @GetMapping("check/{unitName}")
+    public boolean checkUnitName(@NotBlank(message = "{required}") @PathVariable String unitName, String unitId) {
+        return this.unitService.findByUnitName(unitName) == null || StringUtils.isNotBlank(unitId);
     }
 
     @GetMapping("list")
-    @RequiresPermissions("building:view")
-    public FebsResponse buildingList(Building building, QueryRequest request) {
-        Map<String, Object> dataTable = getDataTable(this.buildingService.findBuildingDetail(building, request));
-        Long kzRoom = this.roomService.findkzRoomCount();
-        Long yzRoom = this.roomService.findyzRoomCount();
-        Long totalRoom = this.roomService.findtotalRoomCount();
-        Long outTimeRoom = this.roomService.findoutTimeRoomCount();
-        dataTable.put("kzRoom",kzRoom);
-        dataTable.put("yzRoom",yzRoom);
-        dataTable.put("totalRoom",totalRoom);
-        dataTable.put("outTimeRoom",outTimeRoom);
+    @RequiresPermissions("unit:view")
+    public FebsResponse unitList(Unit unit, QueryRequest request) {
+        Map<String, Object> dataTable = getDataTable(this.unitService.findUnitDetail(unit, request));
         return new FebsResponse().success().data(dataTable);
     }
 
-    @Log("新增楼栋")
-    @PostMapping
-    @RequiresPermissions("building:add")
-    public FebsResponse addBuilding(@Valid Building building) throws FebsException {
-        System.out.println(">>>>>:"+building.getVillageId());
+    @Log("删除单元")
+    @GetMapping("delete/{unitIds}")
+    @RequiresPermissions("unit:delete")
+    public FebsResponse deleteUnits(@NotBlank(message = "{required}") @PathVariable String unitIds) throws FebsException {
         try {
-            this.buildingService.createBuilding(building);
-            Unit unit = new Unit(null,building.getBuildingId(),building.getVillageId(),building.getBuildingName()+"楼栋"+ StringUtil.lpad(4,new Long(building.getBuildingId()).intValue())+"单元","");
-            this.unitService.createUnit(unit);
+            String[] ids = unitIds.split(StringPool.COMMA);
+            this.unitService.deleteUnits(ids);
             return new FebsResponse().success();
         } catch (Exception e) {
-            String message = "新增楼栋失败";
+            String message = "删除单元失败";
             log.error(message, e);
             throw new FebsException(message);
         }
     }
 
-    @Log("删除楼栋")
-    @GetMapping("delete/{buildingIds}")
-    @RequiresPermissions("building:delete")
-    public FebsResponse deleteBuildings(@NotBlank(message = "{required}") @PathVariable String buildingIds) throws FebsException {
-        try {
-            String[] ids = buildingIds.split(StringPool.COMMA);
-            this.buildingService.deleteBuildings(ids);
-            return new FebsResponse().success();
-        } catch (Exception e) {
-            String message = "删除楼栋失败";
-            log.error(message, e);
-            throw new FebsException(message);
-        }
-    }
-
-    @Log("修改楼栋")
+    @Log("修改单元")
     @PostMapping("update")
-    @RequiresPermissions("building:update")
-    public FebsResponse updateBuilding(@Valid Building building) throws FebsException {
+    @RequiresPermissions("unit:update")
+    public FebsResponse updateUnit(@Valid Unit unit) throws FebsException {
         try {
-            if (building.getBuildingId() == null)
-                throw new FebsException("楼栋ID为空");
-            this.buildingService.updateBuilding(building);
+            if (unit.getUnitId() == null)
+                throw new FebsException("单元ID为空");
+            this.unitService.updateUnit(unit);
             return new FebsResponse().success();
         } catch (Exception e) {
-            String message = "修改楼栋失败";
+            String message = "修改单元失败";
             log.error(message, e);
             throw new FebsException(message);
         }
@@ -207,11 +159,11 @@ public class BuildingController extends BaseController {
 //    }
 
     @GetMapping("excel")
-    @RequiresPermissions("building:export")
-    public void export(QueryRequest queryRequest, Building building, HttpServletResponse response) throws FebsException {
+    @RequiresPermissions("unit:export")
+    public void export(QueryRequest queryRequest, Unit unit, HttpServletResponse response) throws FebsException {
         try {
-            List<Building> buildings = this.buildingService.findBuildingDetail(building, queryRequest).getRecords();
-            ExcelKit.$Export(Building.class, response).downXlsx(buildings, false);
+            List<Unit> units = this.unitService.findUnitDetail(unit, queryRequest).getRecords();
+            ExcelKit.$Export(Unit.class, response).downXlsx(units, false);
         } catch (Exception e) {
             String message = "导出Excel失败";
             log.error(message, e);
