@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aoke.apartmentsystem.system.mapper.BuildingMapper">
+    <sql id="findBuildingDetailSql">
+        SELECT
+        u.building_id buildingId,
+        u.village_id villageId,
+        u.building_name buildingName,
+        u.building_type buildingType,
+        u.building_num buildingNum,
+        u.remark remark,
+        u.create_by createBy,
+        u.create_time createTime,
+        u.update_by updateBy,
+        u.update_time updateTime,
+        u.del_flag,
+        u.kz_room kzRoom,
+        u.yz_room yzRoom,
+        u.outTime_room outTimeRoom,
+        u.total_room totalRoom,
+        d.village_name villageName
+        FROM
+        t_building u
+        LEFT JOIN t_village d ON (u.village_id = d.village_id)
+        WHERE 1 = 1
+        <if test="building.buildingId != null and building.buildingId != ''">
+            AND u.building_id = #{building.buildingId}
+        </if>
+        <if test="building.villageId != null and building.villageId != ''">
+            AND d.village_id = #{building.villageId}
+        </if>
+        <if test="building.buildingName != null and building.buildingName != ''">
+            AND u.building_name = #{building.buildingName}
+        </if>
+        <if test="building.buildingType != null and building.buildingType != ''">
+            AND u.building_type = #{building.buildingType}
+        </if>
+        <if test="building.createBy != null and building.createBy != ''">
+            AND u.create_by = #{building.createBy}
+        </if>
+        <if test="building.createTime != null and building.createTime != ''">
+            AND u.create_time = #{building.createTime}
+        </if>
+        group by u.building_name
+    </sql>
+    <select id="findBuildingDetailPage" parameterType="building" resultType="building">
+        <include refid="findBuildingDetailSql"/>
+    </select>
+
+    <select id="findBuildingDetail" parameterType="building" resultType="building">
+        <include refid="findBuildingDetailSql"/>
+    </select>
+
+    <select id="findByBuildingName" parameterType="string" resultType="building">
+        SELECT
+        u.building_id buildingId,
+        u.village_id villageId,
+        u.building_name buildingName,
+        u.building_type buildingType,
+        u.building_num buildingNum,
+        u.remark remark,
+        u.create_by createBy,
+        u.create_time createTime,
+        u.update_by updateBy,
+        u.update_time updateTime,
+        u.del_flag,
+        d.village_name villageName
+        FROM
+        t_building u
+        LEFT JOIN t_village d ON (u.village_id = d.village_id)
+        WHERE  u.building_name = #{buildingName}
+        group by u.building_name
+    </select>
+</mapper>
