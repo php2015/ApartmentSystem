@@ -5,52 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="27de16f5-21cf-44cf-8b78-4358d6c5a138" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/aoke/apartmentsystem/system/controller/ContractController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/aoke/apartmentsystem/system/mapper/ContractMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/aoke/apartmentsystem/system/service/IContractService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/aoke/apartmentsystem/system/service/impl/ContractServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/mapper/system/ContractMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/building/buildingDetail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/building/buildingUpdate.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/contract/contract.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/device/deviceDetail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/device/deviceUpdate.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/room/roomDetail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/room/roomUpdate.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/village/villageUpdate.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/mapper/system/ContractMapper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/templates/febs/views/system/contract/contract.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aoke/apartmentsystem/system/controller/ViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aoke/apartmentsystem/system/controller/ViewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aoke/apartmentsystem/system/entity/Device.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aoke/apartmentsystem/system/entity/Device.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aoke/apartmentsystem/system/entity/Tenant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aoke/apartmentsystem/system/entity/Tenant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aoke/apartmentsystem/system/service/impl/BuildingServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aoke/apartmentsystem/system/service/impl/BuildingServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aoke/apartmentsystem/system/service/impl/DeviceServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aoke/apartmentsystem/system/service/impl/DeviceServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/aoke/apartmentsystem/system/service/impl/VillageServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/aoke/apartmentsystem/system/service/impl/VillageServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/system/DeviceMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/system/DeviceMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/system/RoomMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/system/RoomMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/system/TenantMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/system/TenantMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/building/building.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/building/building.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/device/device.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/device/device.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/device/deviceAdd.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/device/deviceAdd.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/room/room.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/room/room.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/tenant/tenant.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/tenant/tenant.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/village/village.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/village/village.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/village/villageAdd.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/village/villageAdd.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/village/villageDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/village/villageDetail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mapper/system/DeviceMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapper/system/DeviceMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mapper/system/RoomMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapper/system/RoomMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mapper/system/TenantMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapper/system/TenantMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/febs/views/system/building/building.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/febs/views/system/building/building.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/febs/views/system/device/device.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/febs/views/system/device/device.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/febs/views/system/device/deviceAdd.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/febs/views/system/device/deviceAdd.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/febs/views/system/room/room.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/febs/views/system/room/room.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/febs/views/system/tenant/tenant.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/febs/views/system/tenant/tenant.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/febs/views/system/village/village.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/febs/views/system/village/village.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/febs/views/system/village/villageAdd.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/febs/views/system/village/villageAdd.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/febs/views/system/village/villageDetail.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/febs/views/system/village/villageDetail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/device/deviceUpdate.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/device/deviceUpdate.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -74,11 +29,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/aoke/apartmentsystem/system/controller/ViewController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="469">
-              <caret line="225" column="59" lean-forward="true" selection-start-line="225" selection-start-column="59" selection-end-line="225" selection-end-column="59" />
+            <state relative-caret-position="108">
+              <caret line="219" column="5" selection-start-line="219" selection-start-column="5" selection-end-line="219" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -92,11 +47,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/febs/views/system/device/deviceUpdate.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="169" column="48" lean-forward="true" selection-start-line="169" selection-start-column="48" selection-end-line="169" selection-end-column="48" />
+            <state relative-caret-position="578">
+              <caret line="204" column="11" selection-start-line="204" selection-start-column="11" selection-end-line="204" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -141,7 +96,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/febs/views/system/room/roomUpdate.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="345">
-              <caret line="15" column="104" lean-forward="true" selection-start-line="15" selection-start-column="104" selection-end-line="15" selection-end-column="104" />
+              <caret line="15" column="104" selection-start-line="15" selection-start-column="104" selection-end-line="15" selection-end-column="104" />
             </state>
           </provider>
         </entry>
@@ -149,8 +104,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/febs/views/system/room/roomAdd.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="69" column="61" lean-forward="true" selection-start-line="69" selection-start-column="61" selection-end-line="69" selection-end-column="61" />
+            <state relative-caret-position="552">
+              <caret line="276" column="11" lean-forward="true" selection-start-line="276" selection-start-column="11" selection-end-line="276" selection-end-column="11" />
             </state>
           </provider>
         </entry>
@@ -261,8 +216,8 @@
         <option value="$PROJECT_DIR$/src/main/java/com/aoke/apartmentsystem/system/entity/Room.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/system/RoomMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/device/deviceDetail.html" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/device/deviceUpdate.html" />
         <option value="$PROJECT_DIR$/src/main/java/com/aoke/apartmentsystem/system/controller/ViewController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/febs/views/system/device/deviceUpdate.html" />
       </list>
     </option>
   </component>
@@ -770,12 +725,12 @@
       <workItem from="1567472678989" duration="28511000" />
       <workItem from="1567570328985" duration="90072000" />
       <workItem from="1568104995338" duration="916000" />
-      <workItem from="1568250478492" duration="20659000" />
+      <workItem from="1568250478492" duration="20855000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="266028000" />
+    <option name="totallyTimeSpent" value="266224000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -790,7 +745,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2595949" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2595949" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -800,7 +755,7 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946696" visible="true" weight="0.2624729" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49946696" visible="true" weight="0.23535791" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4989339" weight="0.38503253" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1194,14 +1149,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/febs/views/system/room/roomUpdate.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
-          <caret line="15" column="104" lean-forward="true" selection-start-line="15" selection-start-column="104" selection-end-line="15" selection-end-column="104" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/febs/views/system/room/roomAdd.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="69" column="61" lean-forward="true" selection-start-line="69" selection-start-column="61" selection-end-line="69" selection-end-column="61" />
+          <caret line="15" column="104" selection-start-line="15" selection-start-column="104" selection-end-line="15" selection-end-column="104" />
         </state>
       </provider>
     </entry>
@@ -1219,17 +1167,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/febs/views/system/device/deviceUpdate.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/aoke/apartmentsystem/system/controller/ViewController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="169" column="48" lean-forward="true" selection-start-line="169" selection-start-column="48" selection-end-line="169" selection-end-column="48" />
+        <state relative-caret-position="108">
+          <caret line="219" column="5" selection-start-line="219" selection-start-column="5" selection-end-line="219" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/aoke/apartmentsystem/system/controller/ViewController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/febs/views/system/room/roomAdd.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="469">
-          <caret line="225" column="59" lean-forward="true" selection-start-line="225" selection-start-column="59" selection-end-line="225" selection-end-column="59" />
+        <state relative-caret-position="552">
+          <caret line="276" column="11" lean-forward="true" selection-start-line="276" selection-start-column="11" selection-end-line="276" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/febs/views/system/device/deviceUpdate.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="204" column="11" selection-start-line="204" selection-start-column="11" selection-end-line="204" selection-end-column="11" />
         </state>
       </provider>
     </entry>

@@ -19,7 +19,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label febs-form-item-require">设备名称：</label>
             <div class="layui-input-block">
-                <input type="text" name="deviceName" minlength="4" maxlength="50" data-th-id="${village.deviceId}"
+                <input type="text" name="deviceName" minlength="4" maxlength="50" data-th-id="${device.deviceId}"
                        lay-verify="range|deviceName" autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -109,6 +109,8 @@
             febs = layui.febs,
             layer = layui.layer,
             formSelects = layui.formSelects,
+            formSelectsb = layui.formSelects,
+            formSelectsu = layui.formSelects,
             treeSelect = layui.treeSelect,
             form = layui.form,
             device = [[${device}]],
@@ -133,8 +135,8 @@
         //     }
         // });
 
-        formSelects.config('device-update-device', {
-            searchUrl: ctx + 'role',
+        formSelectsu.config('user-add-unit', {
+            searchUrl: ctx + 'unit/units',
             response: {
                 statusCode: 200
             },
@@ -143,19 +145,62 @@
                 var tranData = [];
                 for (var i = 0; i < data.length; i++) {
                     tranData.push({
-                        name: data[i].roleName,
-                        value: data[i].roleId
+                        name: data[i].unitName,
+                        value: data[i].unitId
                     })
                 }
                 result.data = tranData;
                 return result;
             },
-            success: function () {
-                formSelects.value('device-update-device', user.roleId.split(','));
+            error: function (id, url, searchVal, err) {
+                console.error(err);
+                febs.alert.error('获取单元列表失败');
+            }
+        });
+
+        formSelectsb.config('user-add-building', {
+            searchUrl: ctx + 'building/buildings',
+            response: {
+                statusCode: 200
+            },
+            beforeSuccess: function (id, url, searchVal, result) {
+                var data = result.data;
+                var tranData = [];
+                for (var i = 0; i < data.length; i++) {
+                    tranData.push({
+                        name: data[i].buildingName,
+                        value: data[i].buildingId
+                    })
+                }
+                result.data = tranData;
+                return result;
             },
             error: function (id, url, searchVal, err) {
                 console.error(err);
-                febs.alert.error('获取角色列表失败');
+                febs.alert.error('获取楼栋列表失败');
+            }
+        });
+
+        formSelects.config('user-add-village', {
+            searchUrl: ctx + 'village/villages',
+            response: {
+                statusCode: 200
+            },
+            beforeSuccess: function (id, url, searchVal, result) {
+                var data = result.data;
+                var tranData = [];
+                for (var i = 0; i < data.length; i++) {
+                    tranData.push({
+                        name: data[i].villageName,
+                        value: data[i].villageId
+                    })
+                }
+                result.data = tranData;
+                return result;
+            },
+            error: function (id, url, searchVal, err) {
+                console.error(err);
+                febs.alert.error('获取小区列表失败');
             }
         });
 
