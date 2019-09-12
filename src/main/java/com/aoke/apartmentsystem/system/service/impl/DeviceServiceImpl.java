@@ -72,6 +72,7 @@ public class DeviceServiceImpl extends ServiceImpl<DeviceMapper, Device> impleme
 //        village.setPassword(null);
 //        village.setTenantAcount(null);
 //        village.setTenantName(null);
+        device.setUpdateTime(new Date());
         updateById(device);
     }
 
