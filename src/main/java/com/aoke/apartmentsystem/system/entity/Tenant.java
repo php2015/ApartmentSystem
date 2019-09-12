@@ -124,6 +124,11 @@ public class Tenant implements Serializable {
     @ExcelField(value = "创建时间", writeConverter = TimeConverter.class)
     private Date createTime;
 
+    @TableField(exist = false)
+    private String createTimeFrom;
+    @TableField(exist = false)
+    private String createTimeTo;
+
     public Long getTenantId() {
         return tenantId;
     }
@@ -226,6 +231,22 @@ public class Tenant implements Serializable {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getCreateTimeFrom() {
+        return createTimeFrom;
+    }
+
+    public void setCreateTimeFrom(String createTimeFrom) {
+        this.createTimeFrom = createTimeFrom;
+    }
+
+    public String getCreateTimeTo() {
+        return createTimeTo;
+    }
+
+    public void setCreateTimeTo(String createTimeTo) {
+        this.createTimeTo = createTimeTo;
     }
 
     @Override

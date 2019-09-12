@@ -133,7 +133,7 @@ public class VillageServiceImpl extends ServiceImpl<VillageMapper, Village> impl
 
     @Override
     public boolean updateById(Village entity) {
-        return false;
+        return retBool(baseMapper.updateById(entity));
     }
 
     @Override

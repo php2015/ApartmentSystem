@@ -10,15 +10,27 @@
         u.device_model deviceModel,
         u.device_status deviceStatus,
         u.device_belong deviceBelong,
+        u.village_id villageId,
+        u.building_id buildingId,
+        u.unit_id unitId,
+        u.room_id roomId,
         u.effective_year effectiveYear,
         u.remark remark,
         u.create_by createBy,
         u.create_time createTime,
         u.update_by updateBy,
         u.update_time updateTime,
-        u.del_flag
+        u.del_flag,
+        v.village_name villageName,
+        b.building_name buildingName,
+        un.unit_name unitName,
+        r.room_name roomName
         FROM
         t_device u
+        LEFT JOIN t_village v ON (u.village_id = v.village_id)
+        LEFT JOIN t_building b ON (u.building_id = b.building_id)
+        LEFT JOIN t_unit un ON (u.unit_id = un.unit_id)
+        LEFT JOIN t_room r ON (u.room_id = r.room_id)
         WHERE 1 = 1
         <if test="device.deviceName != null and device.deviceName != ''">
             AND u.device_name = #{device.deviceName}
@@ -54,15 +66,27 @@
         u.device_model deviceModel,
         u.device_status deviceStatus,
         u.device_belong deviceBelong,
+        u.village_id villageId,
+        u.building_id buildingId,
+        u.unit_id unitId,
+        u.room_id roomId,
         u.effective_year effectiveYear,
         u.remark remark,
         u.create_by createBy,
         u.create_time createTime,
         u.update_by updateBy,
         u.update_time updateTime,
-        u.del_flag
+        u.del_flag,
+        v.village_name villageName,
+        b.building_name buildingName,
+        un.unit_name unitName,
+        r.room_name roomName
         FROM
         t_device u
+        LEFT JOIN t_village v ON (u.village_id = v.village_id)
+        LEFT JOIN t_building b ON (u.building_id = b.building_id)
+        LEFT JOIN t_unit un ON (u.unit_id = un.unit_id)
+        LEFT JOIN t_room r ON (u.room_id = r.room_id)
         WHERE  u.device_name = #{deviceName}
         group by u.device_name
     </select>

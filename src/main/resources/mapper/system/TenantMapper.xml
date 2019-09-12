@@ -34,6 +34,12 @@
         <if test="tenant.status != null and tenant.status != ''">
             AND u.status = #{tenant.status}
         </if>
+        <if test="tenant.createTimeFrom != null and tenant.createTimeFrom !=''">
+            And u.create_time &gt; #{tenant.createTimeFrom}
+        </if>
+        <if test="tenant.createTimeTo!= null and tenant.createTimeTo !=''">
+            And u.create_time &lt; #{tenant.createTimeTo}
+        </if>
         group by u.tenant_acount
     </sql>
     <select id="findTenantDetailPage" parameterType="tenant" resultType="tenant">

@@ -24,7 +24,7 @@
         u.room_area roomArea,
         u.room_price roomPrice,
         u.pay_way payWay,
-        u.room_orther roomOther,
+        u.room_other roomOther,
         u.room_pic roomPic,
         u.map_pic mapPic,
         u.contract_id contractId,
@@ -75,7 +75,7 @@
         u.room_area roomArea,
         u.room_price roomPrice,
         u.pay_way payWay,
-        u.room_orther roomOther,
+        u.room_other roomOther,
         u.room_pic roomPic,
         u.map_pic mapPic,
         u.contract_id contractId,
@@ -90,7 +90,7 @@
         u.del_flag
         FROM
         t_room u
-        WHERE  u.village_name = #{villageName}
-        group by u.village_name
+        WHERE  u.room_name = #{roomName}
+        group by u.room_name
     </select>
 </mapper>

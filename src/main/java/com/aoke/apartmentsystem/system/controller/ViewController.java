@@ -5,10 +5,8 @@ import com.aoke.apartmentsystem.common.controller.BaseController;
 import com.aoke.apartmentsystem.common.entity.FebsConstant;
 import com.aoke.apartmentsystem.common.utils.DateUtil;
 import com.aoke.apartmentsystem.common.utils.FebsUtil;
-import com.aoke.apartmentsystem.system.entity.User;
-import com.aoke.apartmentsystem.system.entity.Village;
-import com.aoke.apartmentsystem.system.service.IUserService;
-import com.aoke.apartmentsystem.system.service.IVillageService;
+import com.aoke.apartmentsystem.system.entity.*;
+import com.aoke.apartmentsystem.system.service.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.session.ExpiredSessionException;
@@ -34,6 +32,15 @@ public class ViewController extends BaseController {
 
     @Autowired
     private IVillageService villageService;
+
+    @Autowired
+    private IBuildingService buildingService;
+
+    @Autowired
+    private IRoomService roomService;
+
+    @Autowired
+    private IDeviceService deviceService;
 
     @Autowired
     private ShiroHelper shiroHelper;
@@ -130,6 +137,12 @@ public class ViewController extends BaseController {
         resolveVillageModel(villageName, model, true);
         return FebsUtil.view("system/village/villageDetail");
     }
+    @GetMapping(FebsConstant.VIEW_PREFIX + "system/village/update/{villageName}")
+    @RequiresPermissions("village:update")
+    public String systemVillageUpdate(@PathVariable String villageName, Model model) {
+        resolveVillageModel(villageName, model, false);
+        return FebsUtil.view("system/village/villageUpdate");
+    }
 
     //楼栋 单元
     @GetMapping(FebsConstant.VIEW_PREFIX + "system/building")
@@ -142,6 +155,20 @@ public class ViewController extends BaseController {
     @RequiresPermissions("building:add")
     public String systemBuildingAdd() {
         return FebsUtil.view("system/building/buildingAdd");
+    }
+
+    @GetMapping(FebsConstant.VIEW_PREFIX + "system/building/detail/{buildingName}")
+    @RequiresPermissions("building:view")
+    public String systemBuildingDetail(@PathVariable String buildingName, Model model) {
+        resolveBuildingModel(buildingName, model, true);
+        return FebsUtil.view("system/building/buildingDetail");
+    }
+
+    @GetMapping(FebsConstant.VIEW_PREFIX + "system/building/update/{buildingName}")
+    @RequiresPermissions("building:update")
+    public String systemBuildingUpdate(@PathVariable String buildingName, Model model) {
+        resolveBuildingModel(buildingName, model, false);
+        return FebsUtil.view("system/building/buildingUpdate");
     }
 
     //房间
@@ -157,6 +184,21 @@ public class ViewController extends BaseController {
         return FebsUtil.view("system/room/roomAdd");
     }
 
+    @GetMapping(FebsConstant.VIEW_PREFIX + "system/room/detail/{roomName}")
+    @RequiresPermissions("room:view")
+    public String systemRoomDetail(@PathVariable String roomName, Model model) {
+        resolveRoomModel(roomName, model, true);
+        return FebsUtil.view("system/room/roomDetail");
+    }
+
+    @GetMapping(FebsConstant.VIEW_PREFIX + "system/room/update/{roomName}")
+    @RequiresPermissions("room:update")
+    public String systemRoomUpdate(@PathVariable String roomName, Model model) {
+        resolveRoomModel(roomName, model, false);
+        return FebsUtil.view("system/room/roomUpdate");
+    }
+
+
     //设备
     @GetMapping(FebsConstant.VIEW_PREFIX + "system/device")
     @RequiresPermissions("device:view")
@@ -168,6 +210,20 @@ public class ViewController extends BaseController {
     @RequiresPermissions("device:add")
     public String systemDeviceAdd() {
         return FebsUtil.view("system/device/deviceAdd");
+    }
+
+    @GetMapping(FebsConstant.VIEW_PREFIX + "system/device/detail/{deviceName}")
+    @RequiresPermissions("device:view")
+    public String systemDeviceDetail(@PathVariable String deviceName, Model model) {
+        resolveDeviceModel(deviceName, model, true);
+        return FebsUtil.view("system/device/deviceDetail");
+    }
+
+    @GetMapping(FebsConstant.VIEW_PREFIX + "system/device/update/{deviceName}")
+    @RequiresPermissions("device:update")
+    public String systemDeviceUpdate(@PathVariable String deviceName, Model model) {
+        resolveDeviceModel(deviceName, model, false);
+        return FebsUtil.view("system/device/deviceUpdate");
     }
 
     @GetMapping(FebsConstant.VIEW_PREFIX + "system/user/add")
@@ -252,6 +308,45 @@ public class ViewController extends BaseController {
     private void resolveVillageModel(String villageName, Model model, Boolean transform) {
         Village village = villageService.findByVillageName(villageName);
         model.addAttribute("village", village);
+//        if (transform) {
+//            String ssex = village.getSex();
+//            if (User.SEX_MALE.equals(ssex)) user.setSex("男");
+//            else if (User.SEX_FEMALE.equals(ssex)) user.setSex("女");
+//            else user.setSex("保密");
+//        }
+//        if (user.getLastLoginTime() != null)
+//            model.addAttribute("lastLoginTime", DateUtil.getDateFormat(user.getLastLoginTime(), DateUtil.FULL_TIME_SPLIT_PATTERN));
+    }
+
+    private void resolveBuildingModel(String buildingName, Model model, Boolean transform) {
+        Building building = buildingService.findByBuildingName(buildingName);
+        model.addAttribute("building", building);
+//        if (transform) {
+//            String ssex = village.getSex();
+//            if (User.SEX_MALE.equals(ssex)) user.setSex("男");
+//            else if (User.SEX_FEMALE.equals(ssex)) user.setSex("女");
+//            else user.setSex("保密");
+//        }
+//        if (user.getLastLoginTime() != null)
+//            model.addAttribute("lastLoginTime", DateUtil.getDateFormat(user.getLastLoginTime(), DateUtil.FULL_TIME_SPLIT_PATTERN));
+    }
+
+    private void resolveRoomModel(String roomName, Model model, Boolean transform) {
+        Room room = roomService.findByRoomName(roomName);
+        model.addAttribute("room", room);
+//        if (transform) {
+//            String ssex = village.getSex();
+//            if (User.SEX_MALE.equals(ssex)) user.setSex("男");
+//            else if (User.SEX_FEMALE.equals(ssex)) user.setSex("女");
+//            else user.setSex("保密");
+//        }
+//        if (user.getLastLoginTime() != null)
+//            model.addAttribute("lastLoginTime", DateUtil.getDateFormat(user.getLastLoginTime(), DateUtil.FULL_TIME_SPLIT_PATTERN));
+    }
+
+    private void resolveDeviceModel(String deviceName, Model model, Boolean transform) {
+        Device device = deviceService.findByDeviceName(deviceName);
+        model.addAttribute("device", device);
 //        if (transform) {
 //            String ssex = village.getSex();
 //            if (User.SEX_MALE.equals(ssex)) user.setSex("男");

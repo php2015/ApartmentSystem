@@ -66,8 +66,8 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">小区图片：</label>
             <div class="layui-input-block">
-                <img alt="小区图片" id="villagePic-avatar" data-th-src="@{febs/images/u690.png}">
-                <input id="villagePic" type="file" name="villagePic" multiple />
+                <img alt="小区图片" id="villagePicavatar" data-th-src="@{febs/images/u690.png}">
+                <input id="villagePic" type="file" name="villagePic" onclick="imgLoad();" />
             </div>
         </div>
 <!--        <div class="layui-form-item layui-form-text">-->
@@ -113,6 +113,21 @@
         </div>
     </form>
 </div>
+<script type="text/javascript">
+    function imgLoad() {
+        var fileTag = document.getElementById('villagePic');
+        fileTag.onchange = function () {
+            var file = fileTag.files[0];
+            var fileReader = new FileReader();
+            fileReader.onloadend = function () {
+                if (fileReader.readyState == fileReader.DONE) {
+                    document.getElementById('villagePicavatar').setAttribute('data-th-src', fileReader.result);
+                }
+            };
+            fileReader.readAsDataURL(file);
+        };
+    };
+</script>
 <script data-th-inline="javascript" type="text/javascript">
     layui.use(['jquery', 'febs'], function () {
         var $ = layui.jquery,

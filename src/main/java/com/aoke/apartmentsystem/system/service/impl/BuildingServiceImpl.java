@@ -68,7 +68,7 @@ public class BuildingServiceImpl extends ServiceImpl<BuildingMapper, Building> i
 
     @Override
     public void updateBuilding(Building building) {
-
+        updateById(building);
     }
 
     @Override

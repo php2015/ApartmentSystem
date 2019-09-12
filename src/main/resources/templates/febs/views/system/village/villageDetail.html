@@ -38,31 +38,49 @@
 <div class="layui-fluid" id="febs-user-detail" lay-title="小区信息">
     <div id="user-info-wrapper">
         <div class="user-info">
-            <div><span class="layui-icon layui-icon-user"></span> 账号：
-                [[${user.username}]]
+            <div><span class="layui-icon layui-icon-user"></span> 小区名称：
+                [[${village.villageName}]]
             </div>
-            <div><span class="layui-icon layui-icon-trophy"></span> 角色：
-                [[${#strings.defaultString(user.roleName,'暂无角色信息')}]]
+            <div><span class="layui-icon layui-icon-trophy"></span> 小区地址：
+                [[${village.villageAddress}]]
             </div>
-            <div><span class="layui-icon layui-icon-home"></span> 部门：
-                [[${#strings.defaultString(user.deptName,'无部门信息')}]]
+            <div><span class="layui-icon layui-icon-home"></span> 小区类型：
+                [[${village.villageType}]]
             </div>
-            <div><span class="layui-icon layui-icon-skin"></span> 性别：
-                [[${user.sex}]]
+            <div><span class="layui-icon layui-icon-skin"></span> 楼栋数量：
+                [[${village.buildingNum}]]
+            </div>
+            <div><span class="layui-icon layui-icon-skin"></span> 小区配套：
+                [[${village.villageOrther}]]
+            </div>
+            <div><span class="layui-icon layui-icon-read"></span> 创建者：
+                [[${village.createBy}]]
+            </div>
+            <div id="userff-img">
+                <img alt="头像" title="点我更换头像" data-th-src="@{febs/images/u690.png}">
             </div>
         </div>
         <div class="user-info">
-            <div><span class="layui-icon layui-icon-phone"></span> 电话：
-                [[${#strings.defaultString(user.mobile,'无电话信息')}]]
+            <div><span class="layui-icon layui-icon-mail"></span> 负责人：
+                [[${village.charge}]]
             </div>
-            <div><span class="layui-icon layui-icon-mail"></span> 邮箱：
-                [[${#strings.defaultString(user.email,'无邮箱信息')}]]
+            <div><span class="layui-icon layui-icon-phone"></span> 负责人电话：
+                [[${village.chargePhone}]]
             </div>
-            <div><span class="layui-icon layui-icon-time-circle"></span> 最后登录时间：
-                [[${#strings.defaultString(lastLoginTime,'从未登录过系统')}]]
+            <div><span class="layui-icon layui-icon-read"></span> 房间数量：
+                [[${village.roomNum}]]
             </div>
-            <div><span class="layui-icon layui-icon-read"></span> 个人简介：
-                [[${#strings.defaultString(user.description,'暂无个人介绍')}]]
+            <div><span class="layui-icon layui-icon-read"></span> 经纬度：
+                [[${village.jw}]]
+            </div>
+            <div><span class="layui-icon layui-icon-read"></span> 小区简介：
+                [[${village.villageMsg}]]
+            </div>
+            <div><span class="layui-icon layui-icon-read"></span> 创建时间：
+                [[${village.createTime}]]
+            </div>
+            <div id="userf-img">
+                <img alt="头像" title="点我更换头像" data-th-src="@{febs/images/u690.png}">
             </div>
         </div>
     </div>

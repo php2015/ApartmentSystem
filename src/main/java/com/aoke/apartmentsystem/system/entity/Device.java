@@ -39,9 +39,8 @@ public class Device implements Serializable {
      * 设备 ID
      */
     @TableField("device_id")
-    @Size(min = 2, max = 50, message = "{range}")
     @ExcelField(value = "设备编号")
-    private Long deviceId;
+    private String deviceId;
 
     /**
      * 设备名称
@@ -72,6 +71,30 @@ public class Device implements Serializable {
     @TableField("device_status")
     @ExcelField(value = "设备状态")
     private int deviceStatus;
+
+    /**
+     * village_id
+     */
+    @TableField(value = "village_id")
+    private Long villageId;
+
+    /**
+     * building_id
+     */
+    @TableField(value = "building_id")
+    private Long buildingId;
+
+    /**
+     * unit_id
+     */
+    @TableField(value = "unit_id")
+    private Long unitId;
+
+    /**
+     * room_id
+     */
+    @TableField(value = "room_id")
+    private Long roomId;
 
     /**
      * 所属(市/区/小区楼栋房间)
@@ -130,6 +153,34 @@ public class Device implements Serializable {
     @TableField("del_flag")
     private int delFlag;
 
+    /**
+     * 小区名称
+     */
+    @ExcelField(value = "小区")
+    @TableField(exist = false)
+    private String villageName;
+
+    /**
+     * 楼栋名称
+     */
+    @ExcelField(value = "楼栋")
+    @TableField(exist = false)
+    private String buildingName;
+
+    /**
+     * 单元名称
+     */
+    @ExcelField(value = "单元")
+    @TableField(exist = false)
+    private String unitName;
+
+    /**
+     * 房间名称
+     */
+    @ExcelField(value = "房间")
+    @TableField(exist = false)
+    private String roomName;
+
     public Long getId() {
         return Id;
     }
@@ -138,11 +189,11 @@ public class Device implements Serializable {
         Id = id;
     }
 
-    public Long getDeviceId() {
+    public String getDeviceId() {
         return deviceId;
     }
 
-    public void setDeviceId(Long deviceId) {
+    public void setDeviceId(String deviceId) {
         this.deviceId = deviceId;
     }
 
@@ -184,6 +235,38 @@ public class Device implements Serializable {
 
     public void setDeviceBelong(String deviceBelong) {
         this.deviceBelong = deviceBelong;
+    }
+
+    public Long getVillageId() {
+        return villageId;
+    }
+
+    public void setVillageId(Long villageId) {
+        this.villageId = villageId;
+    }
+
+    public Long getBuildingId() {
+        return buildingId;
+    }
+
+    public void setBuildingId(Long buildingId) {
+        this.buildingId = buildingId;
+    }
+
+    public Long getUnitId() {
+        return unitId;
+    }
+
+    public void setUnitId(Long unitId) {
+        this.unitId = unitId;
+    }
+
+    public Long getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(Long roomId) {
+        this.roomId = roomId;
     }
 
     public int getEffectiveYear() {
@@ -242,15 +325,51 @@ public class Device implements Serializable {
         this.delFlag = delFlag;
     }
 
+    public String getVillageName() {
+        return villageName;
+    }
+
+    public void setVillageName(String villageName) {
+        this.villageName = villageName;
+    }
+
+    public String getBuildingName() {
+        return buildingName;
+    }
+
+    public void setBuildingName(String buildingName) {
+        this.buildingName = buildingName;
+    }
+
+    public String getUnitName() {
+        return unitName;
+    }
+
+    public void setUnitName(String unitName) {
+        this.unitName = unitName;
+    }
+
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
+
     @Override
     public String toString() {
         return "Device{" +
                 "Id=" + Id +
-                ", deviceId=" + deviceId +
+                ", deviceId='" + deviceId + '\'' +
                 ", deviceName='" + deviceName + '\'' +
                 ", deviceType=" + deviceType +
                 ", deviceModel='" + deviceModel + '\'' +
                 ", deviceStatus=" + deviceStatus +
+                ", villageId=" + villageId +
+                ", buildingId=" + buildingId +
+                ", unitId=" + unitId +
+                ", roomId=" + roomId +
                 ", deviceBelong='" + deviceBelong + '\'' +
                 ", effectiveYear=" + effectiveYear +
                 ", remark='" + remark + '\'' +
@@ -259,6 +378,10 @@ public class Device implements Serializable {
                 ", updateBy='" + updateBy + '\'' +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
+                ", villageName='" + villageName + '\'' +
+                ", buildingName='" + buildingName + '\'' +
+                ", unitName='" + unitName + '\'' +
+                ", roomName='" + roomName + '\'' +
                 '}';
     }
 }

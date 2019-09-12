@@ -9,6 +9,7 @@ import com.aoke.apartmentsystem.system.mapper.DeviceMapper;
 import com.aoke.apartmentsystem.system.mapper.VillageMapper;
 import com.aoke.apartmentsystem.system.service.IDeviceService;
 import com.aoke.apartmentsystem.system.service.IVillageService;
+import com.aoke.apartmentsystem.third.constant.AccessToken;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
@@ -19,10 +20,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 
 @Service
@@ -51,10 +49,11 @@ public class DeviceServiceImpl extends ServiceImpl<DeviceMapper, Device> impleme
     @Override
     @Transactional
     public void createDevice(Device device) {
-//        village.setStatus(Tenant.STATUS_VALID);
-////        village.setTenantPic(Tenant.DEFAULT_AVATAR);
-////        //tenant.setIsTab(User.TAB_OPEN);
-////        village.setPassword(MD5Util.encrypt(tenant.getTenantAcount(), User.DEFAULT_PASSWORD));
+        device.setDeviceId(UUID.randomUUID().toString().replace("-",""));
+        device.setDeviceBelong(device.getVillageName()+device.getBuildingName()+device.getUnitName()+device.getRoomName());
+        device.setDelFlag(0);
+        device.setCreateBy(AccessToken.username);
+        device.setCreateTime(new Date());
         save(device);
     }
 
@@ -81,12 +80,4 @@ public class DeviceServiceImpl extends ServiceImpl<DeviceMapper, Device> impleme
     public void updateProfile(Device device) {
 
     }
-
-    @Override
-    @Transactional
-    public boolean save(Device entity) {
-        return false;
-    }
-
-
 }
