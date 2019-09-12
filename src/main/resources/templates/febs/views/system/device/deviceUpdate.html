@@ -1,0 +1,160 @@
+<style>
+    #village-update {
+        padding: 20px 25px 25px 0;
+    }
+
+    #village-update .layui-treeSelect .ztree li a, .ztree li span {
+        margin: 0 0 2px 3px !important;
+    }
+</style>
+<div class="layui-fluid" id="village-update">
+    <form class="layui-form" action="" lay-filter="village-update-form">
+        <div class="layui-form-item febs-hide">
+            <label class="layui-form-label febs-form-item-require">小区编号：</label>
+            <div class="layui-input-block">
+                <input type="text" name="villageId" data-th-value="${village.villageId}">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label febs-form-item-require">小区名称：</label>
+            <div class="layui-input-block">
+                <input type="text" name="villageName" minlength="4" maxlength="10" data-th-id="${village.villageId}"
+                       lay-verify="range|villageName" autocomplete="off" class="layui-input" readonly>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">类型：</label>
+            <div class="layui-input-block">
+                <select name="villageType">
+                    <option value="">请选择</option>
+                    <option value="0" selected="">集中</option>
+                    <option value="1">分散</option>
+                    <option value="2">其它</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">所在地：</label>
+            <div class="layui-input-block">
+                <input type="text" name="villageAddress" maxlength="50" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">小区配套：</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="like1[write]" lay-skin="primary" title="医院" checked="">
+                <input type="checkbox" name="like1[read]" lay-skin="primary" title="学校" checked="">
+                <input type="checkbox" name="like1[game]" lay-skin="primary" title="跑道" checked="">
+                <input type="checkbox" name="like1[write]" lay-skin="primary" title="健身场所" checked="">
+                <input type="checkbox" name="like1[read]" lay-skin="primary" title="车位" checked="">
+                <input type="checkbox" name="like1[game]" lay-skin="primary" title="幼儿园">
+                <input type="checkbox" name="like1[write]" lay-skin="primary" title="小区">
+                <input type="checkbox" name="like1[read]" lay-skin="primary" title="超市">
+                <input type="checkbox" name="like1[game]" lay-skin="primary" title="游泳池">
+                <input type="checkbox" name="like1[write]" lay-skin="primary" title="快递柜">
+                <input type="checkbox" name="like1[read]" lay-skin="primary" title="儿童游乐场">
+                <input type="checkbox" name="like1[game]" lay-skin="primary" title="公园">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">楼栋数量：</label>
+            <div class="layui-input-block">
+                <input type="text" name="buildingNum" maxlength="50" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">小区简介：</label>
+            <div class="layui-input-block">
+                <textarea name="villageMsg" maxlength="100" class="layui-textarea">
+                </textarea>
+            </div>
+        </div>
+        <div class="layui-form-item febs-hide">
+            <button class="layui-btn" lay-submit="" lay-filter="village-update-form-submit" id="submit"></button>
+        </div>
+    </form>
+</div>
+
+<script data-th-inline="javascript">
+    layui.use(['febs', 'form', 'formSelects', 'validate', 'treeSelect'], function () {
+        var $ = layui.$,
+            febs = layui.febs,
+            layer = layui.layer,
+            formSelects = layui.formSelects,
+            treeSelect = layui.treeSelect,
+            form = layui.form,
+            village = [[${village}]],
+            $view = $('#village-update'),
+            validate = layui.validate;
+
+        //form.verify(validate);
+        form.render();
+
+        initUserValue();
+
+        formSelects.render();
+
+        // treeSelect.render({
+        //     elem: $view.find('#user-update-village'),
+        //     type: 'get',
+        //     data: ctx + 'dept/select/tree',
+        //     placeholder: '请选择',
+        //     search: false,
+        //     success: function () {
+        //         treeSelect.checkNode('user-update-dept', user.deptId);
+        //     }
+        // });
+
+        formSelects.config('village-update-village', {
+            searchUrl: ctx + 'role',
+            response: {
+                statusCode: 200
+            },
+            beforeSuccess: function (id, url, searchVal, result) {
+                var data = result.data;
+                var tranData = [];
+                for (var i = 0; i < data.length; i++) {
+                    tranData.push({
+                        name: data[i].roleName,
+                        value: data[i].roleId
+                    })
+                }
+                result.data = tranData;
+                return result;
+            },
+            success: function () {
+                formSelects.value('village-update-village', user.roleId.split(','));
+            },
+            error: function (id, url, searchVal, err) {
+                console.error(err);
+                febs.alert.error('获取角色列表失败');
+            }
+        });
+
+        function initUserValue() {
+            form.val("village-update-form", {
+                "villageName": village.villageName,
+                "villageType": village.villageType,
+                "villageAddress": village.villageAddress,
+                "buildingNum": village.buildingNum,
+                "villageOrther": village.villageOrther,
+                "villageMsg": village.villageMsg
+            });
+        }
+
+        form.on('submit(village-update-form-submit)', function (data) {
+            if (febs.nativeEqual(data.field, village)) {
+                febs.alert.warn('数据未作任何修改！');
+                return false;
+            }
+            febs.post(ctx + 'village/update', data.field, function () {
+                layer.closeAll();
+                febs.alert.success(village.villageName + ' 小区数据修改成功');
+                $('#febs-village').find('#query').click();
+            });
+            return false;
+        });
+    });
+</script>
