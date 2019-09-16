@@ -3,7 +3,7 @@
         <div class="layui-col-md12">
             <div class="layui-card">
                 <div class="layui-card-body febs-table-full">
-                    <form class="layui-form layui-table-form" lay-filter="">
+                    <form class="layui-form layui-table-form" lay-filter="user-table-form">
                         <div class="layui-row">
                             <div class="layui-col-md10">
                                 <div class="layui-form-item">
@@ -51,7 +51,7 @@
                                     <div class="layui-inline">
                                         <label class="layui-form-label layui-form-label-sm">租金</label>
                                         <div class="layui-input-inline">
-                                            <input type="text" name="price" autocomplete="off" class="layui-input">
+                                            <input type="text" name="tenantPrice" autocomplete="off" class="layui-input">
                                         </div>
                                     </div>
                                     <div class="layui-inline">
@@ -80,10 +80,10 @@
                                 <div class="layui-btn layui-btn-sm layui-btn-primary table-action" id="reset">
                                     <i class="layui-icon">&#xe79b;</i>
                                 </div>
-<!--                                <div class="layui-btn layui-btn-sm layui-btn-primary table-action action-more"-->
-<!--                                     shiro:hasAnyPermissions="user:add,user:update,user:password:reset,user:export">-->
-<!--                                    <i class="layui-icon">&#xe875;</i>-->
-<!--                                </div>-->
+                                <!--                                <div class="layui-btn layui-btn-sm layui-btn-primary table-action action-more"-->
+                                <!--                                     shiro:hasAnyPermissions="user:add,user:update,user:password:reset,user:export">-->
+                                <!--                                    <i class="layui-icon">&#xe875;</i>-->
+                                <!--                                </div>-->
                             </div>
                         </div>
                     </form>
@@ -93,60 +93,48 @@
         </div>
     </div>
 </div>
-
-<!--<script type="text/html" id="user-status">-->
-<!--    {{#-->
-<!--    var status = {-->
-<!--    1: {title: '有效', color: 'green'},-->
-<!--    0: {title: '禁用', color: 'volcano'}-->
-<!--    }[d.status];-->
-<!--    }}-->
-<!--    <span class="layui-badge febs-tag-{{status.color}}">{{ status.title }}</span>-->
-<!--</script>-->
-<!--<script type="text/html" id="user-sex">-->
-<!--    {{#-->
-<!--    var sex = {-->
-<!--    2: {title: '保密'},-->
-<!--    1: {title: '女'},-->
-<!--    0: {title: '男'}-->
-<!--    }[d.sex];-->
-<!--    }}-->
-<!--    <span>{{ sex.title }}</span>-->
-<!--</script>-->
 <script type="text/html" id="tenant-credentials-type">
     {{#
-        var credentialsType = {
-            1: {title: '护照'},
-            0: {title: '居民身份证'}
-        }[d.credentialsType];
+    var credentialsType = {
+    1: {title: '护照', color: 'volcano'},
+    0: {title: '居民身份证', color: 'green'}
+    }[d.credentialsType];
     }}
-    <span class="layui-badge">{{ credentialsType.title }}</span>
+    <span class="layui-badge febs-tag-{{credentialsType.color}}">{{ credentialsType.title }}</span>
 </script>
 <script type="text/html" id="tenant-contract-status">
     {{#
-        var contractStatus = {
-            8: {title: '续租'},
-            7: {title: '未付款'},
-            6: {title: '退租'},
-            5: {title: '退租中'},
-            4: {title: '驳回'},
-            3: {title: '待审核'},
-            2: {title: '到期'},
-            1: {title: '实现'},
-            0: {title: '有效'}
-        }[d.contractStatus];
+    var contractStatus = {
+    8: {title: '续租', color: 'purple'},
+    7: {title: '未付款', color: 'geekblue'},
+    6: {title: '退租', color: 'blue'},
+    5: {title: '退租中', color: 'cyan'},
+    4: {title: '驳回', color: 'gold'},
+    3: {title: '待审核', color: 'volcano'},
+    2: {title: '到期', color: 'red'},
+    1: {title: '实现', color: 'orange'},
+    0: {title: '有效', color: 'green'}
+    }[d.contractStatus];
     }}
-    <span class="layui-badge">{{ contractStatus.title }}</span>
+    <span class="layui-badge febs-bg-{{contractStatus.color}}">{{ contractStatus.title }}</span>
 </script>
 <script type="text/html" id="user-option">
     <span shiro:lacksPermission="contract:view,contract:update">
         <span class="layui-badge-dot febs-bg-orange"></span> 无权限
     </span>
-    <a lay-event="detail" shiro:hasPermission="contract:view"><i
-            class="layui-icon febs-edit-area febs-green">&#xe7a5;</i></a>
-    <a lay-event="edit" shiro:hasPermission="contract:update"><i
-            class="layui-icon febs-edit-area febs-blue">&#xe7a4;</i></a>
-<!--    <a lay-event="del" shiro:hasPermission="user:delete"><i class="layui-icon febs-edit-area febs-red">&#xe7f9;</i></a>-->
+    <a lay-event="detail" shiro:hasPermission="contract:view">
+        <span class="febs-green"> 查看 </span>
+    </a>
+
+    <a lay-event="edit" shiro:hasPermission="contract:update">
+        <span class="febs-blue"> 编辑 </span>
+    </a>
+    <a lay-event="renewal" shiro:hasPermission="contract:renewal">
+        <span class="febs-red"> 续租 </span>
+    </a>
+    <a lay-event="terminate" shiro:hasPermission="contract:terminate">
+        <span class="febs-red"> 退租 </span>
+    </a>
 </script>
 <script data-th-inline="none" type="text/javascript">
     layui.use(['dropdown', 'jquery', 'laydate', 'form', 'table', 'febs', 'treeSelect'], function () {
@@ -255,26 +243,30 @@
             var data = obj.data,
                 layEvent = obj.event;
             if (layEvent === 'detail') {
-                febs.modal.view('用户信息', 'system/user/detail/' + data.username, {
+                febs.modal.view('合同信息', 'system/contract/detail/' + data.contractId, {
                     area: $(window).width() <= 750 ? '95%' : '660px'
                 });
             }
-            if (layEvent === 'del') {
-                febs.modal.confirm('删除用户', '确定删除该用户？', function () {
-                    deleteUsers(data.userId);
-                });
-            }
+
             if (layEvent === 'edit') {
-                febs.modal.open('修改用户', 'system/user/update/' + data.username, {
+                febs.modal.open('修改合同', 'system/contract/edit/' + data.contractId, {
                     area: $(window).width() <= 750 ? '90%' : '50%',
                     btn: ['提交', '取消'],
                     yes: function (index, layero) {
-                        $('#user-update').find('#submit').trigger('click');
+                        $('#contract-edit').find('#submit').trigger('click');
                     },
                     btn2: function () {
                         layer.closeAll();
                     }
                 });
+            }
+
+            if (layEvent === 'renewal') {
+
+            }
+
+            if (layEvent === 'terminate') {
+
             }
         });
 

@@ -7,6 +7,8 @@ import com.aoke.apartmentsystem.common.utils.DateUtil;
 import com.aoke.apartmentsystem.common.utils.FebsUtil;
 import com.aoke.apartmentsystem.system.entity.*;
 import com.aoke.apartmentsystem.system.service.*;
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.session.ExpiredSessionException;
@@ -41,6 +43,9 @@ public class ViewController extends BaseController {
 
     @Autowired
     private IDeviceService deviceService;
+
+    @Autowired
+    private IContractService contractService;
 
     @Autowired
     private ShiroHelper shiroHelper;
@@ -289,6 +294,20 @@ public class ViewController extends BaseController {
         return FebsUtil.view("system/contract/contract");
     }
 
+    @GetMapping(FebsConstant.VIEW_PREFIX + "system/contract/detail/{contractId}")
+    @RequiresPermissions("contract:view")
+    public String systemContractDetail(@PathVariable String contractId, Model model) {
+        resolveContractModel(contractId, model, true);
+        return FebsUtil.view("system/contract/contractDetail");
+    }
+
+    @GetMapping(FebsConstant.VIEW_PREFIX + "system/contract/edit/{contractId}")
+    @RequiresPermissions("user:update")
+    public String systemContractEdit(@PathVariable String contractId, Model model) {
+        resolveContractModel(contractId, model, false);
+        return FebsUtil.view("system/contract/contractEdit");
+    }
+
     private void resolveUserModel(String username, Model model, Boolean transform) {
         User user = userService.findByName(username);
         model.addAttribute("user", user);
@@ -303,6 +322,14 @@ public class ViewController extends BaseController {
         if (user.getLastLoginTime() != null) {
             model.addAttribute("lastLoginTime", DateUtil.getDateFormat(user.getLastLoginTime(), DateUtil.FULL_TIME_SPLIT_PATTERN));
         }
+    }
+
+    private void resolveContractModel(String contractId, Model model, Boolean transform) {
+        Contract contract = new Contract();
+        contract.setContractId(contractId);
+        Wrapper<Contract> wrapper = new QueryWrapper<>(contract);
+        contract = contractService.getOne(wrapper);
+        model.addAttribute("contract", contract);
     }
 
     private void resolveVillageModel(String villageName, Model model, Boolean transform) {
