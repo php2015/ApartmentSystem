@@ -1,74 +1,55 @@
-<div class="layui-fluid layui-anim febs-anim" id="febs-contract" lay-title="合同管理">
+<div class="layui-fluid layui-anim febs-anim" id="febs-template" lay-title="模板管理">
     <div class="layui-row febs-container">
         <div class="layui-col-md12">
             <div class="layui-card">
                 <div class="layui-card-body febs-table-full">
-                    <form class="layui-form layui-table-form" lay-filter="user-table-form">
+                    <form class="layui-form layui-table-form" lay-filter="template-table-form">
                         <div class="layui-row">
                             <div class="layui-col-md10">
                                 <div class="layui-form-item">
-                                    <button class="layui-btn" id="newBuild" shiro:hasPermission="contract:add">新建</button>
+                                    <button class="layui-btn" id="newTemplate" shiro:hasPermission="template:add">新建</button>
                                     <div class="layui-inline">
-                                        <label class="layui-form-label layui-form-label-sm">合同编号</label>
+                                        <label class="layui-form-label layui-form-label-sm">模板编号</label>
                                         <div class="layui-input-inline">
-                                            <input type="text" name="contractId" autocomplete="off" class="layui-input">
+                                            <input type="text" name="templateId" autocomplete="off" class="layui-input">
                                         </div>
                                     </div>
                                     <div class="layui-inline">
-                                        <label class="layui-form-label layui-form-label-sm">租户姓名</label>
+                                        <label class="layui-form-label layui-form-label-sm">模板名称</label>
                                         <div class="layui-input-inline">
-                                            <input type="text" name="tenantName" autocomplete="off" class="layui-input">
+                                            <input type="text" name="templateName" autocomplete="off" class="layui-input">
                                         </div>
                                     </div>
                                     <div class="layui-inline">
-                                        <label class="layui-form-label layui-form-label-sm">证件类型</label>
+                                        <label class="layui-form-label layui-form-label-sm">模板状态</label>
                                         <div class="layui-input-inline">
-                                            <select name="credentialsType">
+                                            <select name="templateStatus">
                                                 <option value=""></option>
-                                                <option value="0">居民身份证</option>
-                                                <option value="1">护照</option>
+                                                <option value="0">停用</option>
+                                                <option value="1">启用</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="layui-inline">
-                                        <label class="layui-form-label layui-form-label-sm">证件号码</label>
+                                        <label class="layui-form-label layui-form-label-sm">模板类型</label>
                                         <div class="layui-input-inline">
-                                            <input type="text" name="credentialsCode" autocomplete="off" class="layui-input">
-                                        </div>
-                                    </div>
-                                    <div class="layui-inline">
-                                        <label class="layui-form-label layui-form-label-sm">合同周期</label>
-                                        <div class="layui-input-inline">
-                                            <input type="text" name="contractCycle" autocomplete="off" class="layui-input">
-                                        </div>
-                                    </div>
-                                    <div class="layui-inline">
-                                        <label class="layui-form-label layui-form-label-sm">起效日期</label>
-                                        <div class="layui-input-inline">
-                                            <input type="text" name="effectiveTime" id="effectiveTime" class="layui-input">
-                                        </div>
-                                    </div>
-                                    <div class="layui-inline">
-                                        <label class="layui-form-label layui-form-label-sm">租金</label>
-                                        <div class="layui-input-inline">
-                                            <input type="text" name="tenantPrice" autocomplete="off" class="layui-input">
-                                        </div>
-                                    </div>
-                                    <div class="layui-inline">
-                                        <label class="layui-form-label layui-form-label-sm">合同状态</label>
-                                        <div class="layui-input-inline">
-                                            <select name="contractStatus">
+                                            <select name="templateType">
                                                 <option value=""></option>
-                                                <option value="0">有效</option>
-                                                <option value="1">实现</option>
-                                                <option value="2">到期</option>
-                                                <option value="3">待审核</option>
-                                                <option value="4">驳回</option>
-                                                <option value="5">退租中</option>
-                                                <option value="6">退租</option>
-                                                <option value="7">未付款</option>
-                                                <option value="8">续租</option>
+                                                <option value="0">两室一厅</option>
+                                                <option value="1">三室一厅</option>
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label layui-form-label-sm">创建时间</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="createTime" id="createTime" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label layui-form-label-sm">上级模板</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="parentTemplate" autocomplete="off" class="layui-input">
                                         </div>
                                     </div>
                                 </div>
@@ -80,60 +61,49 @@
                                 <div class="layui-btn layui-btn-sm layui-btn-primary table-action" id="reset">
                                     <i class="layui-icon">&#xe79b;</i>
                                 </div>
-                                <!--                                <div class="layui-btn layui-btn-sm layui-btn-primary table-action action-more"-->
-                                <!--                                     shiro:hasAnyPermissions="user:add,user:update,user:password:reset,user:export">-->
-                                <!--                                    <i class="layui-icon">&#xe875;</i>-->
-                                <!--                                </div>-->
                             </div>
                         </div>
                     </form>
-                    <table lay-filter="contractTable" lay-data="{id: 'contractTable'}"></table>
+                    <table lay-filter="templateTable" lay-data="{id: 'templateTable'}"></table>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script type="text/html" id="tenant-credentials-type">
+<script type="text/html" id="template-status">
     {{#
-    var credentialsType = {
-    1: {title: '护照', color: 'volcano'},
-    0: {title: '居民身份证', color: 'green'}
-    }[d.credentialsType];
+    var templateStatus = {
+    1: {title: '启用', color: 'volcano'},
+    0: {title: '停用', color: 'green'}
+    }[d.templateStatus];
     }}
-    <span class="layui-badge febs-tag-{{credentialsType.color}}">{{ credentialsType.title }}</span>
+    <span class="layui-badge febs-tag-{{templateStatus.color}}">{{ templateStatus.title }}</span>
 </script>
-<script type="text/html" id="tenant-contract-status">
+<script type="text/html" id="template-type">
     {{#
-    var contractStatus = {
-    8: {title: '续租', color: 'purple'},
-    7: {title: '未付款', color: 'geekblue'},
-    6: {title: '退租', color: 'blue'},
-    5: {title: '退租中', color: 'cyan'},
-    4: {title: '驳回', color: 'gold'},
-    3: {title: '待审核', color: 'volcano'},
-    2: {title: '到期', color: 'red'},
-    1: {title: '实现', color: 'orange'},
-    0: {title: '有效', color: 'green'}
-    }[d.contractStatus];
+    var templateType = {
+    1: {title: '三室一厅', color: 'orange'},
+    0: {title: '两室一厅', color: 'green'}
+    }[d.templateType];
     }}
-    <span class="layui-badge febs-bg-{{contractStatus.color}}">{{ contractStatus.title }}</span>
+    <span class="layui-badge febs-bg-{{templateType.color}}">{{ templateType.title }}</span>
 </script>
-<script type="text/html" id="user-option">
-    <span shiro:lacksPermission="contract:view,contract:update">
+<script type="text/html" id="template-option">
+    <span shiro:lacksPermission="template:view,template:update,template:delete,template:state">
         <span class="layui-badge-dot febs-bg-orange"></span> 无权限
     </span>
-    <a lay-event="detail" shiro:hasPermission="contract:view">
+    <a lay-event="detail" shiro:hasPermission="template:view">
         <i class="layui-icon febs-edit-area febs-green">&#xe7a5;</i>
     </a>
 
-    <a lay-event="edit" shiro:hasPermission="contract:update">
+    <a lay-event="edit" shiro:hasPermission="template:update">
         <i class="layui-icon febs-edit-area febs-blue">&#xe7a4;</i>
     </a>
-    <a lay-event="renewal" shiro:hasPermission="contract:renewal">
-        <i class="layui-icon febs-edit-area febs-geekblue">&#xe798;</i>
+    <a lay-event="state" shiro:hasPermission="template:state">
+        <i class="layui-icon febs-edit-area febs-geekblue">&#xe7b0;</i>
     </a>
-    <a lay-event="terminate" shiro:hasPermission="contract:terminate">
-        <i class="layui-icon febs-edit-area febs-red">&#xe7a8;</i>
+    <a lay-event="delete" shiro:hasPermission="template:delete">
+        <i class="layui-icon febs-edit-area febs-red">&#xe7f9;</i>
     </a>
 </script>
 <script data-th-inline="none" type="text/javascript">
@@ -143,11 +113,11 @@
             febs = layui.febs,
             form = layui.form,
             table = layui.table,
-            $view = $('#febs-contract'),
+            $view = $('#febs-template'),
             $query = $view.find('#query'),
             $reset = $view.find('#reset'),
             $searchForm = $view.find('form'),
-            sortObject = {field: 'effectiveTime', type: null},
+            sortObject = {field: 'createTime', type: null},
             tableIns;
 
         form.render();
@@ -155,7 +125,7 @@
         initTable();
 
         laydate.render({
-            elem: '#effectiveTime',
+            elem: '#createTime',
             range: true,
             trigger: 'click'
         });
@@ -237,21 +207,21 @@
         //     search: false
         // });
 
-        table.on('tool(contractTable)', function (obj) {
+        table.on('tool(templateTable)', function (obj) {
             var data = obj.data,
                 layEvent = obj.event;
             if (layEvent === 'detail') {
-                febs.modal.view('合同信息', 'system/contract/detail/' + data.contractId, {
+                febs.modal.view('模板信息', 'system/contract/template/' + data.templateId, {
                     area: $(window).width() <= 750 ? '95%' : '660px'
                 });
             }
 
             if (layEvent === 'edit') {
-                febs.modal.open('修改合同', 'system/contract/edit/' + data.contractId, {
+                febs.modal.open('修改模板', 'system/contract/template/edit/' + data.templateId, {
                     area: $(window).width() <= 750 ? '90%' : '50%',
                     btn: ['提交', '取消'],
                     yes: function (index, layero) {
-                        $('#contract-edit').find('#submit').trigger('click');
+                        $('#template-edit').find('#submit').trigger('click');
                     },
                     btn2: function () {
                         layer.closeAll();
@@ -259,16 +229,16 @@
                 });
             }
 
-            if (layEvent === 'renewal') {
+            if (layEvent === 'state') {
 
             }
 
-            if (layEvent === 'terminate') {
+            if (layEvent === 'delete') {
 
             }
         });
 
-        table.on('sort(contractTable)', function (obj) {
+        table.on('sort(templateTable)', function (obj) {
             sortObject = obj;
             tableIns.reload({
                 initSort: obj,
@@ -293,37 +263,31 @@
         function initTable() {
             tableIns = febs.table.init({
                 elem: $view.find('table'),
-                id: 'contractTable',
-                url: ctx + 'contract/list',
+                id: 'templateTable',
+                url: ctx + 'contract/template/list',
                 cols: [[
                     {type: 'checkbox'},
-                    {field: 'contractId', title: '合同编号', minWidth: 100},
-                    {field: 'tenantName', title: '租户姓名', minWidth: 100},
-                    {title: '证件类型', templet: '#tenant-credentials-type'},
-                    {field: 'credentialsCode', title: '证件号码', minWidth: 100},
-                    {field: 'contractCycle', title: '合同周期', minWidth: 20},
-                    {field: 'effectiveTime', title: '起效时间', minWidth: 180, sort: true},
-                    {field: 'tenantPrice', title: '租金', minWidth: 80},
-                    {title: '合同状态', templet: '#tenant-contract-status'},
-                    {title: '操作', toolbar: '#user-option', minWidth: 140}
+                    {field: 'templateId', title: '模板编号', minWidth: 100},
+                    {field: 'templateName', title: '模板名称', minWidth: 100},
+                    {title: '模板状态', templet: '#template-status'},
+                    {title: '模板类型', templet: '#template-type'},
+                    {field: 'createTime', title: '创建时间', minWidth: 180, sort: true},
+                    {field: 'createBy', title: '创建人', minWidth: 100},
+                    {field: 'parentTemplate', title: '上级模板', minWidth: 20},
+                    {field: 'childrenNum', title: '下级模板数', minWidth: 80},
+                    {title: '操作', toolbar: '#template-option', minWidth: 140}
                 ]]
             });
         }
 
         function getQueryParams() {
-            var cId = $searchForm.find('input[name="contractId"]').val();
-            var tName = $searchForm.find('input[name="tenantName"]').val();
-            var cCode = $searchForm.find('input[name="credentialsCode"]').val();
-
             return {
-                contractId: cId === "" ? null : cId,
-                tenantName: tName === "" ? null : tName,
-                credentialsType: $searchForm.find("select[name='credentialsType']").val(),
-                credentialsCode: cCode === "" ? null : cCode,
-                contractCycle: $searchForm.find('input[name="contractCycle"]').val(),
-                effectiveTime: $searchForm.find('input[name="effectiveTime"]').val(),
-                tenantPrice: $searchForm.find('input[name="tenantPrice"]').val(),
-                contractStatus: $searchForm.find("select[name='contractStatus']").val(),
+                templateId: $searchForm.find('input[name="templateId"]').val(),
+                templateName: $searchForm.find('input[name="templateName"]').val(),
+                templateStatus: $searchForm.find("select[name='templateStatus']").val(),
+                templateType: $searchForm.find("select[name='templateType']").val(),
+                createTime: $searchForm.find('input[name="createTime"]').val(),
+                parentTemplate: $searchForm.find('input[name="parentTemplate"]').val(),
                 invalidate_ie_cache: new Date()
             };
         }

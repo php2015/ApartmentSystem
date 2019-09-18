@@ -166,7 +166,8 @@
 
         laydate.render({
             elem: '#febs-form-group-date',
-            format: 'yyyy-MM-dd HH:mm:ss'
+            format: 'yyyy-MM-dd HH:mm:ss',
+            type: 'datetime'
         });
 
         initContractValue();
@@ -181,7 +182,7 @@
                 "credentialsCode": contract.credentialsCode,
                 "phone": contract.phone,
                 "contractCycle": contract.contractCycle,
-                "effectiveTime": '2018-12-15 11:30:22',
+                "effectiveTime": [[${effectiveTime}]],
                 "tenantPrice": contract.tenantPrice,
                 "payTime": contract.payTime,
                 "contractStatus": contract.contractStatus,

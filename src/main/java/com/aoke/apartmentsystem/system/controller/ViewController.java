@@ -302,10 +302,29 @@ public class ViewController extends BaseController {
     }
 
     @GetMapping(FebsConstant.VIEW_PREFIX + "system/contract/edit/{contractId}")
-    @RequiresPermissions("user:update")
+    @RequiresPermissions("contract:update")
     public String systemContractEdit(@PathVariable String contractId, Model model) {
         resolveContractModel(contractId, model);
         return FebsUtil.view("system/contract/contractEdit");
+    }
+
+    @GetMapping(FebsConstant.VIEW_PREFIX + "system/contract/template")
+    public String template() {
+        return FebsUtil.view("system/contract/template");
+    }
+
+    @GetMapping(FebsConstant.VIEW_PREFIX + "system/contract/template/{templateId}")
+    @RequiresPermissions("template:view")
+    public String systemTemplateDetail(@PathVariable String templateId, Model model) {
+        resolveTemplateModel(templateId, model);
+        return FebsUtil.view("system/contract/templateDetail");
+    }
+
+    @GetMapping(FebsConstant.VIEW_PREFIX + "system/contract/template/edit/{templateId}")
+    @RequiresPermissions("template:update")
+    public String systemTemplateEdit(@PathVariable String templateId, Model model) {
+        resolveTemplateModel(templateId, model);
+        return FebsUtil.view("system/contract/templateEdit");
     }
 
     private void resolveUserModel(String username, Model model, Boolean transform) {
@@ -342,6 +361,10 @@ public class ViewController extends BaseController {
         if (contract.getUpdateTime() != null) {
             model.addAttribute("updateTime", DateUtil.getDateFormat(contract.getUpdateTime(), DateUtil.FULL_TIME_SPLIT_PATTERN));
         }
+    }
+
+    private void resolveTemplateModel(String templateId, Model model) {
+
     }
 
     private void resolveVillageModel(String villageName, Model model, Boolean transform) {

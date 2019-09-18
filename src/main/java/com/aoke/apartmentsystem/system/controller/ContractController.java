@@ -6,7 +6,9 @@ import com.aoke.apartmentsystem.common.entity.FebsResponse;
 import com.aoke.apartmentsystem.common.entity.QueryRequest;
 import com.aoke.apartmentsystem.common.exception.FebsException;
 import com.aoke.apartmentsystem.system.entity.Contract;
+import com.aoke.apartmentsystem.system.entity.Template;
 import com.aoke.apartmentsystem.system.service.IContractService;
+import com.aoke.apartmentsystem.system.service.ITemplateService;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.Map;
 
 @Slf4j
@@ -35,6 +38,9 @@ public class ContractController extends BaseController {
 
     @Resource
     private IContractService contractService;
+
+    @Resource
+    private ITemplateService templateService;
 
     @GetMapping("/list")
     @RequiresPermissions(value = {"contract:view"})
@@ -53,6 +59,8 @@ public class ContractController extends BaseController {
         try {
             if (contract.getContractId() == null)
                 throw new FebsException("合同编号为空");
+            contract.setUpdateBy(getCurrentUser().getUsername());
+            contract.setUpdateTime(new Date());
             this.contractService.updateById(contract);
             return new FebsResponse().success();
         } catch (Exception e) {
@@ -60,6 +68,16 @@ public class ContractController extends BaseController {
             log.error(message, e);
             throw new FebsException(message);
         }
+    }
+
+    @GetMapping("/template/list")
+    @RequiresPermissions(value = {"template:view"})
+    public FebsResponse templateList(Template template, QueryRequest request) {
+        IPage<Template> iPage = new Page<>(request.getPageNum(), request.getPageSize());
+        Wrapper<Template> wrapper = new QueryWrapper<>(template);
+
+        Map<String, Object> dataTable = getDataTable(templateService.pageMaps(iPage, wrapper));
+        return new FebsResponse().success().data(dataTable);
     }
 
 }
