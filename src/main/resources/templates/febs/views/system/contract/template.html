@@ -303,5 +303,11 @@
                 $query.click();
             });
         }
+
+        $("#newTemplate").on('click', function () {
+            febs.modal.view('新建模板', 'system/contract/template/add', {
+                area: $(window).width() <= 750 ? '95%' : '660px'
+            });
+        });
     })
 </script>
