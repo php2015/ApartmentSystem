@@ -143,8 +143,6 @@
             febs = layui.febs,
             form = layui.form,
             table = layui.table,
-            treeSelect = layui.treeSelect,
-            dropdown = layui.dropdown,
             $view = $('#febs-contract'),
             $query = $view.find('#query'),
             $reset = $view.find('#reset'),
@@ -288,9 +286,8 @@
 
         $reset.on('click', function () {
             $searchForm[0].reset();
-            // treeSelect.revokeNode('dept');
             sortObject.type = 'null';
-            tableIns.reload({where: getQueryParams(), page: {curr: 1}, initSort: sortObject});
+            tableIns.reload({where: null, page: {curr: 1}, initSort: sortObject});
         });
 
         function initTable() {
@@ -314,14 +311,18 @@
         }
 
         function getQueryParams() {
+            var cId = $searchForm.find('input[name="contractId"]').val();
+            var tName = $searchForm.find('input[name="tenantName"]').val();
+            var cCode = $searchForm.find('input[name="credentialsCode"]').val();
+
             return {
-                contractId: $searchForm.find('input[name="contractId"]').val().trim(),
-                tenantName: $searchForm.find('input[name="tenantName"]').val().trim(),
+                contractId: cId === "" ? null : cId,
+                tenantName: tName === "" ? null : tName,
                 credentialsType: $searchForm.find("select[name='credentialsType']").val(),
-                credentialsCode: $searchForm.find('input[name="credentialsCode"]').val().trim(),
-                contractCycle: $searchForm.find('input[name="contractCycle"]').val().trim(),
+                credentialsCode: cCode === "" ? null : cCode,
+                contractCycle: $searchForm.find('input[name="contractCycle"]').val(),
                 effectiveTime: $searchForm.find('input[name="effectiveTime"]').val(),
-                tenantPrice: $searchForm.find('input[name="tenantPrice"]').val().trim(),
+                tenantPrice: $searchForm.find('input[name="tenantPrice"]').val(),
                 contractStatus: $searchForm.find("select[name='contractStatus']").val(),
                 invalidate_ie_cache: new Date()
             };

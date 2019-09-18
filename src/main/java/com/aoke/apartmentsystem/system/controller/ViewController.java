@@ -297,14 +297,14 @@ public class ViewController extends BaseController {
     @GetMapping(FebsConstant.VIEW_PREFIX + "system/contract/detail/{contractId}")
     @RequiresPermissions("contract:view")
     public String systemContractDetail(@PathVariable String contractId, Model model) {
-        resolveContractModel(contractId, model, true);
+        resolveContractModel(contractId, model);
         return FebsUtil.view("system/contract/contractDetail");
     }
 
     @GetMapping(FebsConstant.VIEW_PREFIX + "system/contract/edit/{contractId}")
     @RequiresPermissions("user:update")
     public String systemContractEdit(@PathVariable String contractId, Model model) {
-        resolveContractModel(contractId, model, false);
+        resolveContractModel(contractId, model);
         return FebsUtil.view("system/contract/contractEdit");
     }
 
@@ -324,12 +324,24 @@ public class ViewController extends BaseController {
         }
     }
 
-    private void resolveContractModel(String contractId, Model model, Boolean transform) {
+    private void resolveContractModel(String contractId, Model model) {
         Contract contract = new Contract();
         contract.setContractId(contractId);
         Wrapper<Contract> wrapper = new QueryWrapper<>(contract);
         contract = contractService.getOne(wrapper);
         model.addAttribute("contract", contract);
+
+        if (contract.getEffectiveTime() != null) {
+            model.addAttribute("effectiveTime", DateUtil.getDateFormat(contract.getEffectiveTime(), DateUtil.FULL_TIME_SPLIT_PATTERN));
+        }
+
+        if (contract.getCreateTime() != null) {
+            model.addAttribute("createTime", DateUtil.getDateFormat(contract.getCreateTime(), DateUtil.FULL_TIME_SPLIT_PATTERN));
+        }
+
+        if (contract.getUpdateTime() != null) {
+            model.addAttribute("updateTime", DateUtil.getDateFormat(contract.getUpdateTime(), DateUtil.FULL_TIME_SPLIT_PATTERN));
+        }
     }
 
     private void resolveVillageModel(String villageName, Model model, Boolean transform) {

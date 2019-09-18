@@ -1,8 +1,10 @@
 package com.aoke.apartmentsystem.system.controller;
 
+import com.aoke.apartmentsystem.common.annotation.Log;
 import com.aoke.apartmentsystem.common.controller.BaseController;
 import com.aoke.apartmentsystem.common.entity.FebsResponse;
 import com.aoke.apartmentsystem.common.entity.QueryRequest;
+import com.aoke.apartmentsystem.common.exception.FebsException;
 import com.aoke.apartmentsystem.system.entity.Contract;
 import com.aoke.apartmentsystem.system.service.IContractService;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
@@ -15,10 +17,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.Map;
 
 @Slf4j
@@ -40,6 +44,22 @@ public class ContractController extends BaseController {
 
         Map<String, Object> dataTable = getDataTable(contractService.pageMaps(iPage, wrapper));
         return new FebsResponse().success().data(dataTable);
+    }
+
+    @Log("修改合同")
+    @PostMapping("/update")
+    @RequiresPermissions(value = {"contract:update"})
+    public FebsResponse updateContract(@Valid Contract contract) throws FebsException {
+        try {
+            if (contract.getContractId() == null)
+                throw new FebsException("合同编号为空");
+            this.contractService.updateById(contract);
+            return new FebsResponse().success();
+        } catch (Exception e) {
+            String message = "修改合同失败";
+            log.error(message, e);
+            throw new FebsException(message);
+        }
     }
 
 }

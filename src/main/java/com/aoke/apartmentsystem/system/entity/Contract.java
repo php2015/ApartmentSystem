@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.wuwenze.poi.annotation.Excel;
 import com.wuwenze.poi.annotation.ExcelField;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -89,6 +90,7 @@ public class Contract implements Serializable {
      * 起效日期(按租户签字时间年-月-日)
      */
     @TableField("effective_time")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ExcelField(value = "起效日期", writeConverter = TimeConverter.class)
     private Date effectiveTime;
 
@@ -103,7 +105,7 @@ public class Contract implements Serializable {
      * 支付周期
      */
     @TableField("pay_time")
-    private Date payTime;
+    private Integer payTime;
 
     /**
      * 状态（有效、实现、到期、待审核、驳回、退租中、退组、未付款、续租）
@@ -163,6 +165,7 @@ public class Contract implements Serializable {
      * 创建时间
      */
     @TableField("create_time")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /**
@@ -176,6 +179,7 @@ public class Contract implements Serializable {
      * 更新时间
      */
     @TableField("update_time")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     /**
@@ -272,11 +276,11 @@ public class Contract implements Serializable {
         this.tenantPrice = tenantPrice;
     }
 
-    public Date getPayTime() {
+    public Integer getPayTime() {
         return payTime;
     }
 
-    public void setPayTime(Date payTime) {
+    public void setPayTime(Integer payTime) {
         this.payTime = payTime;
     }
 
