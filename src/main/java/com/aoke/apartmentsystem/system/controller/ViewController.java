@@ -341,6 +341,11 @@ public class ViewController extends BaseController {
         return FebsUtil.view("system/contract/templateAdd");
     }
 
+    @GetMapping(FebsConstant.VIEW_PREFIX + "system/contract/template/select")
+    public String templateSelect() {
+        return FebsUtil.view("system/contract/templateSelect");
+    }
+
     private void resolveUserModel(String username, Model model, Boolean transform) {
         User user = userService.findByName(username);
         model.addAttribute("user", user);

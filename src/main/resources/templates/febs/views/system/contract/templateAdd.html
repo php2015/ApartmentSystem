@@ -12,7 +12,13 @@
     }
 </style>
 <div class="layui-fluid" id="template-add">
-    <form class="layui-form" action="">
+    <div class="layui-form">
+        <div class="layui-form-item febs-hide">
+            <label class="layui-form-label">上级模板编号：</label>
+            <div class="layui-input-block">
+                <input type="text" name="parentTemplate" id="parentTemplate" data-th-value="${parentTemplate}">
+            </div>
+        </div>
         <div class="layui-form-item">
             <button class="layui-btn" id="importTemplate" >导入范文/导入上级模板</button>
         </div>
@@ -25,5 +31,43 @@
         <div class="layui-form-item">
             <button class="layui-btn" id="submit">提交</button>
         </div>
-    </form>
+    </div>
 </div>
+<script data-th-inline="none" type="text/javascript">
+    layui.use(['dropdown', 'jquery', 'laydate', 'form', 'table', 'febs', 'treeSelect'], function () {
+        var $ = layui.jquery,
+            febs = layui.febs,
+            $import = $("#importTemplate"),
+            $input = $('#inputContent'),
+            $defineRequired = $('#defineRequiredOptions'),
+            $submit = $('#submit');
+
+        $import.on('click', function () {
+            febs.modal.view('选择上级模板', 'system/contract/template/select', {
+                area: $(window).width() <= 750 ? '95%' : '800px'
+            });
+        });
+
+        $input.on('click', function () {
+            console.log("input");
+        });
+
+        refresh();
+
+        function refresh() {
+            var pTemplateId = $('#parentTemplate').val().trim();
+            if (pTemplateId === "") {
+                $import.disabled = false;
+                $input.disabled = true;
+                $defineRequired.disabled = true;
+                $submit.disabled = true;
+            } else {
+                $import.disabled = true;
+                $input.disabled = false;
+                $defineRequired.disabled = false;
+                $submit.disabled = false;
+            }
+            console.log($input.disabled);
+        }
+    });
+</script>

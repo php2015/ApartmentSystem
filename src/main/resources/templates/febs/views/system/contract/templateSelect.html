@@ -1,0 +1,129 @@
+<div class="layui-fluid layui-anim febs-anim" id="febs-templateSelect" lay-title="选择上级模板">
+    <div class="layui-row febs-container">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-card-body febs-table-full">
+                    <form class="layui-form layui-table-form" lay-filter="template-table-form">
+                        <div class="layui-row">
+                            <div class="layui-col-md10">
+                                <div class="layui-inline">
+                                    <label class="layui-form-label layui-form-label-sm">模板编号</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="templateId" autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-inline">
+                                    <label class="layui-form-label layui-form-label-sm">模板名称</label>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="templateName" autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-col-md2 layui-col-sm12 layui-col-xs12 table-action-area">
+                                <div class="layui-btn layui-btn-sm layui-btn-primary table-action" id="query">
+                                    <i class="layui-icon">&#xe848;</i>
+                                </div>
+                                <div class="layui-btn layui-btn-sm layui-btn-primary table-action" id="reset">
+                                    <i class="layui-icon">&#xe79b;</i>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <table lay-filter="templateTable" lay-data="{id: 'templateTable'}"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="user-option">
+    <a lay-event="choose">
+        <i class="layui-icon febs-edit-area febs-green">&#xe81b;</i>
+    </a>
+</script>
+<script type="text/html" id="template-status">
+    {{#
+    var templateStatus = {
+    1: {title: '启用', color: 'volcano'},
+    0: {title: '停用', color: 'green'}
+    }[d.templateStatus];
+    }}
+    <span class="layui-badge febs-tag-{{templateStatus.color}}">{{ templateStatus.title }}</span>
+</script>
+<script data-th-inline="none" type="text/javascript">
+    layui.use(['dropdown', 'jquery', 'laydate', 'form', 'table', 'febs', 'treeSelect'], function () {
+        var $ = layui.jquery,
+            laydate = layui.laydate,
+            febs = layui.febs,
+            form = layui.form,
+            table = layui.table,
+            $view = $('#febs-templateSelect'),
+            $query = $view.find('#query'),
+            $reset = $view.find('#reset'),
+            $searchForm = $view.find('form'),
+            sortObject = {field: 'templateId', type: null},
+            tableIns;
+
+        form.render();
+
+        initTable();
+
+        laydate.render({
+            elem: '#templateId',
+            range: true,
+            trigger: 'click'
+        });
+
+        table.on('tool(templateTable)', function (obj) {
+            var data = obj.data,
+                layEvent = obj.event;
+
+            if (layEvent === 'choose') {
+                $('#template-add').find('#parentTemplate').val(data.templateId);
+                layer.close(layer.index);
+            }
+        });
+
+        table.on('sort(templateTable)', function (obj) {
+            sortObject = obj;
+            tableIns.reload({
+                initSort: obj,
+                where: $.extend(getQueryParams(), {
+                    field: obj.field,
+                    order: obj.type
+                })
+            });
+        });
+
+        $query.on('click', function () {
+            var params = $.extend(getQueryParams(), {field: sortObject.field, order: sortObject.type});
+            tableIns.reload({where: params, page: {curr: 1}});
+        });
+
+        $reset.on('click', function () {
+            $searchForm[0].reset();
+            sortObject.type = 'null';
+            tableIns.reload({where: null, page: {curr: 1}, initSort: sortObject});
+        });
+
+        function initTable() {
+            tableIns = febs.table.init({
+                elem: $view.find('table'),
+                id: 'templateTable',
+                url: ctx + 'contract/template/list',
+                cols: [[
+                    {field: 'templateId', title: '模板编号', minWidth: 100},
+                    {field: 'templateName', title: '模板名称', minWidth: 100},
+                    {title: '模板状态', templet: '#template-status'},
+                    {title: '操作', toolbar: '#user-option', minWidth: 140}
+                ]]
+            });
+        }
+
+        function getQueryParams() {
+            return {
+                templateId: $searchForm.find('input[name="templateId"]').val(),
+                templateName: $searchForm.find('input[name="templateName"]').val(),
+            };
+        }
+    })
+</script>
