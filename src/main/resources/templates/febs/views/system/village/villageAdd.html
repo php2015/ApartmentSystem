@@ -66,8 +66,8 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">小区图片：</label>
             <div class="layui-input-block">
-                <img alt="小区图片" id="villagePicavatar" data-th-src="@{febs/images/u690.png}">
-                <input id="villagePic" type="file" name="villagePic" onclick="imgLoad();" />
+                <img alt="小区图片" id="villagePicavatar" name="villagePicavatar" data-th-src="@{febs/images/u690.png}">
+                <input id="villagePic" type="file" name="villagePic" onchange="imgLoad();" />
             </div>
         </div>
 <!--        <div class="layui-form-item layui-form-text">-->

@@ -19,12 +19,9 @@
         <div class="layui-form-item">
             <label class="layui-form-label febs-form-item-require">所属小区：</label>
             <div class="layui-input-block">
-                <select name="villageId"
-                        lay-verify="required"
-                        xm-select-direction="down"
-                        xm-select="user-add-village"
-                        xm-select-skin="default">
-                </select>
+                <select name="villageId">
+                    <option value="">请选择</option>
+                    <option th:each="result : ${villageList}" th:value="${result.villageId}" th:text="${result.villageName}"></option>
                 </select>
             </div>
         </div>
@@ -77,28 +74,28 @@
         treeSelect.render({
         });
 
-        formSelects.config('user-add-village', {
-            searchUrl: ctx + 'village/villages',
-            response: {
-                statusCode: 200
-            },
-            beforeSuccess: function (id, url, searchVal, result) {
-                var data = result.data;
-                var tranData = [];
-                for (var i = 0; i < data.length; i++) {
-                    tranData.push({
-                        name: data[i].villageName,
-                        value: data[i].villageId
-                    })
-                }
-                result.data = tranData;
-                return result;
-            },
-            error: function (id, url, searchVal, err) {
-                console.error(err);
-                febs.alert.error('获取小区列表失败');
-            }
-        });
+        // formSelects.config('user-add-village', {
+        //     searchUrl: ctx + 'village/villages',
+        //     response: {
+        //         statusCode: 200
+        //     },
+        //     beforeSuccess: function (id, url, searchVal, result) {
+        //         var data = result.data;
+        //         var tranData = [];
+        //         for (var i = 0; i < data.length; i++) {
+        //             tranData.push({
+        //                 name: data[i].villageName,
+        //                 value: data[i].villageId
+        //             })
+        //         }
+        //         result.data = tranData;
+        //         return result;
+        //     },
+        //     error: function (id, url, searchVal, err) {
+        //         console.error(err);
+        //         febs.alert.error('获取小区列表失败');
+        //     }
+        // });
 
         function initUserValue() {
             form.val("building-update-form", {

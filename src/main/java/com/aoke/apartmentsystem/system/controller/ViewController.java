@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author xiaoxinglin
@@ -37,6 +38,9 @@ public class ViewController extends BaseController {
 
     @Autowired
     private IBuildingService buildingService;
+
+    @Autowired
+    private IUnitService unitService;
 
     @Autowired
     private IRoomService roomService;
@@ -158,7 +162,8 @@ public class ViewController extends BaseController {
 
     @GetMapping(FebsConstant.VIEW_PREFIX + "system/building/add")
     @RequiresPermissions("building:add")
-    public String systemBuildingAdd() {
+    public String systemBuildingAdd(Village village,Model model) {
+        getVillageModel(village,model);
         return FebsUtil.view("system/building/buildingAdd");
     }
 
@@ -171,8 +176,9 @@ public class ViewController extends BaseController {
 
     @GetMapping(FebsConstant.VIEW_PREFIX + "system/building/update/{buildingName}")
     @RequiresPermissions("building:update")
-    public String systemBuildingUpdate(@PathVariable String buildingName, Model model) {
+    public String systemBuildingUpdate(@PathVariable String buildingName, Village village,Model model) {
         resolveBuildingModel(buildingName, model, false);
+        getVillageModel(village,model);
         return FebsUtil.view("system/building/buildingUpdate");
     }
 
@@ -185,7 +191,8 @@ public class ViewController extends BaseController {
 
     @GetMapping(FebsConstant.VIEW_PREFIX + "system/room/add")
     @RequiresPermissions("room:add")
-    public String systemRoomAdd() {
+    public String systemRoomAdd(Village village,Building building,Unit unit,Model model) {
+        getVBUModel(village,building,unit,model);
         return FebsUtil.view("system/room/roomAdd");
     }
 
@@ -198,8 +205,9 @@ public class ViewController extends BaseController {
 
     @GetMapping(FebsConstant.VIEW_PREFIX + "system/room/update/{roomName}")
     @RequiresPermissions("room:update")
-    public String systemRoomUpdate(@PathVariable String roomName, Model model) {
+    public String systemRoomUpdate(@PathVariable String roomName,Village village,Building building,Unit unit, Model model) {
         resolveRoomModel(roomName, model, false);
+        getVBUModel(village,building,unit,model);
         return FebsUtil.view("system/room/roomUpdate");
     }
 
@@ -423,5 +431,19 @@ public class ViewController extends BaseController {
 //        }
 //        if (user.getLastLoginTime() != null)
 //            model.addAttribute("lastLoginTime", DateUtil.getDateFormat(user.getLastLoginTime(), DateUtil.FULL_TIME_SPLIT_PATTERN));
+    }
+
+    private void getVillageModel(Village village,Model model) {
+        List<Village> villageList = villageService.findListVillage(village);
+        model.addAttribute("villageList", villageList);
+    }
+
+    private void getVBUModel(Village village,Building building,Unit unit,Model model) {
+        List<Village> villageList = villageService.findListVillage(village);
+        List<Building> buildingList = buildingService.findListBuilding(building);
+        List<Unit> unitList = unitService.findListUnit(unit);
+        model.addAttribute("villageList", villageList);
+        model.addAttribute("buildingList", buildingList);
+        model.addAttribute("unitList", unitList);
     }
 }

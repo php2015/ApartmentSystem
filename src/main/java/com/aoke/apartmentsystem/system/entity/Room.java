@@ -172,6 +172,20 @@ public class Room implements Serializable {
     @TableField("del_flag")
     private int delFlag;
 
+    /**
+     * 小区名称
+     */
+    @ExcelField(value = "小区")
+    @TableField(exist = false)
+    private String villageName;
+
+    /**
+     * 楼栋名称
+     */
+    @ExcelField(value = "楼栋")
+    @TableField(exist = false)
+    private String buildingName;
+
     public Long getRoomId() {
         return roomId;
     }
@@ -332,5 +346,27 @@ public class Room implements Serializable {
         this.delFlag = delFlag;
     }
 
+    public String getContactWay() {
+        return contactWay;
+    }
 
+    public void setContactWay(String contactWay) {
+        this.contactWay = contactWay;
+    }
+
+    public String getVillageName() {
+        return villageName;
+    }
+
+    public void setVillageName(String villageName) {
+        this.villageName = villageName;
+    }
+
+    public String getBuildingName() {
+        return buildingName;
+    }
+
+    public void setBuildingName(String buildingName) {
+        this.buildingName = buildingName;
+    }
 }

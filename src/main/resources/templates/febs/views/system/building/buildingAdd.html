@@ -18,12 +18,15 @@
         <div class="layui-form-item">
             <label class="layui-form-label febs-form-item-require">所属小区：</label>
             <div class="layui-input-block">
-                <select name="villageId"
-                        lay-verify="required"
-                        xm-select-direction="down"
-                        xm-select="user-add-village"
-                        xm-select-skin="default">
-                </select>
+<!--                <select name="villageId"-->
+<!--                        lay-verify="required"-->
+<!--                        xm-select-direction="down"-->
+<!--                        xm-select="user-add-village"-->
+<!--                        xm-select-skin="default">-->
+<!--                </select>-->
+                <select name="villageId">
+                    <option value="">请选择</option>
+                    <option th:each="result : ${villageList}" th:value="${result.villageId}" th:text="${result.villageName}"></option>
                 </select>
             </div>
         </div>
@@ -39,6 +42,20 @@
             <div class="layui-input-block">
                 <input type="text" name="buildingNum" maxlength="50" autocomplete="off"
                        class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">联系人：</label>
+            <div class="layui-input-block">
+                <input type="text" name="contactor" minlength="2" maxlength="15"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">联系方式：</label>
+            <div class="layui-input-block">
+                <input type="text" name="contactWay" minlength="2" maxlength="11"
+                       autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item layui-form-text">
@@ -67,35 +84,35 @@
             validate = layui.validate;
 
         // form.verify(validate);
-        // form.render();
+        form.render();
 
         formSelects.render();
 
         treeSelect.render({
         });
 
-        formSelects.config('user-add-village', {
-            searchUrl: ctx + 'village/villages',
-            response: {
-                statusCode: 200
-            },
-            beforeSuccess: function (id, url, searchVal, result) {
-                var data = result.data;
-                var tranData = [];
-                for (var i = 0; i < data.length; i++) {
-                    tranData.push({
-                        name: data[i].villageName,
-                        value: data[i].villageId
-                    })
-                }
-                result.data = tranData;
-                return result;
-            },
-            error: function (id, url, searchVal, err) {
-                console.error(err);
-                febs.alert.error('获取小区列表失败');
-            }
-        });
+        // formSelects.config('user-add-village', {
+        //     searchUrl: ctx + 'village/villages',
+        //     response: {
+        //         statusCode: 200
+        //     },
+        //     beforeSuccess: function (id, url, searchVal, result) {
+        //         var data = result.data;
+        //         var tranData = [];
+        //         for (var i = 0; i < data.length; i++) {
+        //             tranData.push({
+        //                 name: data[i].villageName,
+        //                 value: data[i].villageId
+        //             })
+        //         }
+        //         result.data = tranData;
+        //         return result;
+        //     },
+        //     error: function (id, url, searchVal, err) {
+        //         console.error(err);
+        //         febs.alert.error('获取小区列表失败');
+        //     }
+        // });
 
         form.on('submit(building-add-form-submit)', function (data) {
             febs.post(ctx + 'building', data.field, function () {

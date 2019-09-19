@@ -78,33 +78,27 @@
         <div class="layui-form-item">
             <label class="layui-form-label febs-form-item-require">所属小区：</label>
             <div class="layui-input-block">
-                <select name="villageId"
-                        lay-verify="required"
-                        xm-select-direction="down"
-                        xm-select="user-add-village"
-                        xm-select-skin="default">
+                <select name="villageId">
+                    <option value="">请选择</option>
+                    <option th:each="result : ${villageList}" th:value="${result.villageId}" th:text="${result.villageName}"></option>
                 </select>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label febs-form-item-require">所属楼栋：</label>
             <div class="layui-input-block">
-                <select name="buildingId"
-                        lay-verify="required"
-                        xm-select-direction="down"
-                        xm-select="user-add-building"
-                        xm-select-skin="default">
+                <select name="buildingId">
+                    <option value="">请选择</option>
+                    <option th:each="result : ${buildingList}" th:value="${result.buildingId}" th:text="${result.buildingName}"></option>
                 </select>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label febs-form-item-require">所属单元：</label>
             <div class="layui-input-block">
-                <select name="unitId"
-                        lay-verify="required"
-                        xm-select-direction="down"
-                        xm-select="user-add-unit"
-                        xm-select-skin="default">
+                <select name="unitId">
+                    <option value="">请选择</option>
+                    <option th:each="result : ${unitList}" th:value="${result.unitId}" th:text="${result.unitName}"></option>
                 </select>
             </div>
         </div>
@@ -113,9 +107,12 @@
             <div class="layui-input-block">
                 <select name="roomType">
                     <option value="">请选择</option>
-                    <option value="0" selected="">集中</option>
-                    <option value="1">分散</option>
-                    <option value="2">其它</option>
+                    <option value="1" selected="">一室</option>
+                    <option value="2">一室一厅</option>
+                    <option value="3">两室一厅</option>
+                    <option value="4">三室一厅</option>
+                    <option value="5">四室一厅</option>
+                    <option value="6">其它</option>
                 </select>
             </div>
         </div>
@@ -204,7 +201,7 @@
         //     }
         // });
 
-        formSelectsu.config('user-add-unit', {
+        /*formSelectsu.config('user-add-unit', {
             searchUrl: ctx + 'unit/units',
             response: {
                 statusCode: 200
@@ -271,7 +268,7 @@
                 console.error(err);
                 febs.alert.error('获取小区列表失败');
             }
-        });
+        });*/
 
         function initUserValue() {
             form.val("room-update-form", {

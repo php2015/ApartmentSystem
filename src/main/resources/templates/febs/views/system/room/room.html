@@ -63,12 +63,25 @@
     }}
     <span class="layui-badge febs-tag-{{status.color}}">{{ status.title }}</span>
 </script>
+<script type="text/html" id="room-payWay">
+    {{#
+    var payWay = {
+    2: {title: '其它', color: 'red'},
+    1: {title: '押一付一', color: 'green'},
+    0: {title: '押一付三', color: 'volcano'}
+    }[d.payWay];
+    }}
+    <span class="layui-badge febs-tag-{{payWay.color}}">{{ payWay.title }}</span>
+</script>
 <script type="text/html" id="room-roomType">
     {{#
     var roomType = {
-    2: {title: '其它'},
-    1: {title: '分散式'},
-    0: {title: '集中式'}
+    6: {title: '其它'},
+    5: {title: '四室一厅'},
+    4: {title: '三室一厅'},
+    3: {title: '两室一厅'},
+    2: {title: '一室一厅'},
+    1: {title: '一室'}
     }[d.roomType];
     }}
     <span>{{ roomType.title }}</span>
@@ -229,16 +242,16 @@
                 url: ctx + 'room/list',
                 cols: [[
                     {type: 'checkbox'},
+                    {field: 'villageName', title: '小区名称', minWidth: 120},
+                    {field: 'buildingName', title: '楼栋名称', minWidth: 100},
                     {field: 'roomId', title: '房间编号', minWidth: 80},
                     {field: 'roomName', title: '房间名称', minWidth: 100},
                     {title: '房间类型', templet: '#room-roomType'},
                     {field: 'roomArea', title: '房间面积', minWidth: 100},
                     {field: 'roomPrice', title: '房间价格', minWidth: 65},
-                    {field: 'payWay', title: '结算方式', minWidth: 65},
+                    {title: '结算方式', templet: '#room-payWay'},
                     {field: 'roomOther', title: '周围配套', minWidth: 80},
                     {title: '状态', templet: '#room-status'},
-                    {field: 'roomPic', title: '房间图片', minWidth: 120},
-                    {field: 'mapPic', title: '周边地图截图', minWidth: 100},
                     {field: 'contractId', title: '合同编号', minWidth: 100},
                     {field: 'roomMsg', title: '房间简介', minWidth: 100},
                     {field: 'createBy', title: '创建者', minWidth: 100},
@@ -259,11 +272,7 @@
             return {
                 createTimeFrom: createTimeFrom,
                 createTimeTo: createTimeTo,
-                username: $searchForm.find('input[name="username"]').val().trim(),
-                status: $searchForm.find("select[name='status']").val(),
-                sex: $searchForm.find("select[name='sex']").val(),
-                mobile: $searchForm.find("input[name='mobile']").val().trim(),
-                deptId: $searchForm.find("input[name='dept']").val().trim(),
+                roomName: $searchForm.find('input[name="roomName"]').val(),
                 invalidate_ie_cache: new Date()
             };
         }

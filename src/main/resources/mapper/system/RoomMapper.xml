@@ -36,9 +36,13 @@
         u.create_time createTime,
         u.update_by updateBy,
         u.update_time updateTime,
-        u.del_flag
+        u.del_flag,
+        b.building_name buildingName,
+        v.village_name villageName
         FROM
         t_room u
+        LEFT JOIN t_building b ON (u.building_id = b.building_id)
+        LEFT JOIN t_village v ON (b.village_id = v.village_id)
         WHERE 1 = 1
         <if test="room.roomId != null and room.roomId != ''">
             AND u.room_id = #{room.roomId}
@@ -87,9 +91,13 @@
         u.create_time createTime,
         u.update_by updateBy,
         u.update_time updateTime,
-        u.del_flag
+        u.del_flag,
+        b.building_name buildingName,
+        v.village_name villageName
         FROM
         t_room u
+        LEFT JOIN t_building b ON (u.building_id = b.building_id)
+        LEFT JOIN t_village v ON (b.village_id = v.village_id)
         WHERE  u.room_name = #{roomName}
         group by u.room_name
     </select>
