@@ -36,7 +36,7 @@ public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements IR
     @Override
     public IPage<Room> findRoomDetail(Room room, QueryRequest request) {
         Page<Room> page = new Page<>(request.getPageNum(), request.getPageSize());
-        SortUtil.handlePageSort(request, page, "roomId", FebsConstant.ORDER_ASC, false);
+        SortUtil.handlePageSort(request, page, "roomId", FebsConstant.ORDER_DESC, false);
         return this.baseMapper.findRoomDetailPage(page, room);
     }
 

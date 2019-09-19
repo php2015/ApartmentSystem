@@ -34,7 +34,7 @@ public class UnitServiceImpl extends ServiceImpl<UnitMapper, Unit> implements IU
     @Override
     public IPage<Unit> findUnitDetail(Unit unit, QueryRequest request) {
         Page<Unit> page = new Page<>(request.getPageNum(), request.getPageSize());
-        SortUtil.handlePageSort(request, page, "unitId", FebsConstant.ORDER_ASC, false);
+        SortUtil.handlePageSort(request, page, "unitId", FebsConstant.ORDER_DESC, false);
         return this.baseMapper.findUnitDetailPage(page, unit);
     }
 

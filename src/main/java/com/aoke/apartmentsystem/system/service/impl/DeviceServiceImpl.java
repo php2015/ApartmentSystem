@@ -34,7 +34,7 @@ public class DeviceServiceImpl extends ServiceImpl<DeviceMapper, Device> impleme
     @Override
     public IPage<Device> findDeviceDetail(Device device, QueryRequest request) {
         Page<Device> page = new Page<>(request.getPageNum(), request.getPageSize());
-        SortUtil.handlePageSort(request, page, "deviceId", FebsConstant.ORDER_ASC, false);
+        SortUtil.handlePageSort(request, page, "deviceId", FebsConstant.ORDER_DESC, false);
         return this.baseMapper.findDeviceDetailPage(page, device);
     }
 

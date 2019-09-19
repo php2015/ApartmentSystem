@@ -33,7 +33,7 @@ public class VillageServiceImpl extends ServiceImpl<VillageMapper, Village> impl
     @Override
     public IPage<Village> findVillageDetail(Village village, QueryRequest request) {
         Page<Village> page = new Page<>(request.getPageNum(), request.getPageSize());
-        SortUtil.handlePageSort(request, page, "villageId", FebsConstant.ORDER_ASC, false);
+        SortUtil.handlePageSort(request, page, "villageId", FebsConstant.ORDER_DESC, false);
         return this.baseMapper.findVillageDetailPage(page, village);
     }
 

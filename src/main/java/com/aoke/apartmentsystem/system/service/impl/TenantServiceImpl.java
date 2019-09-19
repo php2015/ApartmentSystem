@@ -39,7 +39,7 @@ public class TenantServiceImpl extends ServiceImpl<TenantMapper, Tenant> impleme
     @Override
     public IPage<Tenant> findTenantDetail(Tenant tenant, QueryRequest request) {
         Page<Tenant> page = new Page<>(request.getPageNum(), request.getPageSize());
-        SortUtil.handlePageSort(request, page, "tenantId", FebsConstant.ORDER_ASC, false);
+        SortUtil.handlePageSort(request, page, "tenantId", FebsConstant.ORDER_DESC, false);
         return this.baseMapper.findTenantDetailPage(page, tenant);
     }
 

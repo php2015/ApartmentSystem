@@ -99,7 +99,7 @@
 
         form.on('submit(building-add-form-submit)', function (data) {
             febs.post(ctx + 'building', data.field, function () {
-                layer.closeAll();
+                //layer.closeAll();
                 febs.alert.success('新增楼栋成功');
                 $('#febs-building').find('#query').click();
             });

@@ -40,7 +40,7 @@ public class BuildingServiceImpl extends ServiceImpl<BuildingMapper, Building> i
     @Override
     public IPage<Building> findBuildingDetail(Building building, QueryRequest request) {
         Page<Building> page = new Page<>(request.getPageNum(), request.getPageSize());
-        SortUtil.handlePageSort(request, page, "buildingId", FebsConstant.ORDER_ASC, false);
+        SortUtil.handlePageSort(request, page, "buildingId", FebsConstant.ORDER_DESC, false);
         return this.baseMapper.findBuildingDetailPage(page, building);
     }
 

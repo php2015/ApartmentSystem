@@ -25,7 +25,7 @@ import java.util.Date;
 @Excel("用户信息表")
 public class User implements Serializable {
 
-    private static final long serialVersionUID = -4352868070794165001L;
+    public static final long serialVersionUID = -4352868070794165001L;
 
     // 用户状态：有效
     public static final String STATUS_VALID = "1";
