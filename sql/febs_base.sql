@@ -260,7 +260,7 @@ CREATE TABLE `t_contract` (
   `host_credentials_type` int(11) DEFAULT NULL COMMENT '甲方证件类型',
   `host_credentials_code` varchar(50) DEFAULT NULL COMMENT '甲方证件号',
   `host_phone` varchar(11) DEFAULT NULL COMMENT '甲方联系电话',
-  `contract_connet` text COMMENT '合同内容3000字节以内',
+  `contract_content` text COMMENT '合同内容3000字节以内',
   `adjunct` varchar(100) DEFAULT NULL COMMENT '附件(如公章、签名)',
   `remark` varchar(50) DEFAULT NULL COMMENT '备注',
   `create_by` varchar(15) DEFAULT NULL COMMENT '创建者',
