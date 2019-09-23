@@ -7,7 +7,9 @@ import com.aoke.apartmentsystem.common.entity.QueryRequest;
 import com.aoke.apartmentsystem.common.exception.FebsException;
 import com.aoke.apartmentsystem.system.entity.Contract;
 import com.aoke.apartmentsystem.system.entity.Template;
+import com.aoke.apartmentsystem.system.entity.TemplateContent;
 import com.aoke.apartmentsystem.system.service.IContractService;
+import com.aoke.apartmentsystem.system.service.ITemplateContentService;
 import com.aoke.apartmentsystem.system.service.ITemplateService;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -18,10 +20,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -41,6 +40,9 @@ public class ContractController extends BaseController {
 
     @Resource
     private ITemplateService templateService;
+
+    @Resource
+    private ITemplateContentService templateContentService;
 
     @GetMapping("/list")
     @RequiresPermissions(value = {"contract:view"})
@@ -77,6 +79,18 @@ public class ContractController extends BaseController {
         Wrapper<Template> wrapper = new QueryWrapper<>(template);
 
         Map<String, Object> dataTable = getDataTable(templateService.pageMaps(iPage, wrapper));
+        return new FebsResponse().success().data(dataTable);
+    }
+
+    @GetMapping("/templateContent/list/{templateId}")
+    public FebsResponse templateContentList(@PathVariable String templateId, QueryRequest request) {
+        TemplateContent content = new TemplateContent();
+        content.setTemplateId(templateId);
+
+        IPage<TemplateContent> iPage = new Page<>(request.getPageNum(), request.getPageSize());
+        Wrapper<TemplateContent> wrapper = new QueryWrapper<>(content);
+
+        Map<String, Object> dataTable = getDataTable(templateContentService.pageMaps(iPage, wrapper));
         return new FebsResponse().success().data(dataTable);
     }
 

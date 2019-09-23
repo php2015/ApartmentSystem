@@ -42,6 +42,8 @@
             $defineRequired = $('#defineRequiredOptions'),
             $submit = $('#submit');
 
+        var tmpId = $('#parentTemplate').val();
+
         $import.on('click', function () {
             febs.modal.view('选择上级模板', 'system/contract/template/select', {
                 area: $(window).width() <= 750 ? '95%' : '800px'
@@ -49,25 +51,33 @@
         });
 
         $input.on('click', function () {
-            console.log("input");
+            tmpId = $('#parentTemplate').val();
+            if (tmpId === null || tmpId === '') {
+                febs.alert.warn("请先导入范文/导入上级模板！");
+            } else {
+                febs.modal.view('填写内容', 'system/contract/template/content', {
+                    area: $(window).width() <= 750 ? '95%' : '800px'
+                });
+            }
         });
 
-        refresh();
-
-        function refresh() {
-            var pTemplateId = $('#parentTemplate').val().trim();
-            if (pTemplateId === "") {
-                $import.disabled = false;
-                $input.disabled = true;
-                $defineRequired.disabled = true;
-                $submit.disabled = true;
+        $defineRequired.on('click', function () {
+            tmpId = $('#parentTemplate').val();
+            if (tmpId === null || tmpId === '') {
+                febs.alert.warn("请先导入范文/导入上级模板！");
             } else {
-                $import.disabled = true;
-                $input.disabled = false;
-                $defineRequired.disabled = false;
-                $submit.disabled = false;
+
             }
-            console.log($input.disabled);
-        }
+        });
+
+        $submit.on('click', function () {
+            tmpId = $('#parentTemplate').val();
+            if (tmpId === null || tmpId === '') {
+                febs.alert.warn("请先导入范文/导入上级模板！");
+            } else {
+
+            }
+        })
+
     });
 </script>
