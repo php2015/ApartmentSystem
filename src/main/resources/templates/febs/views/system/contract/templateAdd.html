@@ -55,8 +55,15 @@
             if (tmpId === null || tmpId === '') {
                 febs.alert.warn("请先导入范文/导入上级模板！");
             } else {
-                febs.modal.view('填写内容', 'system/contract/template/content', {
-                    area: $(window).width() <= 750 ? '95%' : '800px'
+                febs.modal.open('填写内容', 'system/contract/template/content/' + tmpId, {
+                    area: $(window).width() <= 750 ? '90%' : '50%',
+                    btn: ['提交', '取消'],
+                    yes: function (index, layero) {
+                        $('#template-content').find('#submit').trigger('click');
+                    },
+                    btn2: function () {
+                        layer.close(layer.index);
+                    }
                 });
             }
         });

@@ -8,13 +8,16 @@
     }
 </style>
 <div class="layui-fluid" id="template-content">
-    <form class="layui-form" action="" lay-filter="template-content-form">
-        <div class="layui-form-item febs-hide">
-            <button class="layui-btn" lay-submit="" lay-filter="template-content-form-submit" id="submit"></button>
+    <form class="layui-form" action="" lay-filter="template-content-form" id="template-content-form">
+        <div class="layui-form-item" id="submitButton">
+            <div class="layui-form-item">
+<!--                <button class="layui-btn" lay-submit="" lay-filter="template-content-form-submit" id="submit"></button>-->
+                <button class="layui-btn" id="submit"></button>
+            </div>
         </div>
     </form>
 </div>
-<script data-th-inline="none" type="text/javascript">
+<script data-th-inline="javascript">
     layui.use(['febs', 'form', 'formSelects', 'validate', 'treeSelect', 'laydate'], function () {
         var $ = layui.$,
             febs = layui.febs,
@@ -22,7 +25,7 @@
             formSelects = layui.formSelects,
             laydate = layui.laydate,
             form = layui.form,
-            templateContent = [[${templateContent}]],
+            contentList = [[${contentList}]],
             $view = $('#template-content'),
             $searchForm = $view.find('form'),
             validate = layui.validate;
@@ -42,35 +45,68 @@
         formSelects.render();
 
         function initTemplateForm() {
-            for (var content in templateContent) {
-                var component =
-                    "<div class='layui-form-item'>"
-                        + "<label class='layui-form-label febs-form-item-require'>"+ content.contentKey +"</label>"
-                        + "<div class='layui-input-block'>"
-                            + "<input type='text' name='"+ content.id +"' data-th-value='${" + content.contentValue +"}' class='layui-input' readonly>"
-                        +"</div>"
-                 + "</div>";
+            var templateContentForm = document.getElementById("template-content-form");
 
-                $searchForm.appendItem(component);
+            for (var i=0; i < contentList.length; i++) {
+                var divCpn = document.createElement("div");
+                divCpn.setAttribute('class', 'layui-form-item');
+
+                var labelCpn = document.createElement("label");
+                labelCpn.setAttribute('class', 'layui-form-label');
+                labelCpn.innerHTML = contentList[i].contentKey;
+
+                var innerDivCpn = document.createElement("div");
+                innerDivCpn.setAttribute('class', 'layui-input-block');
+
+                var inputCpn = document.createElement("input");
+                inputCpn.setAttribute('type', 'text');
+                inputCpn.setAttribute('name', contentList[i].id);
+                inputCpn.setAttribute('data-th-value', contentList[i].contentValue);
+                inputCpn.setAttribute('class', 'layui-input');
+
+                innerDivCpn.appendChild(inputCpn);
+
+                divCpn.appendChild(labelCpn);
+                divCpn.appendChild(innerDivCpn);
+
+                templateContentForm.appendChild(divCpn);
             }
         }
 
         function initTemplateValue() {
-            form.val("template-content-form", {
+            var initParam = {};
+            for (var i = 0; i < contentList.length; i++) {
+                initParam[i+1] = contentList[i].contentValue;
+            }
 
-            });
+            form.val("template-content-form", initParam);
         }
 
-        form.on('submit(template-content-form-submit)', function (data) {
-            if (febs.nativeEqual(data.field, templateContent)) {
-                febs.alert.warn('数据未作任何修改！');
-                return false;
+        form.on('submit(template-content-form-submit)', function () {
+            var newContentList = contentList;
+            for (var i = 1; i <= newContentList.length; i++) {
+                newContentList[i - 1].contentValue = $('input[name='+ i +']').val();
             }
-            febs.post(ctx + 'templateContent/update', data.field, function () {
+            console.log(contentList);
+
+            febs.post(ctx + 'contract/templateContent/update', contentList, function () {
                 layer.closeAll();
                 febs.alert.success('模板内容数据修改成功！');
             });
             return false;
         });
-    });
+
+        $('#submit').on('click', function () {
+            var newContentList = contentList;
+            for (var i = 1; i <= newContentList.length; i++) {
+                newContentList[i - 1].contentValue = $('input[name='+ i +']').val();
+            }
+            console.log(contentList);
+
+            $.post(ctx + 'contract/templateContent/update', contentList, function () {
+                layer.closeAll();
+                febs.alert.success('模板内容数据修改成功！');
+            });
+        })
+    })
 </script>

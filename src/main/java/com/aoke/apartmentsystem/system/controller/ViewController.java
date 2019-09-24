@@ -52,6 +52,9 @@ public class ViewController extends BaseController {
     private IContractService contractService;
 
     @Autowired
+    private ITemplateContentService templateContentService;
+
+    @Autowired
     private ShiroHelper shiroHelper;
 
     @GetMapping("login")
@@ -346,8 +349,9 @@ public class ViewController extends BaseController {
         return FebsUtil.view("system/contract/templateSelect");
     }
 
-    @GetMapping(FebsConstant.VIEW_PREFIX + "system/contract/template/content")
-    public String templateContent() {
+    @GetMapping(FebsConstant.VIEW_PREFIX + "system/contract/template/content/{templateId}")
+    public String templateContent(@PathVariable String templateId, Model model) {
+        resolveTemplateContentModel(templateId, model);
         return FebsUtil.view("system/contract/templateContent");
     }
 
@@ -389,6 +393,14 @@ public class ViewController extends BaseController {
 
     private void resolveTemplateModel(String templateId, Model model) {
 
+    }
+
+    private void resolveTemplateContentModel(String templateId, Model model) {
+        TemplateContent content = new TemplateContent();
+        content.setTemplateId(templateId);
+        Wrapper<TemplateContent> wrapper = new QueryWrapper<>(content);
+        List<TemplateContent> contentList = templateContentService.list(wrapper);
+        model.addAttribute("contentList", contentList);
     }
 
     private void resolveVillageModel(String villageName, Model model, Boolean transform) {

@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @Slf4j
@@ -92,6 +93,11 @@ public class ContractController extends BaseController {
 
         Map<String, Object> dataTable = getDataTable(templateContentService.pageMaps(iPage, wrapper));
         return new FebsResponse().success().data(dataTable);
+    }
+
+    @PostMapping("/templateContent/update")
+    public FebsResponse templateContentUpdate(List<TemplateContent> contentList) {
+        return new FebsResponse().success();
     }
 
 }
