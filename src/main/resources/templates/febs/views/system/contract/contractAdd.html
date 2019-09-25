@@ -1,30 +1,30 @@
 <style>
-    #contract-edit {
+    #contract-add {
         padding: 20px 25px 25px 0;
     }
 
-    #contract-edit .layui-treeSelect .ztree li a, .ztree li span {
+    #contract-add .layui-treeSelect .ztree li a, .ztree li span {
         margin: 0 0 2px 3px !important;
     }
 </style>
-<div class="layui-fluid" id="contract-edit">
-    <form class="layui-form" action="" lay-filter="contract-edit-form">
+<div class="layui-fluid" id="contract-add">
+    <form class="layui-form" action="" lay-filter="contract-add-form">
         <div class="layui-form-item febs-hide">
-            <label class="layui-form-label febs-form-item-require">合同id：</label>
+            <label class="layui-form-label">合同id：</label>
             <div class="layui-input-block">
-                <input type="text" name="id" data-th-value="${contract.id}">
+                <input type="text" name="id">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label febs-form-item-require">合同编号：</label>
+            <label class="layui-form-label">合同编号：</label>
             <div class="layui-input-block">
-                <input type="text" name="contractId" data-th-value="${contract.contractId}" class="layui-input" readonly>
+                <input type="text" name="contractId" class="layui-input" placeholder="提交时自动生成" readonly>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label febs-form-item-require">租户姓名：</label>
             <div class="layui-input-block">
-                <input type="text" name="tenantName" data-th-value="${contract.tenantName}" class="layui-input" readonly>
+                <input type="text" name="tenantName" class="layui-input" lay-verify="range|username" minlength="1" maxlength="15">
             </div>
         </div>
         <div class="layui-form-item">
@@ -40,19 +40,19 @@
         <div class="layui-form-item">
             <label class="layui-form-label febs-form-item-require">乙方证件号码：</label>
             <div class="layui-input-block">
-                <input type="text" name="credentialsCode" data-th-value="${contract.credentialsCode}" class="layui-input" lay-verify="required|range|number" minlength="18" maxlength="18">
+                <input type="text" name="credentialsCode" class="layui-input" lay-verify="required|range|number" minlength="18" maxlength="18">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">乙方联系方式：</label>
             <div class="layui-input-block">
-                <input type="tel" name="phone" data-th-value="${contract.phone}" class="layui-input" lay-verify="phone" autocomplete="off">
+                <input type="tel" name="phone" class="layui-input" lay-verify="phone" autocomplete="off">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label febs-form-item-require">合同周期(月)：</label>
             <div class="layui-input-block">
-                <input type="text" name="contractCycle" data-th-value="${contract.contractCycle}" class="layui-input" lay-verify="required|number">
+                <input type="text" name="contractCycle" class="layui-input" lay-verify="required|number">
             </div>
         </div>
         <div class="layui-inline">
@@ -65,13 +65,13 @@
         <div class="layui-form-item">
             <label class="layui-form-label febs-form-item-require">租金：</label>
             <div class="layui-input-block">
-                <input type="text" name="tenantPrice" data-th-value="${contract.tenantPrice}" class="layui-input" lay-verify="required|number">
+                <input type="text" name="tenantPrice" class="layui-input" lay-verify="required|number">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">支付周期(月)：</label>
             <div class="layui-input-block">
-                <input type="text" name="payTime" data-th-value="${contract.payTime}" class="layui-input">
+                <input type="text" name="payTime" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -104,47 +104,47 @@
         <div class="layui-form-item">
             <label class="layui-form-label">甲方证件号码：</label>
             <div class="layui-input-block">
-                <input type="text" name="hostCredentialsCode" data-th-value="${contract.hostCredentialsCode}" class="layui-input">
+                <input type="text" name="hostCredentialsCode" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">甲方联系方式：</label>
             <div class="layui-input-block">
-                <input type="text" name="hostPhone" data-th-value="${contract.hostPhone}" class="layui-input">
+                <input type="text" name="hostPhone" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">公寓地址：</label>
             <div class="layui-input-block">
-                <input type="text" name="villageAddress" data-th-value="${contract.villageAddress}" class="layui-input">
+                <input type="text" name="villageAddress" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">房屋面积：</label>
             <div class="layui-input-block">
-                <input type="text" name="area" data-th-value="${contract.area}" class="layui-input">
+                <input type="text" name="area" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">合同内容：</label>
             <div class="layui-input-block">
-                <input type="text" name="contractContent" data-th-value="${contract.contractContent}" class="layui-input">
+                <input type="text" name="contractContent" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">附件：</label>
             <div class="layui-input-block">
-                <input type="file" name="adjunct" data-th-value="${contract.adjunct}">
+                <input type="file" name="adjunct">
             </div>
         </div>
         <div class="layui-form-item  layui-form-text">
             <label class="layui-form-label">备注：</label>
             <div class="layui-input-block">
-                <textarea name="remark" maxlength="100" class="layui-textarea" data-th-value="${contract.remark}"></textarea>
+                <textarea name="remark" maxlength="100" class="layui-textarea"></textarea>
             </div>
         </div>
         <div class="layui-form-item febs-hide">
-            <button class="layui-btn" lay-submit="" lay-filter="contract-edit-form-submit" id="submit"></button>
+            <button class="layui-btn" lay-submit="" lay-filter="contract-add-form-submit" id="submit"></button>
         </div>
     </form>
 </div>
@@ -157,8 +157,6 @@
             formSelects = layui.formSelects,
             laydate = layui.laydate,
             form = layui.form,
-            contract = [[${contract}]],
-            $view = $('#contract-edit'),
             validate = layui.validate;
 
         form.verify(validate);
@@ -175,36 +173,25 @@
         formSelects.render();
 
         function initContractValue() {
-            form.val("contract-edit-form", {
-                "contractId": contract.contractId,
-                "tenantName": contract.tenantName,
-                "credentialsType": contract.credentialsType,
-                "credentialsCode": contract.credentialsCode,
-                "phone": contract.phone,
-                "contractCycle": contract.contractCycle,
-                "effectiveTime": [[${effectiveTime}]],
-                "tenantPrice": contract.tenantPrice,
-                "payTime": contract.payTime,
-                "contractStatus": contract.contractStatus,
-                "remark": contract.remark,
-                "hostCredentialsType": contract.hostCredentialsType,
-                "hostCredentialsCode": contract.hostCredentialsCode,
-                "hostPhone": contract.hostPhone,
-                "villageAddress": contract.villageAddress,
-                "area": contract.area,
-                "contractContent": contract.contractContent,
-                "adjunct": contract.adjunct
-            });
+            $('input[name="effectiveTime"]').val(getCurrentTimeString());
         }
 
-        form.on('submit(contract-edit-form-submit)', function (data) {
-            if (febs.nativeEqual(data.field, contract)) {
-                febs.alert.warn('数据未作任何修改！');
-                return false;
-            }
-            febs.post(ctx + 'contract/update', data.field, function () {
+        function getCurrentTimeString() {
+            var now = new Date();
+            var fullYear = now.getFullYear();
+            var month = now.getMonth() + 1;
+            var day = now.getDay() + 1;
+            var hour = now.getHours();
+            var minute = now.getMinutes();
+            var second = now.getSeconds();
+
+            return fullYear + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
+        }
+
+        form.on('submit(contract-add-form-submit)', function (data) {
+            febs.post(ctx + 'contract/add', data.field, function () {
                 layer.closeAll();
-                febs.alert.success('合同数据修改成功！');
+                febs.alert.success('新建合同成功！');
                 $('#febs-contract').find('#reset').click();
             });
             return false;

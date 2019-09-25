@@ -319,6 +319,12 @@ public class ViewController extends BaseController {
         return FebsUtil.view("system/contract/contractEdit");
     }
 
+    @GetMapping(FebsConstant.VIEW_PREFIX + "system/contract/add")
+    @RequiresPermissions("contract:add")
+    public String systemContractAdd() {
+        return FebsUtil.view("system/contract/contractAdd");
+    }
+
     @GetMapping(FebsConstant.VIEW_PREFIX + "system/contract/template")
     public String template() {
         return FebsUtil.view("system/contract/template");

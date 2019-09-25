@@ -5,6 +5,7 @@ import com.aoke.apartmentsystem.common.controller.BaseController;
 import com.aoke.apartmentsystem.common.entity.FebsResponse;
 import com.aoke.apartmentsystem.common.entity.QueryRequest;
 import com.aoke.apartmentsystem.common.exception.FebsException;
+import com.aoke.apartmentsystem.common.utils.DateUtil;
 import com.aoke.apartmentsystem.system.entity.Contract;
 import com.aoke.apartmentsystem.system.entity.Template;
 import com.aoke.apartmentsystem.system.entity.TemplateContent;
@@ -19,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.jca.cci.CciOperationNotSupportedException;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -68,6 +70,23 @@ public class ContractController extends BaseController {
             return new FebsResponse().success();
         } catch (Exception e) {
             String message = "修改合同失败";
+            log.error(message, e);
+            throw new FebsException(message);
+        }
+    }
+
+    @Log("新建合同")
+    @PostMapping("/add")
+    @RequiresPermissions(value = {"contract:add"})
+    public FebsResponse addContract(@Valid Contract contract) throws FebsException {
+        try {
+            contract.setContractId(DateUtil.getDateFormat(new Date(), DateUtil.FULL_TIME_PATTERN) + "01");
+            contract.setCreateTime(new Date());
+            contract.setCreateBy(getCurrentUser().getUsername());
+            this.contractService.save(contract);
+            return new FebsResponse().success();
+        } catch (Exception e) {
+            String message = "新建合同失败";
             log.error(message, e);
             throw new FebsException(message);
         }

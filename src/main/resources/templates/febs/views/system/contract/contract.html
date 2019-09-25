@@ -290,6 +290,19 @@
             tableIns.reload({where: null, page: {curr: 1}, initSort: sortObject});
         });
 
+        $("#newBuild").on('click', function () {
+            febs.modal.open('新建合同', 'system/contract/add', {
+                area: $(window).width() <= 750 ? '90%' : '50%',
+                btn: ['保存', '取消'],
+                yes: function (index, layero) {
+                    $('#contract-add').find('#submit').trigger('click');
+                },
+                btn2: function () {
+                    layer.closeAll();
+                }
+            });
+        });
+
         function initTable() {
             tableIns = febs.table.init({
                 elem: $view.find('table'),
