@@ -80,11 +80,11 @@ public class LimitAspect {
         RedisScript<Number> redisScript = new DefaultRedisScript<>(luaScript, Number.class);
         Number count = limitRedisTemplate.execute(redisScript, keys, limitCount, limitPeriod);
         log.info("IP:{} 第 {} 次访问key为 {}，描述为 [{}] 的接口", ip, count, keys, name);
-        if (count != null && count.intValue() <= limitCount) {
+        //if (count != null && count.intValue() <= limitCount) {
             return point.proceed();
-        } else {
-            throw new LimitAccessException("接口访问超出频率限制");
-        }
+//        } else {
+//            throw new LimitAccessException("接口访问超出频率限制");
+//        }
     }
 
     /**
