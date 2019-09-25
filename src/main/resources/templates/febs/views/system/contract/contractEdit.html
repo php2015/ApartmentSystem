@@ -104,7 +104,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">甲方证件号码：</label>
             <div class="layui-input-block">
-                <input type="text" name="hostCredentialsCode" data-th-value="${contract.hostCredentialsCode}" class="layui-input">
+                <input type="text" name="hostCredentialsCode" data-th-value="${contract.hostCredentialsCode}" class="layui-input" lay-verify="required|range|number" minlength="18" maxlength="18">
             </div>
         </div>
         <div class="layui-form-item">

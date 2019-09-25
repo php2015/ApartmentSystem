@@ -395,6 +395,56 @@ public class ViewController extends BaseController {
         if (contract.getUpdateTime() != null) {
             model.addAttribute("updateTime", DateUtil.getDateFormat(contract.getUpdateTime(), DateUtil.FULL_TIME_SPLIT_PATTERN));
         }
+
+        if (contract.getCredentialsType() != null) {
+            Integer type = contract.getCredentialsType();
+            String credentialsType = type == 0 ? "居民身份证" : (type == 1 ? "护照" : "未知");
+
+            model.addAttribute("credentialsType", credentialsType);
+        }
+
+        if (contract.getHostCredentialsType() != null) {
+            Integer type = contract.getHostCredentialsType();
+            String hostCredentialsType = type == 0 ? "居民身份证" : (type == 1 ? "护照" : "未知");
+
+            model.addAttribute("hostCredentialsType", hostCredentialsType);
+        }
+
+        if (contract.getContractStatus() != null) {
+            Integer status = contract.getContractStatus();
+            String contractStatus = "未知";
+            switch (status) {
+                case 0:
+                    contractStatus = "有效";
+                    break;
+                case 1:
+                    contractStatus = "实现";
+                    break;
+                case 2:
+                    contractStatus = "到期";
+                    break;
+                case 3:
+                    contractStatus = "待审核";
+                    break;
+                case 4:
+                    contractStatus = "驳回";
+                    break;
+                case 5:
+                    contractStatus = "退租中";
+                    break;
+                case 6:
+                    contractStatus = "退租";
+                    break;
+                case 7:
+                    contractStatus = "未付款";
+                    break;
+                case 8:
+                    contractStatus = "续租";
+                    break;
+            }
+
+            model.addAttribute("contractStatus", contractStatus);
+        }
     }
 
     private void resolveTemplateModel(String templateId, Model model) {
