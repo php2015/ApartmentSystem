@@ -152,7 +152,7 @@ public class HttpClient {
      *            json字符串,例如: "{ \"id\":\"12345\" }" ;其中属性名必须带双引号<br/>
      * @return 成功:返回json字符串<br/>
      */
-    public static String post(String strURL, String params,String access_token) {
+    public static String post(String strURL, String params,String access_token,String s_id) {
         System.out.println(strURL);
         System.out.println(params);
         BufferedReader reader = null;
@@ -167,7 +167,7 @@ public class HttpClient {
             // connection.setRequestProperty("Accept", "application/json"); // 设置接收数据的格式
             // 设置请求头
             connection.setRequestProperty("version","1.0");
-            connection.setRequestProperty("s_id", "9c45f66b-a5ed-43f9-9101-1de29f9be24b");
+            connection.setRequestProperty("s_id", s_id);
             connection.setRequestProperty("Content-Type", "application/json");// 设置发送数据的格式
             connection.setRequestProperty("access_token",access_token);
             connection.connect();
@@ -217,7 +217,7 @@ public class HttpClient {
         paramMapLock.put("lock_no",null);
         paramMapLock.put("house_code",null);
         paramMapLock.put("room_code",null);
-        String resLock = post(Constant.BASE_URL+Constant.ApiAddress.LOCK_LIST,JSONObject.toJSONString(paramMapLock), AccessToken.access_token);
+        String resLock = post(Constant.BASE_URL+Constant.ApiAddress.LOCK_LIST,JSONObject.toJSONString(paramMapLock), AccessToken.access_token,UUID.randomUUID().toString());
         System.out.println(resLock);
     }
 }

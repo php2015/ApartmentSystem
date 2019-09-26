@@ -102,11 +102,5 @@ public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements IR
         return this.baseMapper.findoutTimeRoomCount();
     }
 
-    @Override
-    @Transactional
-    public boolean save(Room room) {
-        return false;
-    }
-
 
 }

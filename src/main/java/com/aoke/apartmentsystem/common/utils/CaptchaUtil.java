@@ -36,9 +36,9 @@ public class CaptchaUtil {
     private static final int PNG_TYPE = 0;
 
     // 验证码图片默认高度
-    private static final int DEFAULT_HEIGHT = 48;
+    private static final int DEFAULT_HEIGHT = 34;
     // 验证码图片默认宽度
-    private static final int DEFAULT_WIDTH = 130;
+    private static final int DEFAULT_WIDTH = 110;
     // 验证码默认位数
     private static final int DEFAULT_LEN = 5;
 
@@ -59,7 +59,7 @@ public class CaptchaUtil {
     }
 
     public static void out(int width, int height, int len, Integer vType, Font font, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        outCaptcha(width, height, len, font, GIF_TYPE, vType, request, response);
+        outCaptcha(width, height, len, font, PNG_TYPE, vType, request, response);
     }
 
     public static void outPng(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -96,11 +96,11 @@ public class CaptchaUtil {
 
     private static void outCaptcha(int width, int height, int len, Font font, int cType, Integer vType, HttpServletRequest request, HttpServletResponse response) throws IOException {
         setHeader(response, cType);
-        Captcha captcha = null;
+        MyCaptcha captcha = null;
         if (cType == GIF_TYPE) {
-            captcha = new GifCaptcha(width, height, len);
+            captcha = new MyGifCaptcha(width, height, len);
         } else {
-            captcha = new SpecCaptcha(width, height, len);
+            captcha = new MySpecCaptcha(width, height, len);
         }
         if (font != null) {
             captcha.setFont(font);

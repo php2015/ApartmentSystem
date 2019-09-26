@@ -80,8 +80,9 @@
 <script type="text/html" id="tenant-status">
     {{#
     var status = {
-    1: {title: '有效', color: 'green'},
-    0: {title: '禁用', color: 'volcano'}
+    2: {title: '已退租', color: 'volcano'},
+    1: {title: '延期缴费', color: 'volcano'},
+    0: {title: '正常', color: 'green'}
     }[d.status];
     }}
     <span class="layui-badge febs-tag-{{status.color}}">{{ status.title }}</span>
@@ -294,11 +295,11 @@
             return {
                 createTimeFrom: createTimeFrom,
                 createTimeTo: createTimeTo,
-                username: $searchForm.find('input[name="username"]').val().trim(),
+                tenantAcount: $searchForm.find('input[name="tenantAcount"]').val().trim(),
                 status: $searchForm.find("select[name='status']").val(),
-                sex: $searchForm.find("select[name='sex']").val(),
-                mobile: $searchForm.find("input[name='mobile']").val().trim(),
-                deptId: $searchForm.find("input[name='dept']").val().trim(),
+                phone: $searchForm.find("select[name='phone']").val(),
+                tenantName: $searchForm.find("input[name='tenantName']").val().trim(),
+                credentialsType: $searchForm.find("input[name='credentialsType']").val(),
                 invalidate_ie_cache: new Date()
             };
         }

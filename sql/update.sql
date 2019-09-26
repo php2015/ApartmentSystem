@@ -19,3 +19,5 @@ RETURN sTemp;
 END
 ;;
 delimiter ;
+
+ALTER TABLE t_device ADD third_device INT(1) NOT NULL DEFAULT 0 COMMENT '标识是否为第三方设备(0否、1是)';

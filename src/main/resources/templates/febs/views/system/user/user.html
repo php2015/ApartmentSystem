@@ -304,6 +304,7 @@
             }
             febs.get(ctx + 'user/delete/' + userIds, null, function () {
                 febs.alert.success('删除用户成功');
+                location.reload();
                 $query.click();
             });
         }
