@@ -40,6 +40,13 @@ public interface IDeviceService extends IService<Device> {
     void createDevice(Device device);
 
     /**
+     * 保存第三方设备
+     *
+     * @param
+     */
+    void createDeviceThird();
+
+    /**
      * 删除设备
      *
      * @param deviceIds 设备 id数组
@@ -59,4 +66,6 @@ public interface IDeviceService extends IService<Device> {
      * @param device 设备信息
      */
     void updateProfile(Device device);
+
+    Device getOne(String deviceName);
 }

@@ -71,6 +71,31 @@ public class DeviceController extends BaseController {
         }
     }
 
+    /**
+     *
+     * @param
+     * @return
+     * @throws FebsException
+     */
+    @Log("同步第三方设备")
+    @PostMapping("third/device")
+    public FebsResponse addDeviceThird() throws FebsException {
+        try {
+            this.deviceService.createDeviceThird();
+            return new FebsResponse().success();
+        } catch (Exception e) {
+            String message = "同步失败";
+            log.error(message, e);
+            throw new FebsException(message);
+        }
+    }
+
+    /**
+     *
+     * @param deviceIds
+     * @return
+     * @throws FebsException
+     */
     @Log("删除设备")
     @GetMapping("delete/{deviceIds}")
     @RequiresPermissions("device:delete")

@@ -154,6 +154,12 @@ public class Device implements Serializable {
     private int delFlag;
 
     /**
+     * 标识是否为第三方设备(0否、1是)
+     */
+    @TableField("third_device")
+    private int thirdDevice;
+
+    /**
      * 小区名称
      */
     @ExcelField(value = "小区")
@@ -323,6 +329,14 @@ public class Device implements Serializable {
 
     public void setDelFlag(int delFlag) {
         this.delFlag = delFlag;
+    }
+
+    public int getThirdDevice() {
+        return thirdDevice;
+    }
+
+    public void setThirdDevice(int thirdDevice) {
+        this.thirdDevice = thirdDevice;
     }
 
     public String getVillageName() {

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -37,4 +38,7 @@ public interface DeviceMapper extends BaseMapper<Device> {
      * @return List<Device>
      */
     List<Device> findDeviceDetail(@Param("device") Device device);
+
+    @Select("SELECT * FROM t_device WHERE device_name = #{deviceName}")
+    Device getOne(String deviceName);
 }

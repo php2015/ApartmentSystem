@@ -4,6 +4,7 @@ import com.aoke.apartmentsystem.common.annotation.Limit;
 import com.aoke.apartmentsystem.common.controller.BaseController;
 import com.aoke.apartmentsystem.common.entity.FebsResponse;
 import com.aoke.apartmentsystem.common.exception.FebsException;
+import com.aoke.apartmentsystem.common.file.FileUploadUtils;
 import com.aoke.apartmentsystem.common.utils.CaptchaUtil;
 import com.aoke.apartmentsystem.common.utils.MD5Util;
 import com.aoke.apartmentsystem.monitor.entity.LoginLog;
@@ -108,5 +109,10 @@ public class LoginController extends BaseController {
     @GetMapping("images/captcha")
     public void captcha(HttpServletRequest request, HttpServletResponse response) throws Exception {
         CaptchaUtil.outPng(110, 34, 4, Captcha.TYPE_ONLY_NUMBER, request, response);
+    }
+
+    @GetMapping("images/loadRoom")
+    public void loadRoom(HttpServletRequest request, HttpServletResponse response,String roomPic) throws Exception {
+        FileUploadUtils.imgLoadFromLocalhost(request,response,roomPic);
     }
 }

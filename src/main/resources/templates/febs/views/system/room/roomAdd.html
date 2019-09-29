@@ -104,8 +104,17 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">小区图片：</label>
             <div class="layui-input-block">
-                <img alt="小区图片" id="villagePic-avatar" data-th-src="@{febs/images/u690.png}">
-                <input id="villagePic" type="file" name="villagePic" multiple />
+                <img alt="小区图片" id="villagePic" data-th-src="@{febs/images/u690.png}">
+                <input id="roomPic" type="file" name="roomPic"onchange="myFunction()" multiple />
+                <p id="demo"></p>
+                <script>
+                    function myFunction() {
+                        var x = document.getElementById("roomPic").value;
+                        //$("#villagePic").attr("data-th-src",ctx + "images/loadRoom?roomPic=" + x);
+                        document.getElementById("villagePic").attr("src", ctx + "images/loadRoom?roomPic=" + x);
+                        document.getElementById("demo").innerHTML = "你输入的是: " + x;
+                    }
+                </script>
             </div>
         </div>
 <!--        <div class="layui-form-item layui-form-text">-->

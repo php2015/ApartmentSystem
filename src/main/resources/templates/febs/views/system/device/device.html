@@ -52,6 +52,10 @@
                                 </div>
                             </div>
                             <div class="layui-col-md2 layui-col-sm12 layui-col-xs12 table-action-area">
+                                <div class="layui-btn layui-btn-sm layui-btn-primary table-action">
+                                    <!--<i style="color: #1890ff">设备同步</i>-->
+                                    <button class="layui-btn" id="devicequery">设备同步</button>
+                                </div>
                                 <div class="layui-btn layui-btn-sm layui-btn-primary table-action" id="query">
                                     <i class="layui-icon">&#xe848;</i>
                                 </div>
@@ -84,6 +88,9 @@
 <script type="text/html" id="device-deviceType">
     {{#
     var deviceType = {
+    9: {title: '二代协议 433门锁'},
+    8: {title: '蓝牙门锁'},
+    7: {title: '一代协议 433门锁'},
     4: {title: '其他'},
     3: {title: '智能锁'},
     2: {title: '烟感'},
@@ -113,6 +120,7 @@
             treeSelect = layui.treeSelect,
             dropdown = layui.dropdown,
             $view = $('#febs-device'),
+            $devicequery = $view.find('#devicequery'),
             $query = $view.find('#query'),
             $reset = $view.find('#reset'),
             $searchForm = $view.find('form'),
@@ -227,6 +235,12 @@
             });
         });
 
+        $view.find('#devicequery').on('click', function () {
+            searchDevice();
+            var params = $.extend(getQueryParams(), {field: sortObject.field, order: sortObject.type});
+            tableIns.reload({where: params, page: {curr: 1}});
+        });
+
         $query.on('click', function () {
             var params = $.extend(getQueryParams(), {field: sortObject.field, order: sortObject.type});
             tableIns.reload({where: params, page: {curr: 1}});
@@ -250,11 +264,11 @@
                     {field: 'deviceName', title: '设备名称', minWidth: 100},
                     {title: '设备类型', templet: '#device-deviceType'},
                     {field: 'deviceModel', title: '设备型号', minWidth: 100},
-                    {title: '状态', templet: '#device_status'},
-                    {field: 'deviceBelong', title: '设备所属', minWidth: 120},
-                    {field: 'effectiveYear', title: '有效年限', minWidth: 100},
-                    {field: 'remark', title: '备注', minWidth: 100},
-                    {field: 'createBy', title: '创建者', minWidth: 100},
+                    {title: '状态', templet: '#device_status',minWidth: 30},
+                    {field: 'deviceBelong', title: '设备所属', minWidth: 270},
+                    {field: 'effectiveYear', title: '有效年限', minWidth: 50},
+                    {field: 'remark', title: '备注', minWidth: 90},
+                    {field: 'createBy', title: '创建者', minWidth: 50},
                     {field: 'createTime', title: '创建时间', minWidth: 180, sort: true},
                     {title: '操作', toolbar: '#device-option', minWidth: 140}
                 ]]
@@ -290,6 +304,14 @@
             febs.get(ctx + 'device/delete/' + deviceIds, null, function () {
                 febs.alert.success('删除设备成功');
                 $query.click();
+            });
+        }
+        
+        function searchDevice() {
+            febs.post(ctx + 'device/third/device', null, function () {
+                febs.alert.success('同步设备成功');
+                $query.click();
+                location.reload();
             });
         }
     })
